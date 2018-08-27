@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>JLG | Job Belonging Database</title>
+</head>
+<body>
+
+	<h1>Job Belonging Database</h1>
+
+	{% if allJobs %}
+		<table border="1">
+		<tr>
+			<th>Sl No</th>
+			<th>Job Belongs To</th>
+		</tr>
+		{% for job in allJobs %}
+		<tr>
+		   <td class="serialNumber">{{loop.index0 + 1}}</td>
+		   <td class="job">{{job}}</td>
+		</tr>
+		{% endfor %}
+		</table>
+	{% endif %}
+
+	<br><br>
+
+	<form action="/jobbelongdb" method="POST">
+		<label for="jobBelongEntry">New Job Belonging :</label>
+		<input id="jobBelongEntry" name="jobBelongEntry" type="text">
+
+		<button type="submit">Submit</button>
+	</form>
+
+</body>
+</html>

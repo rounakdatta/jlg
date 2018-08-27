@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>JLG | Job Owner Database</title>
+</head>
+<body>
+
+	<h1>Job Owner Database</h1>
+
+	{% if allJobs %}
+		<table border="1">
+		<tr>
+			<th>Sl No</th>
+			<th>Job Owner</th>
+			<th>Job Profit Centre</th>
+		</tr>
+		{% for job in allJobs %}
+		<tr>
+		   <td class="serialNumber">{{loop.index0 + 1}}</td>
+		   <td class="job">{{job}}</td>
+		   <td class="job">{{job}}</td>
+		</tr>
+		{% endfor %}
+		</table>
+	{% endif %}
+
+	<br><br>
+
+	<form action="/jobownerdb" method="POST">
+		<label for="jobOwner">New Job Owner :</label>
+		<input id="jobOwner" name="jobOwner" type="text">
+		<br>
+		<label for="jobProfitCentre">New Job Profit Centre :</label>
+		
+		<select id="jobProfitCentre" name="jobProfitCentre">
+			{% for job in jobProfits %}
+  			<option value="{{job}}">{{job}}</option>
+  			{% endfor %}
+  		</select>
+
+
+		<button type="submit">Submit</button>
+	</form>
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>JLG | Job Profit Database</title>
+</head>
+<body>
+
+	<h1>Job Profit Database</h1>
+
+	{% if allJobs %}
+		<table border="1">
+		<tr>
+			<th>Sl No</th>
+			<th>Job Profit Centre</th>
+		</tr>
+		{% for job in allJobs %}
+		<tr>
+		   <td class="serialNumber">{{loop.index0 + 1}}</td>
+		   <td class="job">{{job}}</td>
+		</tr>
+		{% endfor %}
+		</table>
+	{% endif %}
+
+	<br><br>
+
+	<form action="/jobprofitdb" method="POST">
+		<label for="jobProfitEntry">New Job Profit Centre :</label>
+		<input id="jobProfitEntry" name="jobProfitEntry" type="text">
+
+		<button type="submit">Submit</button>
+	</form>
+
+</body>
+</html>
