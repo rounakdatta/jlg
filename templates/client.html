@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>JLG | Job Client Database</title>
+</head>
+<body>
+
+	<h1>Client Database</h1>
+
+	{% if allClients %}
+		<table border="1">
+		<tr>
+			<th>Sl No</th>
+			<th>Client Name</th>
+			<th>Job belongs to</th>
+			<th>Job Owner</th>
+			<th>Job Profit Centre</th>
+			<th>Client Address 1</th>
+			<th>Client Address 2</th>
+			<th>Client Address 3</th>
+			<th>GSTIN</th>
+		</tr>
+		{% for client in allClients %}
+		<tr>
+		   <td class="serialNumber">{{loop.index0 + 1}}</td>
+		   <td class="j1">{{client['clientName']}}</td>
+		   <td class="j2">{{client['jobBelong']}}</td>
+		   <td class="j3">{{client['jobOwn']}}</td>
+		   <td class="j4">{{client['jobProfit']}}</td>
+		   <td class="j5">{{client['clientAddress1']}}</td>
+		   <td class="j6">{{client['clientAddress2']}}</td>
+		   <td class="j7">{{client['clientAddress3']}}</td>
+		   <td class="j8">{{client['gstin']}}</td>
+		</tr>
+		{% endfor %}
+		</table>
+	{% endif %}
+
+	<br><br>
+
+	<form action="/clientdb" method="POST">
+		<label for="clientName">Client Name :</label>
+		<input id="clientName" name="clientName" type="text">
+		<br>
+
+		<label for="jobBelong">Job Belongs To :</label>
+		
+		<select id="jobBelong" name="jobBelong">
+			{% for job in jobBelongs %}
+  			<option value="{{job['compName']}}">{{job['compName']}}</option>
+  			{% endfor %}
+  		</select>
+
+  		<br>
+
+		<label for="jobOwn">Job Owner :</label>
+		
+		<select id="jobOwn" name="jobOwn">
+			{% for job in allJobs %}
+			{% for key, value in job.items() %}
+  			<option value="{{key}}">{{key}}</option>
+  			{% endfor %}
+  			{% endfor %}
+  		</select>
+
+  		<br>
+
+		<label for="jobProfit">Job Profit Centre :</label>
+  		<input type="text" id="jobProfit" name="jobProfit" readonly="readonly">
+  		<br>
+
+  		<label for="clientAddress1">Client Address 1 :</label>
+  		<input type="text" id="clientAddress1" name="clientAddress1">
+  		<br>
+
+  		<label for="clientAddress2">Client Address 2 :</label>
+  		<input type="text" id="clientAddress2" name="clientAddress2">
+  		<br>
+
+  		<label for="clientAddress3">Client Address 3 :</label>
+  		<input type="text" id="clientAddress2" name="clientAddress3">
+  		<br>
+
+  		<label for="gstin">GSTIN :</label>
+  		<input type="text" id="gstin" name="gstin">
+  		<br>
+
+		<button type="submit">Submit</button>
+	</form>
+
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+	$(function(){
+		$('select[name="jobOwn"]').change(function(){
+
+			{% for job in allJobs %}
+			{% for key, value in job.items() %}
+
+				// console.log($('#jobOwn').val())
+				if('{{key}}' == $('#jobOwn').val()) {
+					$('#jobProfit').val('{{value}}');
+				}
+
+			{% endfor %}
+			{% endfor %}
+		});
+	});
+</script>
+
+</html>

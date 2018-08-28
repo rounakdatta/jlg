@@ -17,8 +17,10 @@
 		{% for job in allJobs %}
 		<tr>
 		   <td class="serialNumber">{{loop.index0 + 1}}</td>
-		   <td class="job">{{job}}</td>
-		   <td class="job">{{job}}</td>
+		   {% for key, value in job.items() %}
+		   <td class="job">{{key}}</td>
+		   <td class="job">{{value}}</td>
+		   {% endfor %}
 		</tr>
 		{% endfor %}
 		</table>
