@@ -151,6 +151,65 @@ def clientdb():
 
 	return render_template('client.html', allClients=all_job_clients, allJobs=all_job_owners, jobProfits=all_job_profits, jobBelongs=all_job_belong)
 
+# execution database
+@app.route('/execstatusdb', methods=['GET', 'POST'])
+def execstatusdb():
+
+	############################## prefetch data #############################################
+
+	# get all the current job profit centres
+	all_jb = db.child("jlg_main").child('jlg_jobprofit').get()
+	all_job_profits = []
+
+	try:
+		for item in all_jb.each():
+			all_job_profits.append(item.val()['jobName'])
+	except:
+		print("Empty Job Profits Database")
+
+	# get all the current job owner entries
+	all_jo = db.child("jlg_main").child('jlg_jobowner').get()
+	all_job_owners = []
+
+	try:
+		for item in all_jo.each():
+			all_job_owners.append(item.val())
+	except:
+		print("Empty Job Owner Database")
+
+	# get all the current job belong entries
+	all_jg = db.child("jlg_main").child('jlg_jobbelong').get()
+	all_job_belong = []
+
+	try:
+		for item in all_jg.each():
+			all_job_belong.append(item.val())
+	except:
+		print("Empty Job Belong Database")
+
+	############################## prefetch data end #############################################
+
+	if request.method == 'POST' and 'clientName' in request.form and 'jobBelong' in request.form and 'jobOwn' in request.form and 'jobProfit' in request.form and 'gstin' in request.form:
+		db.child("jlg_main").child("jlg_execution")
+		data = {'clientName' : request.form['clientName'], 'jobBelong' : request.form['jobBelong'], 'jobOwn' : request.form['jobOwn'], 'jobProfit' : request.form['jobProfit'], 'ms1' : request.form['ms1'], 'ms1s1' : request.form['ms1s1'], 'ms1s2' : request.form['ms1s2'], 'ms1s3' : request.form['ms1s3'], 'ms2' : request.form['ms2'], 'ms2s1' : request.form['ms2s1'], 'ms2s2' : request.form['ms2s2'], 'ms2s3' : request.form['ms2s3'], 'ms3' : request.form['ms3'], 'ms3s1' : request.form['ms3s1'], 'ms3s2' : request.form['ms3s2'], 'ms3s3' : request.form['ms3s3'], 'gstin' : request.form['gstin']}
+		db.push(data)
+		print('push complete')
+
+		return render_template('index.html')
+
+	# get all the current client entries
+	all_je = db.child("jlg_main").child('jlg_execution').get()
+	all_job_exec = []
+
+	try:
+		for item in all_je.each():
+			all_job_exec.append(item.val())
+	except:
+		print("Empty Execution Database")
+
+
+	return render_template('execution.html', allExec=all_job_exec, allJobs=all_job_owners, jobProfits=all_job_profits, jobBelongs=all_job_belong)
+
 
 app.secret_key = "jlg-ops"
 

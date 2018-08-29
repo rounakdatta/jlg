@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>JLG | Job Execution Database</title>
+</head>
+<body>
+
+	<h1>Job Execution Database</h1>
+
+	<input type="checkbox" name="ms1f" id="ms1f" onchange="filtertable(this, 4);" value="showit"> Milestone 1
+	<input type="checkbox" name="ms1s1f" id="ms1s1f" onchange="filtertable(this, 0);" value="showit"> Stage 1
+	<input type="checkbox" name="ms1s2f" id="ms1s2f" onchange="filtertable(this, 0);" value="showit"> Stage 2
+	<input type="checkbox" name="ms1s3f" id="ms1s3f" onchange="filtertable(this, 0);" value="showit"> Stage 3
+	<br>
+
+	<input type="checkbox" name="ms2f" id="ms2f" onchange="filtertable(this, 8);" value="showit"> Milestone 2
+	<input type="checkbox" name="ms2s1f" id="ms2s1f" onchange="filtertable(this, 0);" value="showit"> Stage 1
+	<input type="checkbox" name="ms2s2f" id="ms2s2f" onchange="filtertable(this, 0);" value="showit"> Stage 2
+	<input type="checkbox" name="ms2s3f" id="ms2s3f" onchange="filtertable(this, 0);" value="showit"> Stage 3
+	<br>
+
+	<input type="checkbox" name="ms3f" id="ms3f" onchange="filtertable(this, 12);" value="showit"> Milestone 3
+	<input type="checkbox" name="ms3s1f" id="ms3s1f" onchange="filtertable(this, 0);" value="showit"> Stage 1
+	<input type="checkbox" name="ms3s2f" id="ms3s2f" onchange="filtertable(this, 0);" value="showit"> Stage 2
+	<input type="checkbox" name="ms3s3f" id="ms3s3f" onchange="filtertable(this, 0);" value="showit"> Stage 3
+	<br>
+
+
+	<br><br><hr>
+
+	{% if allExec %}
+		<table id="jobTable" border="1">
+		<tr>
+			<th id="slno">Sl No</th>
+			<th id="client">Client Name</th>
+			<th id="jobbel">Job belongs to</th>
+			<th id="jobowner">Job Owner</th>
+			<th id="jobprofitcentre">Job Profit Centre</th>
+			<th id="ms1t">Milestone 1</th>
+			<th id="ms1s1t">Milestone 1 - stage1</th>
+			<th id="ms1s2t">Milestone 1 - stage2</th>
+			<th id="ms1s3t">Milestone 1 - stage3</th>
+			<th id="ms2t">Milestone 2</th>
+			<th id="ms2s1t">Milestone 2 - stage1</th>
+			<th id="ms2s2t">Milestone 2 - stage2</th>
+			<th id="ms2s3t">Milestone 2 - stage3</th>
+			<th id="ms3t">Milestone 3</th>
+			<th id="ms3s1t">Milestone 3 - stage1</th>
+			<th id="ms3s2t">Milestone 3 - stage2</th>
+			<th id="ms3s3t">Milestone 3 - stage3</th>
+			<th>GSTIN</th>
+		</tr>
+		{% for client in allExec %}
+		<tr>
+		   <td class="serialNumber">{{loop.index0 + 1}}</td>
+		   <td class="j1">{{client['clientName']}}</td>
+		   <td class="j2">{{client['jobBelong']}}</td>
+		   <td class="j3">{{client['jobOwn']}}</td>
+		   <td class="j4">{{client['jobProfit']}}</td>
+		   <td class="j5"><b>{{client['ms1']}}</b></td>
+		   <td class="j5">{{client['ms1s1']}}</td>
+		   <td class="j5">{{client['ms1s2']}}</td>
+		   <td class="j5">{{client['ms1s3']}}</td>
+		   <td class="j6"><b>{{client['ms2']}}</b></td>
+		   <td class="j6">{{client['ms2s1']}}</td>
+		   <td class="j6">{{client['ms2s2']}}</td>
+		   <td class="j6">{{client['ms2s3']}}</td>
+		   <td class="j7"><b>{{client['ms3']}}</b></td>
+		   <td class="j7">{{client['ms3s1']}}</td>
+		   <td class="j7">{{client['ms3s2']}}</td>
+		   <td class="j7">{{client['ms3s3']}}</td>
+		   <td class="j8">{{client['gstin']}}</td>
+		</tr>
+		{% endfor %}
+		</table>
+	{% endif %}
+
+	<br><br>
+
+	<form action="/execstatusdb" method="POST">
+		<label for="clientName">Client Name :</label>
+		<input id="clientName" name="clientName" type="text">
+		<br>
+
+		<label for="jobBelong">Job Belongs To :</label>
+		
+		<select id="jobBelong" name="jobBelong">
+			<option disabled selected value> -- select an option -- </option>
+			{% for job in jobBelongs %}
+  			<option value="{{job['compName']}}">{{job['compName']}}</option>
+  			{% endfor %}
+  		</select>
+
+  		<br>
+
+		<label for="jobOwn">Job Owner :</label>
+		
+		<select id="jobOwn" name="jobOwn">
+			<option disabled selected value> -- select an option -- </option>
+			{% for job in allJobs %}
+			{% for key, value in job.items() %}
+  			<option value="{{key}}">{{key}}</option>
+  			{% endfor %}
+  			{% endfor %}
+  		</select>
+
+  		<br>
+
+		<label for="jobProfit">Job Profit Centre :</label>
+  		<input type="text" id="jobProfit" name="jobProfit" readonly="readonly">
+  		<br>
+
+  		<label for="ms1">MS1</label>
+  		<input type="text" id="ms1" name="ms1" value="no" readonly="readonly">
+  		<br>
+  		<label for="ms1s1">MS1-stage1</label><br>
+  		<input type="radio" name="ms1s1" id="ms1s1" value="no" checked> No<br>
+  		<input type="radio" name="ms1s1" id="ms1s1" value="yes"> Yes<br>
+  		<br>
+  		<label for="ms1s2">MS1-stage2</label><br>
+  		<input type="radio" name="ms1s2" id="ms1s2" value="no" checked> No<br>
+  		<input type="radio" name="ms1s2" id="ms1s2" value="yes"> Yes<br>
+  		<br>
+  		<label for="ms1s3">MS1-stage3</label><br>
+  		<input type="radio" name="ms1s3" id="ms1s3" value="no" checked> No<br>
+  		<input type="radio" name="ms1s3" id="ms1s3" value="yes"> Yes<br>
+  		<br>
+  		<hr>
+
+  		<label for="ms2">MS2</label>
+  		<input type="text" id="ms2" name="ms2" value="no" readonly="readonly">
+  		<br>
+  		<label for="ms2s1">MS2-stage1</label><br>
+  		<input type="radio" name="ms2s1" id="ms2s1" value="no" checked> No<br>
+  		<input type="radio" name="ms2s1" id="ms2s1" value="yes"> Yes<br>
+  		<br>
+  		<label for="ms2s2">MS2-stage2</label><br>
+  		<input type="radio" name="ms2s2" id="ms2s2" value="no" checked> No<br>
+  		<input type="radio" name="ms2s2" id="ms2s2" value="yes"> Yes<br>
+  		<br>
+  		<label for="ms2s3">MS2-stage3</label><br>
+  		<input type="radio" name="ms2s3" id="ms2s3" value="no" checked> No<br>
+  		<input type="radio" name="ms2s3" id="ms2s3" value="yes"> Yes<br>
+  		<br>
+  		<hr>
+
+  		<label for="ms3">MS3</label>
+  		<input type="text" id="ms3" name="ms3" value="no" readonly="readonly">
+  		<br>
+  		<label for="ms1s1">MS3-stage1</label><br>
+  		<input type="radio" name="ms3s1" id="ms3s1" value="no" checked> No<br>
+  		<input type="radio" name="ms3s1" id="ms3s1" value="yes"> Yes<br>
+  		<br>
+  		<label for="ms1s2">MS3-stage2</label><br>
+  		<input type="radio" name="ms3s2" id="ms3s2" value="no" checked> No<br>
+  		<input type="radio" name="ms3s2" id="ms3s2" value="yes"> Yes<br>
+  		<br>
+  		<label for="ms1s3">MS3-stage3</label><br>
+  		<input type="radio" name="ms3s3" id="ms3s3" value="no" checked> No<br>
+  		<input type="radio" name="ms3s3" id="ms3s3" value="yes"> Yes<br>
+  		<br>
+  		<hr>
+
+  		<label for="gstin">GSTIN :</label>
+  		<input type="text" id="gstin" name="gstin">
+  		<br>
+
+		<button type="submit">Submit</button>
+	</form>
+
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+	function showFullTable() {
+		var table = document.getElementById("jobTable");
+		var tr = table.getElementsByTagName("tr");
+		for (var i = 1; i < tr.length; i++) {
+			for (var j = 4; j < tr[0].getElementsByTagName('th').length - 1; j++) {
+				tr[i].getElementsByTagName('td')[j].style.display = "";
+			}
+		}
+
+		for (var i = 4; i < tr[0].getElementsByTagName('th').length - 1; i++) {
+			tr[0].getElementsByTagName('th')[i].style.display = "";
+		}
+	}
+
+	function filtertable(mainObj, special) {
+		showFullTable();
+
+		var table = document.getElementById("jobTable");
+		var tr = table.getElementsByTagName("tr");
+		var myId = mainObj.id;
+
+		if(special == 4) {
+
+			if(document.getElementById('ms1f').checked) {
+				document.getElementById('ms2f').disabled = true;
+				document.getElementById('ms2s1f').disabled = true;
+				document.getElementById('ms2s2f').disabled = true;
+				document.getElementById('ms2s3f').disabled = true;
+	
+				document.getElementById('ms3f').disabled = true;
+				document.getElementById('ms3s1f').disabled = true;
+				document.getElementById('ms3s2f').disabled = true;
+				document.getElementById('ms3s3f').disabled = true;
+			} else {
+				document.getElementById('ms2f').disabled = false;
+				document.getElementById('ms2s1f').disabled = false;
+				document.getElementById('ms2s2f').disabled = false;
+				document.getElementById('ms2s3f').disabled = false;
+	
+				document.getElementById('ms3f').disabled = false;
+				document.getElementById('ms3s1f').disabled = false;
+				document.getElementById('ms3s2f').disabled = false;
+				document.getElementById('ms3s3f').disabled = false;			
+			}
+		}
+
+		if(special == 8) {
+
+			if(document.getElementById('ms2f').checked) {
+				document.getElementById('ms1f').disabled = true;
+				document.getElementById('ms1s1f').disabled = true;
+				document.getElementById('ms1s2f').disabled = true;
+				document.getElementById('ms1s3f').disabled = true;
+	
+				document.getElementById('ms3f').disabled = true;
+				document.getElementById('ms3s1f').disabled = true;
+				document.getElementById('ms3s2f').disabled = true;
+				document.getElementById('ms3s3f').disabled = true;
+			} else {
+				document.getElementById('ms1f').disabled = false;
+				document.getElementById('ms1s1f').disabled = false;
+				document.getElementById('ms1s2f').disabled = false;
+				document.getElementById('ms1s3f').disabled = false;
+	
+				document.getElementById('ms3f').disabled = false;
+				document.getElementById('ms3s1f').disabled = false;
+				document.getElementById('ms3s2f').disabled = false;
+				document.getElementById('ms3s3f').disabled = false;
+			}
+		}
+
+		if(special == 12) {
+
+			if(document.getElementById('ms3f').checked) {
+				document.getElementById('ms2f').disabled = true;
+				document.getElementById('ms2s1f').disabled = true;
+				document.getElementById('ms2s2f').disabled = true;
+				document.getElementById('ms2s3f').disabled = true;
+	
+				document.getElementById('ms1f').disabled = true;
+				document.getElementById('ms1s1f').disabled = true;
+				document.getElementById('ms1s2f').disabled = true;
+				document.getElementById('ms1s3f').disabled = true;
+			} else {
+				document.getElementById('ms2f').disabled = false;
+				document.getElementById('ms2s1f').disabled = false;
+				document.getElementById('ms2s2f').disabled = false;
+				document.getElementById('ms2s3f').disabled = false;
+	
+				document.getElementById('ms1f').disabled = false;
+				document.getElementById('ms1s1f').disabled = false;
+				document.getElementById('ms1s2f').disabled = false;
+				document.getElementById('ms1s3f').disabled = false;
+			}
+		}
+
+		if(!document.getElementById(myId).checked) {
+			return;
+		}
+
+		var hdri;
+		for (var i = 0; i < tr[0].getElementsByTagName('th').length; i++) {
+			if(tr[0].getElementsByTagName('th')[i].id.slice(0, -1) == myId.slice(0, -1)) {
+				hdri = i;
+			}
+		}
+
+		console.log(hdri);
+
+		for (var i = 1; i < tr.length; i++) {
+			for (var j = 4; j < tr[0].getElementsByTagName('th').length - 1; j++) {
+
+				if(j == hdri) {
+					tr[i].getElementsByTagName('td')[j].style.display = "";
+				} else {
+					tr[i].getElementsByTagName('td')[j].style.display = "none";
+				}
+
+				if(special == j) {
+					j += 4;
+				}
+
+			}
+		}
+
+		console.log(tr[0].getElementsByTagName('th').length);
+
+		for (var i = 4; i < tr[0].getElementsByTagName('th').length - 1; i++) {
+
+			if(i == hdri) {
+				tr[0].getElementsByTagName('th')[i].style.display = "";
+			} else {
+				tr[0].getElementsByTagName('th')[i].style.display = "none";
+			}
+
+			if(special == i) {
+				i += 4;
+			}
+
+		}
+
+		console.log(special);
+
+	}
+
+	$(function(){
+		$('select[name="jobOwn"]').change(function(){
+
+			{% for job in allJobs %}
+			{% for key, value in job.items() %}
+
+				// console.log($('#jobOwn').val())
+				if('{{key}}' == $('#jobOwn').val()) {
+					$('#jobProfit').val('{{value}}');
+				}
+
+			{% endfor %}
+			{% endfor %}
+		});
+	});
+
+	// ms1
+
+	$(function(){
+		$('input[type=radio][name=ms1s1]').change(function(){
+			if( $( 'input[name=ms1s1]:checked' ).val() == 'yes' && $( 'input[name=ms1s2]:checked' ).val() == 'yes' && $( 'input[name=ms1s3]:checked' ).val() == 'yes' ) {
+	    				document.getElementById('ms1').value = 'yes';
+	    			} else {
+	    				document.getElementById('ms1').value = 'no';
+	    			}
+		});
+	});
+
+	$(function(){
+		$('input[type=radio][name=ms1s2]').change(function(){
+			if( $( 'input[name=ms1s1]:checked' ).val() == 'yes' && $( 'input[name=ms1s2]:checked' ).val() == 'yes' && $( 'input[name=ms1s3]:checked' ).val() == 'yes' ) {
+	    				document.getElementById('ms1').value = 'yes';
+	    			} else {
+	    				document.getElementById('ms1').value = 'no';
+	    			}
+		});
+	});
+
+	$(function(){
+		$('input[type=radio][name=ms1s3]').change(function(){
+			if( $( 'input[name=ms1s1]:checked' ).val() == 'yes' && $( 'input[name=ms1s2]:checked' ).val() == 'yes' && $( 'input[name=ms1s3]:checked' ).val() == 'yes' ) {
+	    				document.getElementById('ms1').value = 'yes';
+	    			} else {
+	    				document.getElementById('ms1').value = 'no';
+	    			}
+		});
+	});
+
+	// ms1 end
+
+	// ms2
+
+	$(function(){
+		$('input[type=radio][name=ms2s1]').change(function(){
+			if( $( 'input[name=ms2s1]:checked' ).val() == 'yes' && $( 'input[name=ms2s2]:checked' ).val() == 'yes' && $( 'input[name=ms2s3]:checked' ).val() == 'yes' ) {
+	    				document.getElementById('ms2').value = 'yes';
+	    			} else {
+	    				document.getElementById('ms2').value = 'no';
+	    			}
+		});
+	});
+
+	$(function(){
+		$('input[type=radio][name=ms2s2]').change(function(){
+			if( $( 'input[name=ms2s1]:checked' ).val() == 'yes' && $( 'input[name=ms2s2]:checked' ).val() == 'yes' && $( 'input[name=ms2s3]:checked' ).val() == 'yes' ) {
+	    				document.getElementById('ms2').value = 'yes';
+	    			} else {
+	    				document.getElementById('ms2').value = 'no';
+	    			}
+		});
+	});
+
+	$(function(){
+		$('input[type=radio][name=ms2s3]').change(function(){
+			if( $( 'input[name=ms2s1]:checked' ).val() == 'yes' && $( 'input[name=ms2s2]:checked' ).val() == 'yes' && $( 'input[name=ms2s3]:checked' ).val() == 'yes' ) {
+	    				document.getElementById('ms2').value = 'yes';
+	    			} else {
+	    				document.getElementById('ms2').value = 'no';
+	    			}		});
+	});
+
+	// ms2 end
+
+	// ms3
+
+	$(function(){
+		$('input[type=radio][name=ms3s1]').change(function(){
+			if( $( 'input[name=ms3s1]:checked' ).val() == 'yes' && $( 'input[name=ms3s2]:checked' ).val() == 'yes' && $( 'input[name=ms3s3]:checked' ).val() == 'yes' ) {
+	    				document.getElementById('ms3').value = 'yes';
+	    			} else {
+	    				document.getElementById('ms3').value = 'no';
+	    			}
+		});
+	});
+
+	$(function(){
+		$('input[type=radio][name=ms3s2]').change(function(){
+			if( $( 'input[name=ms3s1]:checked' ).val() == 'yes' && $( 'input[name=ms3s2]:checked' ).val() == 'yes' && $( 'input[name=ms3s3]:checked' ).val() == 'yes' ) {
+	    				document.getElementById('ms3').value = 'yes';
+	    			} else {
+	    				document.getElementById('ms3').value = 'no';
+	    			}
+		});
+	});
+
+	$(function(){
+		$('input[type=radio][name=ms3s3]').change(function(){
+			if( $( 'input[name=ms3s1]:checked' ).val() == 'yes' && $( 'input[name=ms3s2]:checked' ).val() == 'yes' && $( 'input[name=ms3s3]:checked' ).val() == 'yes' ) {
+	    				document.getElementById('ms3').value = 'yes';
+	    			} else {
+	    				document.getElementById('ms3').value = 'no';
+	    			}
+		});
+	});
+
+	// ms3 end
+
+</script>
+
+</html>

@@ -46,6 +46,7 @@
 		<label for="jobBelong">Job Belongs To :</label>
 		
 		<select id="jobBelong" name="jobBelong">
+			<option disabled selected value> -- select an option -- </option>
 			{% for job in jobBelongs %}
   			<option value="{{job['compName']}}">{{job['compName']}}</option>
   			{% endfor %}
@@ -56,6 +57,7 @@
 		<label for="jobOwn">Job Owner :</label>
 		
 		<select id="jobOwn" name="jobOwn">
+			<option disabled selected value> -- select an option -- </option>
 			{% for job in allJobs %}
 			{% for key, value in job.items() %}
   			<option value="{{key}}">{{key}}</option>
