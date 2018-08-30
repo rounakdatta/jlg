@@ -2,78 +2,87 @@
 <html>
 <head>
 	<title>JLG | Job Execution Database</title>
+
+<link rel='stylesheet' href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'><link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.0/bootstrap-table.min.css'><link rel='stylesheet' href='//rawgit.com/vitalets/x-editable/master/dist/bootstrap3-editable/css/bootstrap-editable.css'>
+<style class="cp-pen-styles"></style>
 </head>
 <body>
 
 	<h1>Job Execution Database</h1>
 
-	<input type="checkbox" name="ms1f" id="ms1f" onchange="filtertable(this, 4);" value="showit"> Milestone 1
-	<input type="checkbox" name="ms1s1f" id="ms1s1f" onchange="filtertable(this, 0);" value="showit"> Stage 1
-	<input type="checkbox" name="ms1s2f" id="ms1s2f" onchange="filtertable(this, 0);" value="showit"> Stage 2
-	<input type="checkbox" name="ms1s3f" id="ms1s3f" onchange="filtertable(this, 0);" value="showit"> Stage 3
-	<br>
-
-	<input type="checkbox" name="ms2f" id="ms2f" onchange="filtertable(this, 8);" value="showit"> Milestone 2
-	<input type="checkbox" name="ms2s1f" id="ms2s1f" onchange="filtertable(this, 0);" value="showit"> Stage 1
-	<input type="checkbox" name="ms2s2f" id="ms2s2f" onchange="filtertable(this, 0);" value="showit"> Stage 2
-	<input type="checkbox" name="ms2s3f" id="ms2s3f" onchange="filtertable(this, 0);" value="showit"> Stage 3
-	<br>
-
-	<input type="checkbox" name="ms3f" id="ms3f" onchange="filtertable(this, 12);" value="showit"> Milestone 3
-	<input type="checkbox" name="ms3s1f" id="ms3s1f" onchange="filtertable(this, 0);" value="showit"> Stage 1
-	<input type="checkbox" name="ms3s2f" id="ms3s2f" onchange="filtertable(this, 0);" value="showit"> Stage 2
-	<input type="checkbox" name="ms3s3f" id="ms3s3f" onchange="filtertable(this, 0);" value="showit"> Stage 3
-	<br>
-
 
 	<br><br><hr>
 
+	<div class="container">
+
+	<div id="toolbar">
+		<select class="form-control">
+				<option value="all">Export All</option>
+				<option value="selected">Export Selected</option>
+		</select>
+	</div>
+
 	{% if allExec %}
-		<table id="jobTable" border="1">
+		<table id="table" border="1" align="center"
+			 data-toggle="table"
+			 data-search="true"
+			 data-filter-control="true" 
+			 data-show-export="true"
+			 data-click-to-select="true"
+			 data-toolbar="#toolbar"
+       		 class="table-responsive">
+       	<thead>
 		<tr>
-			<th id="slno">Sl No</th>
-			<th id="client">Client Name</th>
-			<th id="jobbel">Job belongs to</th>
-			<th id="jobowner">Job Owner</th>
-			<th id="jobprofitcentre">Job Profit Centre</th>
-			<th id="ms1t">Milestone 1</th>
-			<th id="ms1s1t">Milestone 1 - stage1</th>
-			<th id="ms1s2t">Milestone 1 - stage2</th>
-			<th id="ms1s3t">Milestone 1 - stage3</th>
-			<th id="ms2t">Milestone 2</th>
-			<th id="ms2s1t">Milestone 2 - stage1</th>
-			<th id="ms2s2t">Milestone 2 - stage2</th>
-			<th id="ms2s3t">Milestone 2 - stage3</th>
-			<th id="ms3t">Milestone 3</th>
-			<th id="ms3s1t">Milestone 3 - stage1</th>
-			<th id="ms3s2t">Milestone 3 - stage2</th>
-			<th id="ms3s3t">Milestone 3 - stage3</th>
-			<th>GSTIN</th>
+			<th data-field="state" data-checkbox="true"></th>
+			<th data-field="slno" data-filter-control="input" data-sortable="true" id="slno">Sl No</th>
+			<th data-field="client" data-filter-control="input" data-sortable="true" id="client">Client Name</th>
+			<th data-field="jobbel" data-filter-control="input" data-sortable="true" id="jobbel">Job belongs to</th>
+			<th data-field="jobowner" data-filter-control="input" data-sortable="true" id="jobowner">Job Owner</th>
+			<th data-field="jobprofitcentre" data-filter-control="input" data-sortable="true" id="jobprofitcentre">Job Profit Centre</th>
+			<th data-field="ms1t" data-filter-control="input" data-sortable="true" id="ms1t">Milestone 1</th>
+			<th data-field="ms1s1t" data-filter-control="input" data-sortable="true" id="ms1s1t">Milestone 1 - stage1</th>
+			<th data-field="ms1s2t" data-filter-control="input" data-sortable="true" id="ms1s2t">Milestone 1 - stage2</th>
+			<th data-field="ms1s3t" data-filter-control="input" data-sortable="true" id="ms1s3t">Milestone 1 - stage3</th>
+			<th data-field="ms2t" data-filter-control="input" data-sortable="true" id="ms2t">Milestone 2</th>
+			<th data-field="ms2s1t" data-filter-control="input" data-sortable="true" id="ms2s1t">Milestone 2 - stage1</th>
+			<th data-field="ms2s2t" data-filter-control="input" data-sortable="true" id="ms2s2t">Milestone 2 - stage2</th>
+			<th data-field="ms2s3t" data-filter-control="input" data-sortable="true" id="ms2s3t">Milestone 2 - stage3</th>
+			<th data-field="ms3t" data-filter-control="input" data-sortable="true" id="ms3t">Milestone 3</th>
+			<th data-field="ms3s1t" data-filter-control="input" data-sortable="true" id="ms3s1t">Milestone 3 - stage1</th>
+			<th data-field="ms3s2t" data-filter-control="input" data-sortable="true" id="ms3s2t">Milestone 3 - stage2</th>
+			<th data-field="ms3s3t" data-filter-control="input" data-sortable="true" id="ms3s3t">Milestone 3 - stage3</th>
+			<th data-field="gstint" data-filter-control="input" data-sortable="true" id="gstint">GSTIN</th>
 		</tr>
+	</thead>
+		<tbody>
 		{% for client in allExec %}
 		<tr>
-		   <td class="serialNumber">{{loop.index0 + 1}}</td>
-		   <td class="j1">{{client['clientName']}}</td>
-		   <td class="j2">{{client['jobBelong']}}</td>
-		   <td class="j3">{{client['jobOwn']}}</td>
-		   <td class="j4">{{client['jobProfit']}}</td>
-		   <td class="j5"><b>{{client['ms1']}}</b></td>
-		   <td class="j5">{{client['ms1s1']}}</td>
-		   <td class="j5">{{client['ms1s2']}}</td>
-		   <td class="j5">{{client['ms1s3']}}</td>
-		   <td class="j6"><b>{{client['ms2']}}</b></td>
-		   <td class="j6">{{client['ms2s1']}}</td>
-		   <td class="j6">{{client['ms2s2']}}</td>
-		   <td class="j6">{{client['ms2s3']}}</td>
-		   <td class="j7"><b>{{client['ms3']}}</b></td>
-		   <td class="j7">{{client['ms3s1']}}</td>
-		   <td class="j7">{{client['ms3s2']}}</td>
-		   <td class="j7">{{client['ms3s3']}}</td>
-		   <td class="j8">{{client['gstin']}}</td>
+		   <td class="bs-checkbox "><input data-index="{{loop.index0 + 1}}" name="btSelectItem" type="checkbox"></td>
+		   <td style="text-align:center;" class="serialNumber">{{loop.index0 + 1}}</td>
+		   <td style="text-align:center;" class="j1">{{client['clientName']}}</td>
+		   <td style="text-align:center;" class="j2">{{client['jobBelong']}}</td>
+		   <td style="text-align:center;" class="j3">{{client['jobOwn']}}</td>
+		   <td style="text-align:center;" class="j4">{{client['jobProfit']}}</td>
+		   <td style="text-align:center;" class="j5">{{client['ms1']}}</td>
+		   <td style="text-align:center;" class="j5">{{client['ms1s1']}}</td>
+		   <td style="text-align:center;" class="j5">{{client['ms1s2']}}</td>
+		   <td style="text-align:center;" class="j5">{{client['ms1s3']}}</td>
+		   <td style="text-align:center;" class="j6">{{client['ms2']}}</td>
+		   <td style="text-align:center;" class="j6">{{client['ms2s1']}}</td>
+		   <td style="text-align:center;" class="j6">{{client['ms2s2']}}</td>
+		   <td style="text-align:center;" class="j6">{{client['ms2s3']}}</td>
+		   <td style="text-align:center;" class="j7">{{client['ms3']}}</td>
+		   <td style="text-align:center;" class="j7">{{client['ms3s1']}}</td>
+		   <td style="text-align:center;" class="j7">{{client['ms3s2']}}</td>
+		   <td style="text-align:center;" class="j7">{{client['ms3s3']}}</td>
+		   <td style="text-align:center;" class="j8">{{client['gstin']}}</td>
 		</tr>
 		{% endfor %}
+		</tbody>
 		</table>
 	{% endif %}
+
+	</div>
 
 	<br><br>
 
@@ -170,33 +179,60 @@
 
 </body>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src='//static.codepen.io/assets/common/stopExecutionOnTimeout-41c52890748cd7143004e05d3c5f786c66b19939c4500ce446314d1748483e13.js'></script><script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script><script src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'></script><script src='//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.0/bootstrap-table.js'></script><script src='//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.9.1/extensions/editable/bootstrap-table-editable.js'></script><script src='//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.9.1/extensions/export/bootstrap-table-export.js'></script><script src='//rawgit.com/hhurz/tableExport.jquery.plugin/master/tableExport.js'></script><script src='//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.9.1/extensions/filter-control/bootstrap-table-filter-control.js'></script>
+
+<script type="text/javascript">
+	//exporte les données sélectionnées
+var $table = $('#table');
+    $(function () {
+        $('#toolbar').find('select').change(function () {
+            $table.bootstrapTable('refreshOptions', {
+                exportDataType: $(this).val()
+            });
+        });
+        $('#toolbar')
+    })
+
+		var trBoldBlue = $("table");
+
+	$(trBoldBlue).on("click", "tr", function (){
+			$(this).toggleClass("bold-blue");
+	});
+</script>
+
 <script type="text/javascript">
 
 	function showFullTable() {
-		var table = document.getElementById("jobTable");
+		var table = document.getElementById("table");
 		var tr = table.getElementsByTagName("tr");
 		for (var i = 1; i < tr.length; i++) {
-			for (var j = 4; j < tr[0].getElementsByTagName('th').length - 1; j++) {
+			for (var j = 0; j < tr[0].getElementsByTagName('th').length; j++) {
 				tr[i].getElementsByTagName('td')[j].style.display = "";
 			}
 		}
 
-		for (var i = 4; i < tr[0].getElementsByTagName('th').length - 1; i++) {
+		for (var i = 0; i < tr[0].getElementsByTagName('th').length; i++) {
 			tr[0].getElementsByTagName('th')[i].style.display = "";
 		}
 	}
 
 	function filtertable(mainObj, special) {
-		showFullTable();
 
-		var table = document.getElementById("jobTable");
+		var table = document.getElementById("table");
 		var tr = table.getElementsByTagName("tr");
 		var myId = mainObj.id;
 
 		if(special == 4) {
 
 			if(document.getElementById('ms1f').checked) {
+				document.getElementById('ms1s1f').checked = true;
+				document.getElementById('ms1s2f').checked = true;
+				document.getElementById('ms1s3f').checked = true;
+
+				document.getElementById('ms1s1f').disabled = false;
+				document.getElementById('ms1s2f').disabled = false;
+				document.getElementById('ms1s3f').disabled = false;
+
 				document.getElementById('ms2f').disabled = true;
 				document.getElementById('ms2s1f').disabled = true;
 				document.getElementById('ms2s2f').disabled = true;
@@ -207,21 +243,39 @@
 				document.getElementById('ms3s2f').disabled = true;
 				document.getElementById('ms3s3f').disabled = true;
 			} else {
+				showFullTable();
+				document.getElementById('ms1s1f').checked = false;
+				document.getElementById('ms1s2f').checked = false;
+				document.getElementById('ms1s3f').checked = false;
+
+				document.getElementById('ms1s1f').disabled = true;
+				document.getElementById('ms1s2f').disabled = true;
+				document.getElementById('ms1s3f').disabled = true;
+
 				document.getElementById('ms2f').disabled = false;
-				document.getElementById('ms2s1f').disabled = false;
-				document.getElementById('ms2s2f').disabled = false;
-				document.getElementById('ms2s3f').disabled = false;
+				document.getElementById('ms2s1f').disabled = true;
+				document.getElementById('ms2s2f').disabled = true;
+				document.getElementById('ms2s3f').disabled = true;
 	
 				document.getElementById('ms3f').disabled = false;
-				document.getElementById('ms3s1f').disabled = false;
-				document.getElementById('ms3s2f').disabled = false;
-				document.getElementById('ms3s3f').disabled = false;			
+				document.getElementById('ms3s1f').disabled = true;
+				document.getElementById('ms3s2f').disabled = true;
+				document.getElementById('ms3s3f').disabled = true;	
+				return;		
 			}
 		}
 
 		if(special == 8) {
 
 			if(document.getElementById('ms2f').checked) {
+				document.getElementById('ms2s1f').checked = true;
+				document.getElementById('ms2s2f').checked = true;
+				document.getElementById('ms2s3f').checked = true;
+
+				document.getElementById('ms2s1f').disabled = false;
+				document.getElementById('ms2s2f').disabled = false;
+				document.getElementById('ms2s3f').disabled = false;
+
 				document.getElementById('ms1f').disabled = true;
 				document.getElementById('ms1s1f').disabled = true;
 				document.getElementById('ms1s2f').disabled = true;
@@ -232,21 +286,39 @@
 				document.getElementById('ms3s2f').disabled = true;
 				document.getElementById('ms3s3f').disabled = true;
 			} else {
+				showFullTable();
+				document.getElementById('ms2s1f').checked = false;
+				document.getElementById('ms2s2f').checked = false;
+				document.getElementById('ms2s3f').checked = false;
+
+				document.getElementById('ms2s1f').disabled = true;
+				document.getElementById('ms2s2f').disabled = true;
+				document.getElementById('ms2s3f').disabled = true;
+
 				document.getElementById('ms1f').disabled = false;
-				document.getElementById('ms1s1f').disabled = false;
-				document.getElementById('ms1s2f').disabled = false;
-				document.getElementById('ms1s3f').disabled = false;
+				document.getElementById('ms1s1f').disabled = true;
+				document.getElementById('ms1s2f').disabled = true;
+				document.getElementById('ms1s3f').disabled = true;
 	
 				document.getElementById('ms3f').disabled = false;
-				document.getElementById('ms3s1f').disabled = false;
-				document.getElementById('ms3s2f').disabled = false;
-				document.getElementById('ms3s3f').disabled = false;
+				document.getElementById('ms3s1f').disabled = true;
+				document.getElementById('ms3s2f').disabled = true;
+				document.getElementById('ms3s3f').disabled = true;
+				return;
 			}
 		}
 
 		if(special == 12) {
 
 			if(document.getElementById('ms3f').checked) {
+				document.getElementById('ms3s1f').checked = true;
+				document.getElementById('ms3s2f').checked = true;
+				document.getElementById('ms3s3f').checked = true;
+
+				document.getElementById('ms3s1f').disabled = false;
+				document.getElementById('ms3s2f').disabled = false;
+				document.getElementById('ms3s3f').disabled = false;
+
 				document.getElementById('ms2f').disabled = true;
 				document.getElementById('ms2s1f').disabled = true;
 				document.getElementById('ms2s2f').disabled = true;
@@ -257,20 +329,26 @@
 				document.getElementById('ms1s2f').disabled = true;
 				document.getElementById('ms1s3f').disabled = true;
 			} else {
+				showFullTable();
+				document.getElementById('ms3s1f').checked = false;
+				document.getElementById('ms3s2f').checked = false;
+				document.getElementById('ms3s3f').checked = false;
+
+				document.getElementById('ms3s1f').disabled = true;
+				document.getElementById('ms3s2f').disabled = true;
+				document.getElementById('ms3s3f').disabled = true;
+
 				document.getElementById('ms2f').disabled = false;
-				document.getElementById('ms2s1f').disabled = false;
-				document.getElementById('ms2s2f').disabled = false;
-				document.getElementById('ms2s3f').disabled = false;
+				document.getElementById('ms2s1f').disabled = true;
+				document.getElementById('ms2s2f').disabled = true;
+				document.getElementById('ms2s3f').disabled = true;
 	
 				document.getElementById('ms1f').disabled = false;
-				document.getElementById('ms1s1f').disabled = false;
-				document.getElementById('ms1s2f').disabled = false;
-				document.getElementById('ms1s3f').disabled = false;
+				document.getElementById('ms1s1f').disabled = true;
+				document.getElementById('ms1s2f').disabled = true;
+				document.getElementById('ms1s3f').disabled = true;
+				return;
 			}
-		}
-
-		if(!document.getElementById(myId).checked) {
-			return;
 		}
 
 		var hdri;
@@ -282,7 +360,51 @@
 
 		console.log(hdri);
 
+		if(!document.getElementById(myId).checked) {
+
+			for (var i = 1; i < tr.length; i++) {
+	
+				for (var j = 4; j < tr[0].getElementsByTagName('th').length - 1; j++) {
+	
+					if(j == hdri) {
+						tr[i].getElementsByTagName('td')[j].style.display = "none";
+					}
+
+					if(special == j) {
+						j += 4;
+					}
+	
+				}
+			}
+
+			for (var i = 4; i < tr[0].getElementsByTagName('th').length - 1; i++) {
+	
+				if(i == hdri) {
+					tr[0].getElementsByTagName('th')[i].style.display = "none";
+				}
+	
+				if(special == i) {
+					i += 4;
+				}
+	
+			}
+
+			return;
+		}
+
+		showFullTable();
+
 		for (var i = 1; i < tr.length; i++) {
+
+			if(tr[i].getElementsByTagName('td')[hdri].innerHTML == 'no') {
+
+				for (var j = 0; j < tr[0].getElementsByTagName('th').length; j++) {
+					tr[i].getElementsByTagName('td')[j].style.display = "none";
+				}
+
+				continue;
+			}
+
 			for (var j = 4; j < tr[0].getElementsByTagName('th').length - 1; j++) {
 
 				if(j == hdri) {
@@ -298,8 +420,6 @@
 			}
 		}
 
-		console.log(tr[0].getElementsByTagName('th').length);
-
 		for (var i = 4; i < tr[0].getElementsByTagName('th').length - 1; i++) {
 
 			if(i == hdri) {
@@ -313,8 +433,6 @@
 			}
 
 		}
-
-		console.log(special);
 
 	}
 
