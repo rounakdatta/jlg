@@ -189,9 +189,9 @@ def execstatusdb():
 
 	############################## prefetch data end #############################################
 
-	if request.method == 'POST' and 'clientName' in request.form and 'jobBelong' in request.form and 'jobOwn' in request.form and 'jobProfit' in request.form and 'gstin' in request.form:
+	if request.method == 'POST' and 'jobno1' in request.form and 'jobno2' in request.form and 'jobopen' in request.form and 'bondready' in request.form and 'dobill' in request.form:
 		db.child("jlg_main").child("jlg_execution")
-		data = {'clientName' : request.form['clientName'], 'jobBelong' : request.form['jobBelong'], 'jobOwn' : request.form['jobOwn'], 'jobProfit' : request.form['jobProfit'], 'ms1' : request.form['ms1'], 'ms1s1' : request.form['ms1s1'], 'ms1s2' : request.form['ms1s2'], 'ms1s3' : request.form['ms1s3'], 'ms2' : request.form['ms2'], 'ms2s1' : request.form['ms2s1'], 'ms2s2' : request.form['ms2s2'], 'ms2s3' : request.form['ms2s3'], 'ms3' : request.form['ms3'], 'ms3s1' : request.form['ms3s1'], 'ms3s2' : request.form['ms3s2'], 'ms3s3' : request.form['ms3s3'], 'gstin' : request.form['gstin']}
+		data = {'jobno1' : request.form['jobno1'], 'jobno2' : request.form['jobno2'], 'jobopen' : request.form['jobopen'], 'clientname' : request.form['clientname'], 'bondready' : request.form['bondready'], 'dobill' : request.form['dobill'], 'doready' : request.form['doready'], 'shipping1over' : request.form['shipping1over'], 'befilled' : request.form['befilled'], 'bereleased' : request.form['bereleased'], 'dutypaid' : request.form['dutypaid'], 'customover' : request.form['customover'], 'cfsover' : request.form['cfsover'], 'cargorel' : request.form['cargorel'], 'dockover' : request.form['dockover'], 'cargotruck' : request.form['cargotruck'], 'delvclient' : request.form['delvclient'], 'delvover' : request.form['delvover'], 'slotextn' : request.form['slotextn'], 'emptydep' : request.form['emptydep'], 'shipping2over' : request.form['shipping2over']}
 		db.push(data)
 		print('push complete')
 

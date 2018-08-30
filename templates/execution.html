@@ -5,6 +5,7 @@
 
 <link rel='stylesheet' href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'><link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.0/bootstrap-table.min.css'><link rel='stylesheet' href='//rawgit.com/vitalets/x-editable/master/dist/bootstrap3-editable/css/bootstrap-editable.css'>
 <style class="cp-pen-styles"></style>
+<link rel="stylesheet" href="https://fengyuanchen.github.io/datepicker/css/datepicker.css">
 </head>
 <body>
 
@@ -34,24 +35,50 @@
        	<thead>
 		<tr>
 			<th data-field="state" data-checkbox="true"></th>
+
 			<th data-field="slno" data-filter-control="input" data-sortable="true" id="slno">Sl No</th>
-			<th data-field="client" data-filter-control="input" data-sortable="true" id="client">Client Name</th>
-			<th data-field="jobbel" data-filter-control="input" data-sortable="true" id="jobbel">Job belongs to</th>
-			<th data-field="jobowner" data-filter-control="input" data-sortable="true" id="jobowner">Job Owner</th>
-			<th data-field="jobprofitcentre" data-filter-control="input" data-sortable="true" id="jobprofitcentre">Job Profit Centre</th>
-			<th data-field="ms1t" data-filter-control="input" data-sortable="true" id="ms1t">Milestone 1</th>
-			<th data-field="ms1s1t" data-filter-control="input" data-sortable="true" id="ms1s1t">Milestone 1 - stage1</th>
-			<th data-field="ms1s2t" data-filter-control="input" data-sortable="true" id="ms1s2t">Milestone 1 - stage2</th>
-			<th data-field="ms1s3t" data-filter-control="input" data-sortable="true" id="ms1s3t">Milestone 1 - stage3</th>
-			<th data-field="ms2t" data-filter-control="input" data-sortable="true" id="ms2t">Milestone 2</th>
-			<th data-field="ms2s1t" data-filter-control="input" data-sortable="true" id="ms2s1t">Milestone 2 - stage1</th>
-			<th data-field="ms2s2t" data-filter-control="input" data-sortable="true" id="ms2s2t">Milestone 2 - stage2</th>
-			<th data-field="ms2s3t" data-filter-control="input" data-sortable="true" id="ms2s3t">Milestone 2 - stage3</th>
-			<th data-field="ms3t" data-filter-control="input" data-sortable="true" id="ms3t">Milestone 3</th>
-			<th data-field="ms3s1t" data-filter-control="input" data-sortable="true" id="ms3s1t">Milestone 3 - stage1</th>
-			<th data-field="ms3s2t" data-filter-control="input" data-sortable="true" id="ms3s2t">Milestone 3 - stage2</th>
-			<th data-field="ms3s3t" data-filter-control="input" data-sortable="true" id="ms3s3t">Milestone 3 - stage3</th>
-			<th data-field="gstint" data-filter-control="input" data-sortable="true" id="gstint">GSTIN</th>
+
+			<th data-field="jobno1" data-filter-control="input" data-sortable="true">JayLGCPL Job No</th>
+
+			<th data-field="jobno2" data-filter-control="input" data-sortable="true">JLG&Co Job No</th>
+
+			<th data-field="jobopen" data-filter-control="input" data-sortable="true">Job Open Date</th>
+
+			<th data-field="clientname" data-filter-control="input" data-sortable="true">Client Name</th>
+
+			<th data-field="bondready" data-filter-control="input" data-sortable="true">Bond cte. Ready</th>
+
+			<th data-field="dobill" data-filter-control="input" data-sortable="true">DO Bill Received</th>
+
+			<th data-field="doready" data-filter-control="input" data-sortable="true">DO Ready</th>
+
+			<th data-field="shipping1over" data-filter-control="input" data-sortable="true">Shipping 1st Part Over</th>
+
+			<th data-field="befilled" data-filter-control="input" data-sortable="true">BE Filed</th>
+
+			<th data-field="bereleased" data-filter-control="input" data-sortable="true">BE Released</th>
+
+			<th data-field="dutypaid" data-filter-control="input" data-sortable="true">Duty Paid</th>
+
+			<th data-field="customover" data-filter-control="input" data-sortable="true">Custom Part Over</th>
+
+			<th data-field="cfsover" data-filter-control="input" data-sortable="true">CFS/Doc Assess Over</th>
+
+			<th data-field="cargorel" data-filter-control="input" data-sortable="true">Cargo Released</th>
+
+			<th data-field="dockover" data-filter-control="input" data-sortable="true">Dock Part Over</th>
+
+			<th data-field="cargotruck" data-filter-control="input" data-sortable="true">Cargo shift to truck</th>
+
+			<th data-field="delvclient" data-filter-control="input" data-sortable="true">Delivery at client space</th>
+
+			<th data-field="delvover" data-filter-control="input" data-sortable="true">Client Delv Over</th>
+
+			<th data-field="slotextn" data-filter-control="input" data-sortable="true">Slot Extn if required</th>
+
+			<th data-field="emptydep" data-filter-control="input" data-sortable="true">Empty Deposit</th>
+
+			<th data-field="shipping2over" data-filter-control="input" data-sortable="true">Shipping 2nd Part Over</th>
 		</tr>
 	</thead>
 		<tbody>
@@ -59,23 +86,27 @@
 		<tr>
 		   <td class="bs-checkbox "><input data-index="{{loop.index0 + 1}}" name="btSelectItem" type="checkbox"></td>
 		   <td style="text-align:center;" class="serialNumber">{{loop.index0 + 1}}</td>
-		   <td style="text-align:center;" class="j1">{{client['clientName']}}</td>
-		   <td style="text-align:center;" class="j2">{{client['jobBelong']}}</td>
-		   <td style="text-align:center;" class="j3">{{client['jobOwn']}}</td>
-		   <td style="text-align:center;" class="j4">{{client['jobProfit']}}</td>
-		   <td style="text-align:center;" class="j5">{{client['ms1']}}</td>
-		   <td style="text-align:center;" class="j5">{{client['ms1s1']}}</td>
-		   <td style="text-align:center;" class="j5">{{client['ms1s2']}}</td>
-		   <td style="text-align:center;" class="j5">{{client['ms1s3']}}</td>
-		   <td style="text-align:center;" class="j6">{{client['ms2']}}</td>
-		   <td style="text-align:center;" class="j6">{{client['ms2s1']}}</td>
-		   <td style="text-align:center;" class="j6">{{client['ms2s2']}}</td>
-		   <td style="text-align:center;" class="j6">{{client['ms2s3']}}</td>
-		   <td style="text-align:center;" class="j7">{{client['ms3']}}</td>
-		   <td style="text-align:center;" class="j7">{{client['ms3s1']}}</td>
-		   <td style="text-align:center;" class="j7">{{client['ms3s2']}}</td>
-		   <td style="text-align:center;" class="j7">{{client['ms3s3']}}</td>
-		   <td style="text-align:center;" class="j8">{{client['gstin']}}</td>
+		   <td style="text-align:center;" class="j1">{{client['jobno1']}}</td>
+		   <td style="text-align:center;" class="j2">{{client['jobno2']}}</td>
+		   <td style="text-align:center;" class="j3">{{client['jobopen']}}</td>
+		   <td style="text-align:center;" class="j4">{{client['clientname']}}</td>
+		   <td style="text-align:center;" class="j5">{{client['bondready']}}</td>
+		   <td style="text-align:center;" class="j5">{{client['dobill']}}</td>
+		   <td style="text-align:center;" class="j5">{{client['doready']}}</td>
+		   <td style="text-align:center;" class="j5">{{client['shipping1over']}}</td>
+		   <td style="text-align:center;" class="j6">{{client['befilled']}}</td>
+		   <td style="text-align:center;" class="j6">{{client['bereleased']}}</td>
+		   <td style="text-align:center;" class="j6">{{client['dutypaid']}}</td>
+		   <td style="text-align:center;" class="j6">{{client['customover']}}</td>
+		   <td style="text-align:center;" class="j7">{{client['cfsover']}}</td>
+		   <td style="text-align:center;" class="j7">{{client['cargorel']}}</td>
+		   <td style="text-align:center;" class="j7">{{client['dockover']}}</td>
+		   <td style="text-align:center;" class="j7">{{client['cargotruck']}}</td>
+		   <td style="text-align:center;" class="j8">{{client['delvclient']}}</td>
+		   <td style="text-align:center;" class="j8">{{client['delvover']}}</td>
+		   <td style="text-align:center;" class="j8">{{client['slotextn']}}</td>
+		   <td style="text-align:center;" class="j8">{{client['emptydep']}}</td>
+		   <td style="text-align:center;" class="j8">{{client['shipping2over']}}</td>
 		</tr>
 		{% endfor %}
 		</tbody>
@@ -87,11 +118,30 @@
 	<br><br>
 
 	<form action="/execstatusdb" method="POST">
-		<label for="clientName">Client Name :</label>
-		<input id="clientName" name="clientName" type="text">
+		<label for="jobno1">JayLGCPL Job No :</label>
+		<input id="jobno1" name="jobno1" type="text">
 		<br>
 
-		<label for="jobBelong">Job Belongs To :</label>
+		<label for="jobno2">JLG&Co Job No :</label>
+		<input id="jobno2" name="jobno2" type="text">
+		<br>
+
+		<label for="jobopen">Job Open Date :</label>
+		<dd><div class="docs-datepicker">
+          <div class="input-group">
+            <input type="text" class="form-control docs-date" id="jobopen" name="jobopen" placeholder="Job Open Date">
+            <div class="input-group-append">
+            </div>
+          </div>
+          <div class="docs-datepicker-container"></div>
+        </div></dd>
+		<br>
+
+		<label for="clientname">Client Name :</label>
+		<input type="text" id="clientname" name="clientname">
+		<br>
+
+		<!-- <label for="jobBelong">Job Belongs To :</label>
 		
 		<select id="jobBelong" name="jobBelong">
 			<option disabled selected value> -- select an option -- </option>
@@ -117,62 +167,152 @@
 
 		<label for="jobProfit">Job Profit Centre :</label>
   		<input type="text" id="jobProfit" name="jobProfit" readonly="readonly">
-  		<br>
+  		<br> -->
 
-  		<label for="ms1">MS1</label>
-  		<input type="text" id="ms1" name="ms1" value="no" readonly="readonly">
-  		<br>
-  		<label for="ms1s1">MS1-stage1</label><br>
-  		<input type="radio" name="ms1s1" id="ms1s1" value="no" checked> No<br>
-  		<input type="radio" name="ms1s1" id="ms1s1" value="yes"> Yes<br>
-  		<br>
-  		<label for="ms1s2">MS1-stage2</label><br>
-  		<input type="radio" name="ms1s2" id="ms1s2" value="no" checked> No<br>
-  		<input type="radio" name="ms1s2" id="ms1s2" value="yes"> Yes<br>
-  		<br>
-  		<label for="ms1s3">MS1-stage3</label><br>
-  		<input type="radio" name="ms1s3" id="ms1s3" value="no" checked> No<br>
-  		<input type="radio" name="ms1s3" id="ms1s3" value="yes"> Yes<br>
+  		<label for="bondready">Bond cte. Ready</label><br>
+		<dd><div class="docs-datepicker">
+          <div class="input-group">
+            <input type="text" class="form-control docs-date" id="bondready" name="bondready" placeholder="Bond cte. Ready Date">
+            <div class="input-group-append">
+            </div>
+          </div>
+          <div class="docs-datepicker-container"></div>
+        </div></dd>
+		<br>
+  		<label for="dobill">DO Bill Received</label><br>
+		<dd><div class="docs-datepicker">
+          <div class="input-group">
+            <input type="text" class="form-control docs-date" id="dobill" name="dobill" placeholder="DO Bill Received Date">
+            <div class="input-group-append">
+            </div>
+          </div>
+          <div class="docs-datepicker-container"></div>
+        </div></dd>
+		<br>
+  		<label for="doready">DO Ready</label><br>
+		<dd><div class="docs-datepicker">
+          <div class="input-group">
+            <input type="text" class="form-control docs-date" id="doready" name="doready" placeholder="DO Ready Date">
+            <div class="input-group-append">
+            </div>
+          </div>
+          <div class="docs-datepicker-container"></div>
+        </div></dd>
+		<br>
+  		<label for="shipping1over">Shipping 1st Part Over</label>
+  		<input type="text" id="shipping1over" name="shipping1over" value="no" readonly="readonly">
   		<br>
   		<hr>
 
-  		<label for="ms2">MS2</label>
-  		<input type="text" id="ms2" name="ms2" value="no" readonly="readonly">
-  		<br>
-  		<label for="ms2s1">MS2-stage1</label><br>
-  		<input type="radio" name="ms2s1" id="ms2s1" value="no" checked> No<br>
-  		<input type="radio" name="ms2s1" id="ms2s1" value="yes"> Yes<br>
-  		<br>
-  		<label for="ms2s2">MS2-stage2</label><br>
-  		<input type="radio" name="ms2s2" id="ms2s2" value="no" checked> No<br>
-  		<input type="radio" name="ms2s2" id="ms2s2" value="yes"> Yes<br>
-  		<br>
-  		<label for="ms2s3">MS2-stage3</label><br>
-  		<input type="radio" name="ms2s3" id="ms2s3" value="no" checked> No<br>
-  		<input type="radio" name="ms2s3" id="ms2s3" value="yes"> Yes<br>
+  		<label for="befilled">BE Filed</label><br>
+		<dd><div class="docs-datepicker">
+          <div class="input-group">
+            <input type="text" class="form-control docs-date" id="befilled" name="befilled" placeholder="BE Filled Date">
+            <div class="input-group-append">
+            </div>
+          </div>
+          <div class="docs-datepicker-container"></div>
+        </div></dd>
+		<br>
+  		<label for="bereleased">BE Released</label><br>
+		<dd><div class="docs-datepicker">
+          <div class="input-group">
+            <input type="text" class="form-control docs-date" id="bereleased" name="bereleased" placeholder="BE Released Date">
+            <div class="input-group-append">
+            </div>
+          </div>
+          <div class="docs-datepicker-container"></div>
+        </div></dd>
+		<br>
+  		<label for="dutypaid">Duty Paid</label><br>
+		<dd><div class="docs-datepicker">
+          <div class="input-group">
+            <input type="text" class="form-control docs-date" id="dutypaid" name="dutypaid" placeholder="Duty Paid Date">
+            <div class="input-group-append">
+            </div>
+          </div>
+          <div class="docs-datepicker-container"></div>
+        </div></dd>
+		<br>
+  		<label for="customover">Custom Part Over</label>
+  		<input type="text" id="customover" name="customover" value="no" readonly="readonly">
   		<br>
   		<hr>
 
-  		<label for="ms3">MS3</label>
-  		<input type="text" id="ms3" name="ms3" value="no" readonly="readonly">
-  		<br>
-  		<label for="ms1s1">MS3-stage1</label><br>
-  		<input type="radio" name="ms3s1" id="ms3s1" value="no" checked> No<br>
-  		<input type="radio" name="ms3s1" id="ms3s1" value="yes"> Yes<br>
-  		<br>
-  		<label for="ms1s2">MS3-stage2</label><br>
-  		<input type="radio" name="ms3s2" id="ms3s2" value="no" checked> No<br>
-  		<input type="radio" name="ms3s2" id="ms3s2" value="yes"> Yes<br>
-  		<br>
-  		<label for="ms1s3">MS3-stage3</label><br>
-  		<input type="radio" name="ms3s3" id="ms3s3" value="no" checked> No<br>
-  		<input type="radio" name="ms3s3" id="ms3s3" value="yes"> Yes<br>
+  		<label for="cfsover">CFS/Doc Assess Over</label><br>
+		<dd><div class="docs-datepicker">
+          <div class="input-group">
+            <input type="text" class="form-control docs-date" id="cfsover" name="cfsover" placeholder="CFS/Doc Assess Over Date">
+            <div class="input-group-append">
+            </div>
+          </div>
+          <div class="docs-datepicker-container"></div>
+        </div></dd>
+		<br>
+  		<label for="cargorel">Cargo Released</label><br>
+		<dd><div class="docs-datepicker">
+          <div class="input-group">
+            <input type="text" class="form-control docs-date" id="cargorel" name="cargorel" placeholder="Cargo Released Date">
+            <div class="input-group-append">
+            </div>
+          </div>
+          <div class="docs-datepicker-container"></div>
+        </div></dd>
+		<br>
+  		<label for="dockover">Dock Part Over</label>
+  		<input type="text" id="dockover" name="dockover" value="no" readonly="readonly">
   		<br>
   		<hr>
 
-  		<label for="gstin">GSTIN :</label>
-  		<input type="text" id="gstin" name="gstin">
+  		<label for="cargotruck">Cargo shift to truck</label><br>
+		<dd><div class="docs-datepicker">
+          <div class="input-group">
+            <input type="text" class="form-control docs-date" id="cargotruck" name="cargotruck" placeholder="Cargo shift to truck Date">
+            <div class="input-group-append">
+            </div>
+          </div>
+          <div class="docs-datepicker-container"></div>
+        </div></dd>
+		<br>
+  		<label for="delvclient">Delivery at client space</label><br>
+		<dd><div class="docs-datepicker">
+          <div class="input-group">
+            <input type="text" class="form-control docs-date" id="delvclient" name="delvclient" placeholder="Delivery at client space Date">
+            <div class="input-group-append">
+            </div>
+          </div>
+          <div class="docs-datepicker-container"></div>
+        </div></dd>
+		<br>
+  		<label for="delvover">Client Delv Over</label>
+  		<input type="text" id="delvover" name="delvover" value="no" readonly="readonly">
   		<br>
+  		<hr>
+
+  		<label for="slotextn">Slot Extn if required</label><br>
+		<dd><div class="docs-datepicker">
+          <div class="input-group">
+            <input type="text" class="form-control docs-date" id="slotextn" name="slotextn" placeholder="Slot Extn if required Date">
+            <div class="input-group-append">
+            </div>
+          </div>
+          <div class="docs-datepicker-container"></div>
+        </div></dd>
+		<br>
+  		<label for="emptydep">Empty Deposit</label><br>
+		<dd><div class="docs-datepicker">
+          <div class="input-group">
+            <input type="text" class="form-control docs-date" id="emptydep" name="emptydep" placeholder="Empty Deposit Date">
+            <div class="input-group-append">
+            </div>
+          </div>
+          <div class="docs-datepicker-container"></div>
+        </div></dd>
+		<br>
+  		<label for="shipping2over">Shipping 2nd Part Over</label>
+  		<input type="text" id="shipping2over" name="shipping2over" value="no" readonly="readonly">
+  		<br>
+  		<hr>
 
 		<button type="submit">Submit</button>
 	</form>
@@ -202,240 +342,6 @@ var $table = $('#table');
 
 <script type="text/javascript">
 
-	function showFullTable() {
-		var table = document.getElementById("table");
-		var tr = table.getElementsByTagName("tr");
-		for (var i = 1; i < tr.length; i++) {
-			for (var j = 0; j < tr[0].getElementsByTagName('th').length; j++) {
-				tr[i].getElementsByTagName('td')[j].style.display = "";
-			}
-		}
-
-		for (var i = 0; i < tr[0].getElementsByTagName('th').length; i++) {
-			tr[0].getElementsByTagName('th')[i].style.display = "";
-		}
-	}
-
-	function filtertable(mainObj, special) {
-
-		var table = document.getElementById("table");
-		var tr = table.getElementsByTagName("tr");
-		var myId = mainObj.id;
-
-		if(special == 4) {
-
-			if(document.getElementById('ms1f').checked) {
-				document.getElementById('ms1s1f').checked = true;
-				document.getElementById('ms1s2f').checked = true;
-				document.getElementById('ms1s3f').checked = true;
-
-				document.getElementById('ms1s1f').disabled = false;
-				document.getElementById('ms1s2f').disabled = false;
-				document.getElementById('ms1s3f').disabled = false;
-
-				document.getElementById('ms2f').disabled = true;
-				document.getElementById('ms2s1f').disabled = true;
-				document.getElementById('ms2s2f').disabled = true;
-				document.getElementById('ms2s3f').disabled = true;
-	
-				document.getElementById('ms3f').disabled = true;
-				document.getElementById('ms3s1f').disabled = true;
-				document.getElementById('ms3s2f').disabled = true;
-				document.getElementById('ms3s3f').disabled = true;
-			} else {
-				showFullTable();
-				document.getElementById('ms1s1f').checked = false;
-				document.getElementById('ms1s2f').checked = false;
-				document.getElementById('ms1s3f').checked = false;
-
-				document.getElementById('ms1s1f').disabled = true;
-				document.getElementById('ms1s2f').disabled = true;
-				document.getElementById('ms1s3f').disabled = true;
-
-				document.getElementById('ms2f').disabled = false;
-				document.getElementById('ms2s1f').disabled = true;
-				document.getElementById('ms2s2f').disabled = true;
-				document.getElementById('ms2s3f').disabled = true;
-	
-				document.getElementById('ms3f').disabled = false;
-				document.getElementById('ms3s1f').disabled = true;
-				document.getElementById('ms3s2f').disabled = true;
-				document.getElementById('ms3s3f').disabled = true;	
-				return;		
-			}
-		}
-
-		if(special == 8) {
-
-			if(document.getElementById('ms2f').checked) {
-				document.getElementById('ms2s1f').checked = true;
-				document.getElementById('ms2s2f').checked = true;
-				document.getElementById('ms2s3f').checked = true;
-
-				document.getElementById('ms2s1f').disabled = false;
-				document.getElementById('ms2s2f').disabled = false;
-				document.getElementById('ms2s3f').disabled = false;
-
-				document.getElementById('ms1f').disabled = true;
-				document.getElementById('ms1s1f').disabled = true;
-				document.getElementById('ms1s2f').disabled = true;
-				document.getElementById('ms1s3f').disabled = true;
-	
-				document.getElementById('ms3f').disabled = true;
-				document.getElementById('ms3s1f').disabled = true;
-				document.getElementById('ms3s2f').disabled = true;
-				document.getElementById('ms3s3f').disabled = true;
-			} else {
-				showFullTable();
-				document.getElementById('ms2s1f').checked = false;
-				document.getElementById('ms2s2f').checked = false;
-				document.getElementById('ms2s3f').checked = false;
-
-				document.getElementById('ms2s1f').disabled = true;
-				document.getElementById('ms2s2f').disabled = true;
-				document.getElementById('ms2s3f').disabled = true;
-
-				document.getElementById('ms1f').disabled = false;
-				document.getElementById('ms1s1f').disabled = true;
-				document.getElementById('ms1s2f').disabled = true;
-				document.getElementById('ms1s3f').disabled = true;
-	
-				document.getElementById('ms3f').disabled = false;
-				document.getElementById('ms3s1f').disabled = true;
-				document.getElementById('ms3s2f').disabled = true;
-				document.getElementById('ms3s3f').disabled = true;
-				return;
-			}
-		}
-
-		if(special == 12) {
-
-			if(document.getElementById('ms3f').checked) {
-				document.getElementById('ms3s1f').checked = true;
-				document.getElementById('ms3s2f').checked = true;
-				document.getElementById('ms3s3f').checked = true;
-
-				document.getElementById('ms3s1f').disabled = false;
-				document.getElementById('ms3s2f').disabled = false;
-				document.getElementById('ms3s3f').disabled = false;
-
-				document.getElementById('ms2f').disabled = true;
-				document.getElementById('ms2s1f').disabled = true;
-				document.getElementById('ms2s2f').disabled = true;
-				document.getElementById('ms2s3f').disabled = true;
-	
-				document.getElementById('ms1f').disabled = true;
-				document.getElementById('ms1s1f').disabled = true;
-				document.getElementById('ms1s2f').disabled = true;
-				document.getElementById('ms1s3f').disabled = true;
-			} else {
-				showFullTable();
-				document.getElementById('ms3s1f').checked = false;
-				document.getElementById('ms3s2f').checked = false;
-				document.getElementById('ms3s3f').checked = false;
-
-				document.getElementById('ms3s1f').disabled = true;
-				document.getElementById('ms3s2f').disabled = true;
-				document.getElementById('ms3s3f').disabled = true;
-
-				document.getElementById('ms2f').disabled = false;
-				document.getElementById('ms2s1f').disabled = true;
-				document.getElementById('ms2s2f').disabled = true;
-				document.getElementById('ms2s3f').disabled = true;
-	
-				document.getElementById('ms1f').disabled = false;
-				document.getElementById('ms1s1f').disabled = true;
-				document.getElementById('ms1s2f').disabled = true;
-				document.getElementById('ms1s3f').disabled = true;
-				return;
-			}
-		}
-
-		var hdri;
-		for (var i = 0; i < tr[0].getElementsByTagName('th').length; i++) {
-			if(tr[0].getElementsByTagName('th')[i].id.slice(0, -1) == myId.slice(0, -1)) {
-				hdri = i;
-			}
-		}
-
-		console.log(hdri);
-
-		if(!document.getElementById(myId).checked) {
-
-			for (var i = 1; i < tr.length; i++) {
-	
-				for (var j = 4; j < tr[0].getElementsByTagName('th').length - 1; j++) {
-	
-					if(j == hdri) {
-						tr[i].getElementsByTagName('td')[j].style.display = "none";
-					}
-
-					if(special == j) {
-						j += 4;
-					}
-	
-				}
-			}
-
-			for (var i = 4; i < tr[0].getElementsByTagName('th').length - 1; i++) {
-	
-				if(i == hdri) {
-					tr[0].getElementsByTagName('th')[i].style.display = "none";
-				}
-	
-				if(special == i) {
-					i += 4;
-				}
-	
-			}
-
-			return;
-		}
-
-		showFullTable();
-
-		for (var i = 1; i < tr.length; i++) {
-
-			if(tr[i].getElementsByTagName('td')[hdri].innerHTML == 'no') {
-
-				for (var j = 0; j < tr[0].getElementsByTagName('th').length; j++) {
-					tr[i].getElementsByTagName('td')[j].style.display = "none";
-				}
-
-				continue;
-			}
-
-			for (var j = 4; j < tr[0].getElementsByTagName('th').length - 1; j++) {
-
-				if(j == hdri) {
-					tr[i].getElementsByTagName('td')[j].style.display = "";
-				} else {
-					tr[i].getElementsByTagName('td')[j].style.display = "none";
-				}
-
-				if(special == j) {
-					j += 4;
-				}
-
-			}
-		}
-
-		for (var i = 4; i < tr[0].getElementsByTagName('th').length - 1; i++) {
-
-			if(i == hdri) {
-				tr[0].getElementsByTagName('th')[i].style.display = "";
-			} else {
-				tr[0].getElementsByTagName('th')[i].style.display = "none";
-			}
-
-			if(special == i) {
-				i += 4;
-			}
-
-		}
-
-	}
-
 	$(function(){
 		$('select[name="jobOwn"]').change(function(){
 
@@ -455,31 +361,31 @@ var $table = $('#table');
 	// ms1
 
 	$(function(){
-		$('input[type=radio][name=ms1s1]').change(function(){
-			if( $( 'input[name=ms1s1]:checked' ).val() == 'yes' && $( 'input[name=ms1s2]:checked' ).val() == 'yes' && $( 'input[name=ms1s3]:checked' ).val() == 'yes' ) {
-	    				document.getElementById('ms1').value = 'yes';
+		$('input[type=text][name=bondready]').change(function(){
+			if( $( 'input[name=bondready]' ).val() && $( 'input[name=dobill]' ).val() && $( 'input[name=doready]' ).val() ) {
+	    				document.getElementById('shipping1over').value = 'yes';
 	    			} else {
-	    				document.getElementById('ms1').value = 'no';
+	    				document.getElementById('shipping1over').value = 'no';
 	    			}
 		});
 	});
 
 	$(function(){
-		$('input[type=radio][name=ms1s2]').change(function(){
-			if( $( 'input[name=ms1s1]:checked' ).val() == 'yes' && $( 'input[name=ms1s2]:checked' ).val() == 'yes' && $( 'input[name=ms1s3]:checked' ).val() == 'yes' ) {
-	    				document.getElementById('ms1').value = 'yes';
+		$('input[type=text][name=dobill]').change(function(){
+			if( $( 'input[name=bondready]' ).val() && $( 'input[name=dobill]' ).val() && $( 'input[name=doready]' ).val() ) {
+	    				document.getElementById('shipping1over').value = 'yes';
 	    			} else {
-	    				document.getElementById('ms1').value = 'no';
+	    				document.getElementById('shipping1over').value = 'no';
 	    			}
 		});
 	});
 
 	$(function(){
-		$('input[type=radio][name=ms1s3]').change(function(){
-			if( $( 'input[name=ms1s1]:checked' ).val() == 'yes' && $( 'input[name=ms1s2]:checked' ).val() == 'yes' && $( 'input[name=ms1s3]:checked' ).val() == 'yes' ) {
-	    				document.getElementById('ms1').value = 'yes';
+		$('input[type=text][name=doready]').change(function(){
+			if( $( 'input[name=bondready]' ).val() && $( 'input[name=dobill]' ).val() && $( 'input[name=doready]' ).val() ) {
+	    				document.getElementById('shipping1over').value = 'yes';
 	    			} else {
-	    				document.getElementById('ms1').value = 'no';
+	    				document.getElementById('shipping1over').value = 'no';
 	    			}
 		});
 	});
@@ -489,32 +395,33 @@ var $table = $('#table');
 	// ms2
 
 	$(function(){
-		$('input[type=radio][name=ms2s1]').change(function(){
-			if( $( 'input[name=ms2s1]:checked' ).val() == 'yes' && $( 'input[name=ms2s2]:checked' ).val() == 'yes' && $( 'input[name=ms2s3]:checked' ).val() == 'yes' ) {
-	    				document.getElementById('ms2').value = 'yes';
+		$('input[type=text][name=befilled]').change(function(){
+			if( $( 'input[name=befilled]' ).val() && $( 'input[name=bereleased]' ).val() && $( 'input[name=dutypaid]' ).val() ) {
+	    				document.getElementById('customover').value = 'yes';
 	    			} else {
-	    				document.getElementById('ms2').value = 'no';
+	    				document.getElementById('customover').value = 'no';
 	    			}
 		});
 	});
 
 	$(function(){
-		$('input[type=radio][name=ms2s2]').change(function(){
-			if( $( 'input[name=ms2s1]:checked' ).val() == 'yes' && $( 'input[name=ms2s2]:checked' ).val() == 'yes' && $( 'input[name=ms2s3]:checked' ).val() == 'yes' ) {
-	    				document.getElementById('ms2').value = 'yes';
+		$('input[type=text][name=bereleased]').change(function(){
+			if( $( 'input[name=befilled]' ).val() && $( 'input[name=bereleased]' ).val() && $( 'input[name=dutypaid]' ).val() ) {
+	    				document.getElementById('customover').value = 'yes';
 	    			} else {
-	    				document.getElementById('ms2').value = 'no';
+	    				document.getElementById('customover').value = 'no';
 	    			}
 		});
 	});
 
 	$(function(){
-		$('input[type=radio][name=ms2s3]').change(function(){
-			if( $( 'input[name=ms2s1]:checked' ).val() == 'yes' && $( 'input[name=ms2s2]:checked' ).val() == 'yes' && $( 'input[name=ms2s3]:checked' ).val() == 'yes' ) {
-	    				document.getElementById('ms2').value = 'yes';
+		$('input[type=text][name=dutypaid]').change(function(){
+			if( $( 'input[name=befilled]' ).val() && $( 'input[name=bereleased]' ).val() && $( 'input[name=dutypaid]' ).val() ) {
+	    				document.getElementById('customover').value = 'yes';
 	    			} else {
-	    				document.getElementById('ms2').value = 'no';
-	    			}		});
+	    				document.getElementById('customover').value = 'no';
+	    			}
+		});
 	});
 
 	// ms2 end
@@ -522,37 +429,79 @@ var $table = $('#table');
 	// ms3
 
 	$(function(){
-		$('input[type=radio][name=ms3s1]').change(function(){
-			if( $( 'input[name=ms3s1]:checked' ).val() == 'yes' && $( 'input[name=ms3s2]:checked' ).val() == 'yes' && $( 'input[name=ms3s3]:checked' ).val() == 'yes' ) {
-	    				document.getElementById('ms3').value = 'yes';
+		$('input[type=text][name=cfsover]').change(function(){
+			if( $( 'input[name=cfsover]' ).val() && $( 'input[name=cargorel]' ).val() ) {
+	    				document.getElementById('dockover').value = 'yes';
 	    			} else {
-	    				document.getElementById('ms3').value = 'no';
+	    				document.getElementById('dockover').value = 'no';
 	    			}
 		});
 	});
 
 	$(function(){
-		$('input[type=radio][name=ms3s2]').change(function(){
-			if( $( 'input[name=ms3s1]:checked' ).val() == 'yes' && $( 'input[name=ms3s2]:checked' ).val() == 'yes' && $( 'input[name=ms3s3]:checked' ).val() == 'yes' ) {
-	    				document.getElementById('ms3').value = 'yes';
+		$('input[type=text][name=cargorel]').change(function(){
+			if( $( 'input[name=cfsover]' ).val() && $( 'input[name=cargorel]' ).val() ) {
+	    				document.getElementById('dockover').value = 'yes';
 	    			} else {
-	    				document.getElementById('ms3').value = 'no';
-	    			}
-		});
-	});
-
-	$(function(){
-		$('input[type=radio][name=ms3s3]').change(function(){
-			if( $( 'input[name=ms3s1]:checked' ).val() == 'yes' && $( 'input[name=ms3s2]:checked' ).val() == 'yes' && $( 'input[name=ms3s3]:checked' ).val() == 'yes' ) {
-	    				document.getElementById('ms3').value = 'yes';
-	    			} else {
-	    				document.getElementById('ms3').value = 'no';
+	    				document.getElementById('dockover').value = 'no';
 	    			}
 		});
 	});
 
 	// ms3 end
 
+	// ms4
+
+	$(function(){
+		$('input[type=text][name=cargotruck]').change(function(){
+			if( $( 'input[name=cargotruck]' ).val() && $( 'input[name=delvclient]' ).val() ) {
+	    				document.getElementById('delvover').value = 'yes';
+	    			} else {
+	    				document.getElementById('delvover').value = 'no';
+	    			}
+		});
+	});
+
+	$(function(){
+		$('input[type=text][name=delvclient]').change(function(){
+			if( $( 'input[name=cargotruck]' ).val() && $( 'input[name=delvclient]' ).val() ) {
+	    				document.getElementById('delvover').value = 'yes';
+	    			} else {
+	    				document.getElementById('delvover').value = 'no';
+	    			}
+		});
+	});
+
+	// ms4 end
+
+	// ms5
+
+	$(function(){
+		$('input[type=text][name=slotextn]').change(function(){
+			if( $( 'input[name=cargotruck]' ).val() && $( 'input[name=emptydep]' ).val() ) {
+	    				document.getElementById('shipping2over').value = 'yes';
+	    			} else {
+	    				document.getElementById('shipping2over').value = 'no';
+	    			}
+		});
+	});
+
+	$(function(){
+		$('input[type=text][name=emptydep]').change(function(){
+			if( $( 'input[name=slotextn]' ).val() && $( 'input[name=emptydep]' ).val() ) {
+	    				document.getElementById('shipping2over').value = 'yes';
+	    			} else {
+	    				document.getElementById('shipping2over').value = 'no';
+	    			}
+		});
+	});
+
+	// ms5 end
+
 </script>
+
+<script type="text/javascript" src="https://fengyuanchen.github.io/datepicker/js/datepicker.js"></script>
+<script type="text/javascript" src="https://fengyuanchen.github.io/datepicker/js/datepicker.en-US.js"></script>
+<script type="text/javascript" src="https://fengyuanchen.github.io/datepicker/js/main.js"></script>
 
 </html>
