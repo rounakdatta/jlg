@@ -21,6 +21,41 @@ db = firebase.database()
 def index():
 	return render_template('index.html')
 
+
+# job number database
+@app.route('/jobnodb', methods=['GET', 'POST'])
+def jobno():
+	return render_template('jobIndex.html')
+
+
+# new job entry
+@app.route('/jobnodb/new', methods=['GET', 'POST'])
+def newjob():
+
+	############################## prefetch data #############################################
+
+	# get all the current client entries
+	all_jc = db.child("jlg_main").child('jlg_clients').get()
+	all_job_clients = []
+
+	try:
+		for item in all_jc.each():
+			all_job_clients.append(item.val())
+	except:
+		print("Empty Client Database")
+
+	############################## prefetch data end #############################################
+
+	if request.method == 'POST':
+		db.child("jlg_main").child("jlg_execution")
+		data = {'jobno1': request.form['jobno1'], 'jobno2': request.form['jobno2'], 'jobopen': request.form['jobopen'], 'clientname': request.form['clientname'], 'jobBelong': request.form['jobBelong'], 'jobOwn': request.form['jobOwn'], 'jobProfit': request.form['jobProfit'], 'packageq': request.form['packageq'], 'ncontainer': request.form['ncontainer'], 'cargotype': request.form['cargotype'], 'commodity': request.form['commodity'], 'invoice': request.form['invoice'], 'bondready' : '', 'dobill' : '', 'doready' : '', 'shipping1over' : 'no', 'befilled' : '', 'bereleased' : '', 'dutypaid' : '', 'customover' : 'no', 'cfsover' : '', 'cargorel' : '', 'dockover' : 'no', 'cargotruck' : '', 'delvclient' : '', 'delvover' : 'no', 'slotextn' : '', 'emptydep' : '', 'shipping2over' : 'no', 'jobComplete' : 'no', 'jobCloseDate' : ''}
+		db.push(data)
+
+		return render_template('index.html')
+
+	return render_template('newJob.html', allClients=all_job_clients)
+
+
 # job profit database
 @app.route('/jobprofitdb', methods=['GET', 'POST'])
 def jobprofitdb():
@@ -44,6 +79,7 @@ def jobprofitdb():
 
 	return render_template('jobprofit.html', allJobs=all_job_profits)
 
+
 # job belonging database
 @app.route('/jobbelongdb', methods=['GET', 'POST'])
 def jobbelongdb():
@@ -66,6 +102,7 @@ def jobbelongdb():
 		return render_template('index.html')
 
 	return render_template('jobbelong.html', allJobs=all_job_belong)
+
 
 # job owner database
 @app.route('/jobownerdb', methods=['GET', 'POST'])
@@ -99,6 +136,7 @@ def jobownerdb():
 		return render_template('index.html')
 
 	return render_template('jobowner.html', allJobs=all_job_owners, jobProfits=all_job_profits)
+
 
 # client database
 @app.route('/clientdb', methods=['GET', 'POST'])
@@ -153,6 +191,7 @@ def clientdb():
 
 
 	return render_template('client.html', allClients=all_job_clients, allJobs=all_job_owners, jobProfits=all_job_profits, jobBelongs=all_job_belong)
+
 
 # index page for exec
 @app.route('/exec', methods=['GET', 'POST'])
@@ -215,6 +254,7 @@ def updateAPI(objectId, attributeId):
 
 	return render_template('index.html')
 
+
 # open jobs page for exec
 @app.route('/exec/open', methods=['GET', 'POST'])
 def execFilterOpen():
@@ -237,6 +277,7 @@ def execFilterOpen():
 
 	return render_template('execData.html', allExec=all_job_exec_val, myKeys=all_job_exec_key, what='Open')
 
+
 # closed jobs page for exec
 @app.route('/exec/closed', methods=['GET', 'POST'])
 def execFilterClosed():
@@ -258,6 +299,7 @@ def execFilterClosed():
 	print(all_job_exec_key)
 
 	return render_template('execData.html', allExec=all_job_exec_val, myKeys=all_job_exec_key, what='Closed')
+
 
 # execution database API (don't use - only for mass data push)
 @app.route('/execstatusdb', methods=['GET', 'POST'])
