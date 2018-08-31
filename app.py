@@ -157,7 +157,54 @@ def clientdb():
 # index page for exec
 @app.route('/exec', methods=['GET', 'POST'])
 def execIndex():
-	return render_template('execIndex.html')
+	checkDataConsistency()
+
+	# get all the current client entries
+	all_je = db.child("jlg_main").child('jlg_execution').get()
+	all_job_exec = []
+
+	try:
+		for item in all_je.each():
+			all_job_exec.append(item.val())
+	except:
+		print("Empty Execution Database")
+
+	return render_template('execIndex.html', allExec=all_job_exec)
+
+
+def checkDataConsistency():
+	all_je = db.child("jlg_main").child('jlg_execution').get()
+
+	payload = []
+
+	try:
+		for item in all_je.each():
+
+			if item.val()['bondready'] != '' and item.val()['dobill'] != '' and item.val()['doready'] != '':
+				db.child("jlg_main").child('jlg_execution').child(item.key()).update({'shipping1over': 'yes'})
+
+			if item.val()['befilled'] != '' and item.val()['bereleased'] != '' and item.val()['dutypaid'] != '':
+				db.child("jlg_main").child('jlg_execution').child(item.key()).update({'customover': 'yes'})
+
+			if item.val()['cfsover'] != '' and item.val()['cargorel'] != '':
+				db.child("jlg_main").child('jlg_execution').child(item.key()).update({'dockover': 'yes'})
+
+			if item.val()['cargotruck'] != '' and item.val()['delvclient'] != '':
+				db.child("jlg_main").child('jlg_execution').child(item.key()).update({'delvover': 'yes'})
+
+			if item.val()['slotextn'] != '' and item.val()['emptydep'] != '':
+				db.child("jlg_main").child('jlg_execution').child(item.key()).update({'shipping2over': 'yes'})
+
+			# final one
+			if item.val()['shipping1over'] == 'yes' and item.val()['customover'] == 'yes' and item.val()['dockover'] == 'yes' and item.val()['delvover'] == 'yes' and item.val()['shipping2over'] == 'yes':
+				db.child("jlg_main").child('jlg_execution').child(item.key()).update({'jobComplete': 'yes'})
+
+			payload.append(item.val())
+
+	except Exception as e:
+		print(e)
+		print("Empty Execution Database")
+
 
 # update API (restricted use)
 @app.route('/updateAPI/<objectId>/<attributeId>', methods=['GET', 'POST'])
@@ -196,20 +243,23 @@ def execFilterClosed():
 
 	# get all the current client entries
 	all_je = db.child("jlg_main").child('jlg_execution').get()
-
-	all_job_exec = []
+	all_job_exec_key = []
+	all_job_exec_val = []
 
 	try:
 		for item in all_je.each():
 			if(item.val()['jobComplete'] == 'yes'):
-				all_job_exec.append(item.val())
+				all_job_exec_key.append(item.key())
+				all_job_exec_val.append(item.val())
 	except Exception as e:
 		print(e)
 		print("Empty Execution Database")
 
-	return render_template('execData.html', allExec=all_job_exec, what='Closed')
+	print(all_job_exec_key)
 
-# execution database API (don't use)
+	return render_template('execData.html', allExec=all_job_exec_val, myKeys=all_job_exec_key, what='Closed')
+
+# execution database API (don't use - only for mass data push)
 @app.route('/execstatusdb', methods=['GET', 'POST'])
 def execstatusdb():
 
