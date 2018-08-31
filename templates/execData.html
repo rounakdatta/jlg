@@ -6,10 +6,22 @@
 <link rel='stylesheet' href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'><link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.0/bootstrap-table.min.css'><link rel='stylesheet' href='//rawgit.com/vitalets/x-editable/master/dist/bootstrap3-editable/css/bootstrap-editable.css'>
 <style class="cp-pen-styles"></style>
 <link rel="stylesheet" href="https://fengyuanchen.github.io/datepicker/css/datepicker.css">
+
+<style type="text/css">
+	
+	.xyz {
+		display: table-cell;
+	}
+
+</style>
+
 </head>
 <body>
 
 	<h1>Job Execution Database [{{what}}]</h1>
+
+	<a href="/">BACK</a>
+	<br><br>
 
 	<input type="button" id="shipping1" value="Shipping 1st Part"></input>
 	<input type="button" id="custom" value="Custom Part"></button>
@@ -100,23 +112,89 @@
 		   <td style="text-align:center;" class="j2">{{client['jobno2']}}</td>
 		   <td style="text-align:center;" class="j3">{{client['jobopen']}}</td>
 		   <td style="text-align:center;" class="j4">{{client['clientname']}}</td>
-		   <td style="text-align:center;" class="j5">{{client['bondready']}}</td>
-		   <td style="text-align:center;" class="j5">{{client['dobill']}}</td>
-		   <td style="text-align:center;" class="j5">{{client['doready']}}</td>
+
+		   {% if client['bondready'] == "" %}
+		   <td class="xyz btn btn-default btn-block clickable-cell" data-href='/updateAPI/{{myKeys[loop.index0]}}/bondready'>✅ Done</td>
+		   {% else %}
+		   	<td style="text-align:center;">{{client['bondready']}}</td>
+		   {% endif %}
+
+		   {% if client['dobill'] == "" %}
+		   <td class="xyz btn btn-default btn-block clickable-cell" data-href='/updateAPI/{{myKeys[loop.index0]}}/dobill'>✅ Done</td>
+		   {% else %}
+		   <td style="text-align:center;">{{client['dobill']}}</td>
+		   {% endif %}
+
+		   {% if client['doready'] == "" %}
+		   <td class="xyz btn btn-default btn-block clickable-cell" data-href='/updateAPI/{{myKeys[loop.index0]}}/doready'>✅ Done</td>
+		   {% else %}
+		   	<td style="text-align:center;">{{client['doready']}}</td>
+		   {% endif %}
+
 		   <td style="text-align:center;" class="j5">{{client['shipping1over']}}</td>
-		   <td style="text-align:center;" class="j6">{{client['befilled']}}</td>
-		   <td style="text-align:center;" class="j6">{{client['bereleased']}}</td>
-		   <td style="text-align:center;" class="j6">{{client['dutypaid']}}</td>
+
+		   {% if client['befilled'] == "" %}
+		   <td class="xyz btn btn-default btn-block clickable-cell" data-href='/updateAPI/{{myKeys[loop.index0]}}/befilled'>✅ Done</td>
+		   {% else %}
+		   	<td style="text-align:center;">{{client['befilled']}}</td>
+		   {% endif %}
+
+		   {% if client['bereleased'] == "" %}
+		   <td class="xyz btn btn-default btn-block clickable-cell" data-href='/updateAPI/{{myKeys[loop.index0]}}/bereleased'>✅ Done</td>
+		   {% else %}
+		   	<td style="text-align:center;">{{client['bereleased']}}</td>
+		   {% endif %}
+
+		   {% if client['dutypaid'] == "" %}
+		   <td class="xyz btn btn-default btn-block clickable-cell" data-href='/updateAPI/{{myKeys[loop.index0]}}/dutypaid'>✅ Done</td>
+		   {% else %}
+		   	<td style="text-align:center;">{{client['dutypaid']}}</td>
+		   {% endif %}
+
 		   <td style="text-align:center;" class="j6">{{client['customover']}}</td>
-		   <td style="text-align:center;" class="j7">{{client['cfsover']}}</td>
-		   <td style="text-align:center;" class="j7">{{client['cargorel']}}</td>
+
+		   {% if client['cfsover'] == "" %}
+		   <td class="xyz btn btn-default btn-block clickable-cell" data-href='/updateAPI/{{myKeys[loop.index0]}}/cfsover'>✅ Done</td>
+		   {% else %}
+		   	<td style="text-align:center;">{{client['cfsover']}}</td>
+		   {% endif %}
+
+		   {% if client['cargorel'] == "" %}
+		   <td class="xyz btn btn-default btn-block clickable-cell" data-href='/updateAPI/{{myKeys[loop.index0]}}/cargorel'>✅ Done</td>
+		   {% else %}
+		   	<td style="text-align:center;">{{client['cargorel']}}</td>
+		   {% endif %}
+
 		   <td style="text-align:center;" class="j7">{{client['dockover']}}</td>
-		   <td style="text-align:center;" class="j7">{{client['cargotruck']}}</td>
-		   <td style="text-align:center;" class="j8">{{client['delvclient']}}</td>
+
+		   {% if client['cargotruck'] == "" %}
+		   <td class="xyz btn btn-default btn-block clickable-cell" data-href='/updateAPI/{{myKeys[loop.index0]}}/cargotruck'>✅ Done</td>
+		   {% else %}
+		   	<td style="text-align:center;">{{client['cargotruck']}}</td>
+		   {% endif %}
+
+		   {% if client['delvclient'] == "" %}
+		   <td class="xyz btn btn-default btn-block clickable-cell" data-href='/updateAPI/{{myKeys[loop.index0]}}/delvclient'>✅ Done</td>
+		   {% else %}
+		   	<td style="text-align:center;">{{client['delvclient']}}</td>
+		   {% endif %}
+
 		   <td style="text-align:center;" class="j8">{{client['delvover']}}</td>
-		   <td style="text-align:center;" class="j8">{{client['slotextn']}}</td>
-		   <td style="text-align:center;" class="j8">{{client['emptydep']}}</td>
+
+		   {% if client['slotextn'] == "" %}
+		   <td class="xyz btn btn-default btn-block clickable-cell" data-href='/updateAPI/{{myKeys[loop.index0]}}/slotextn'>✅ Done</td>
+		   {% else %}
+		   	<td style="text-align:center;">{{client['slotextn']}}</td>
+		   {% endif %}
+
+		   {% if client['emptydep'] == "" %}
+		   <td class="xyz btn btn-default btn-block clickable-cell" data-href='/updateAPI/{{myKeys[loop.index0]}}/emptydep'>✅ Done</td>
+		   {% else %}
+		   	<td style="text-align:center;">{{client['emptydep']}}</td>
+		   {% endif %}
+		   
 		   <td style="text-align:center;" class="j8">{{client['shipping2over']}}</td>
+
 		   <td style="text-align:center;" class="j8">{{client['jobComplete']}}</td>
 		</tr>
 		{% endfor %}
@@ -157,6 +235,7 @@ var $table = $('#table');
 	$(function() {
       $("#shipping1").click( function()
            {
+           	showMeAll();
              $('#table').bootstrapTable('hideColumn', "befilled");
              $('#table').bootstrapTable('hideColumn', "bereleased");
              $('#table').bootstrapTable('hideColumn', "dutypaid");
@@ -169,19 +248,14 @@ var $table = $('#table');
              $('#table').bootstrapTable('hideColumn', "delvover");
              $('#table').bootstrapTable('hideColumn', "slotextn");
              $('#table').bootstrapTable('hideColumn', "emptydep");
-             $('#table').bootstrapTable('hideColumn', "shipping2over");
-             $('#shipping1').prop('disabled', true);
-             $('#custom').prop('disabled', true);
-             $('#dock').prop('disabled', true);
-             $('#delv').prop('disabled', true);
-             $('#shipping2').prop('disabled', true);
-           }
+             $('#table').bootstrapTable('hideColumn', "shipping2over");           }
       );
 	});
 
 	$(function() {
       $("#custom").click( function()
            {
+           	showMeAll();
              $('#table').bootstrapTable('hideColumn', "bondready");
              $('#table').bootstrapTable('hideColumn', "dobill");
              $('#table').bootstrapTable('hideColumn', "doready");
@@ -195,11 +269,6 @@ var $table = $('#table');
              $('#table').bootstrapTable('hideColumn', "slotextn");
              $('#table').bootstrapTable('hideColumn', "emptydep");
              $('#table').bootstrapTable('hideColumn', "shipping2over");
-             $('#shipping1').prop('disabled', true);
-             $('#custom').prop('disabled', true);
-             $('#dock').prop('disabled', true);
-             $('#delv').prop('disabled', true);
-             $('#shipping2').prop('disabled', true);
            }
       );
 	});
@@ -207,6 +276,7 @@ var $table = $('#table');
 	$(function() {
       $("#dock").click( function()
            {
+           	showMeAll();
              $('#table').bootstrapTable('hideColumn', "bondready");
              $('#table').bootstrapTable('hideColumn', "dobill");
              $('#table').bootstrapTable('hideColumn', "doready");
@@ -221,11 +291,6 @@ var $table = $('#table');
              $('#table').bootstrapTable('hideColumn', "slotextn");
              $('#table').bootstrapTable('hideColumn', "emptydep");
              $('#table').bootstrapTable('hideColumn', "shipping2over");
-             $('#shipping1').prop('disabled', true);
-             $('#custom').prop('disabled', true);
-             $('#dock').prop('disabled', true);
-             $('#delv').prop('disabled', true);
-             $('#shipping2').prop('disabled', true);
            }
       );
   });
@@ -233,6 +298,7 @@ var $table = $('#table');
 	$(function() {
       $("#delv").click( function()
            {
+           	showMeAll();
              $('#table').bootstrapTable('hideColumn', "bondready");
              $('#table').bootstrapTable('hideColumn', "dobill");
              $('#table').bootstrapTable('hideColumn', "doready");
@@ -247,11 +313,6 @@ var $table = $('#table');
              $('#table').bootstrapTable('hideColumn', "slotextn");
              $('#table').bootstrapTable('hideColumn', "emptydep");
              $('#table').bootstrapTable('hideColumn', "shipping2over");
-             $('#shipping1').prop('disabled', true);
-             $('#custom').prop('disabled', true);
-             $('#dock').prop('disabled', true);
-             $('#delv').prop('disabled', true);
-             $('#shipping2').prop('disabled', true);
            }
       );
   });
@@ -259,6 +320,7 @@ var $table = $('#table');
 	$(function() {
       $("#shipping2").click( function()
            {
+           	showMeAll();
              $('#table').bootstrapTable('hideColumn', "bondready");
              $('#table').bootstrapTable('hideColumn', "dobill");
              $('#table').bootstrapTable('hideColumn', "doready");
@@ -273,18 +335,12 @@ var $table = $('#table');
              $('#table').bootstrapTable('hideColumn', "cargotruck");
              $('#table').bootstrapTable('hideColumn', "delvclient");
              $('#table').bootstrapTable('hideColumn', "delvover");
-             $('#shipping1').prop('disabled', true);
-             $('#custom').prop('disabled', true);
-             $('#dock').prop('disabled', true);
-             $('#delv').prop('disabled', true);
-             $('#shipping2').prop('disabled', true);
            }
       );
   });
 
-	$(function() {
-      $("#showcomplete").click( function()
-           {
+	function showMeAll() {
+
              $('#table').bootstrapTable('showColumn', "bondready");
              $('#table').bootstrapTable('showColumn', "dobill");
              $('#table').bootstrapTable('showColumn', "doready");
@@ -302,11 +358,13 @@ var $table = $('#table');
              $('#table').bootstrapTable('showColumn', "slotextn");
              $('#table').bootstrapTable('showColumn', "emptydep");
              $('#table').bootstrapTable('showColumn', "shipping2over");
-             $('#shipping1').prop('disabled', false);
-             $('#custom').prop('disabled', false);
-             $('#dock').prop('disabled', false);
-             $('#delv').prop('disabled', false);
-             $('#shipping2').prop('disabled', false);
+
+	}
+
+	$(function() {
+      $("#showcomplete").click( function()
+           {
+             showMeAll();
            }
       );
   });
@@ -340,5 +398,15 @@ var $table = $('#table');
 <script type="text/javascript" src="https://fengyuanchen.github.io/datepicker/js/datepicker.js"></script>
 <script type="text/javascript" src="https://fengyuanchen.github.io/datepicker/js/datepicker.en-US.js"></script>
 <script type="text/javascript" src="https://fengyuanchen.github.io/datepicker/js/main.js"></script>
+
+<script type="text/javascript">
+		
+	jQuery(document).ready(function($) {
+    $(".clickable-cell").click(function() {
+        window.location = $(this).data("href");
+    });
+});
+
+</script>
 
 </html>

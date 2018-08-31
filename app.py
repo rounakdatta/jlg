@@ -1,6 +1,9 @@
 from flask import Flask, render_template, request, send_file, flash, redirect, session, abort
 import pyrebase
 
+from datetime import datetime
+from pytz import timezone
+
 app = Flask(__name__)
 
 config = {
@@ -156,24 +159,36 @@ def clientdb():
 def execIndex():
 	return render_template('execIndex.html')
 
+# update API (restricted use)
+@app.route('/updateAPI/<objectId>/<attributeId>', methods=['GET', 'POST'])
+def updateAPI(objectId, attributeId):
+
+	timeData = str(datetime.now(timezone('Asia/Kolkata')))[:-16]
+	db.child("jlg_main").child('jlg_execution').child(objectId).update({attributeId: timeData})
+
+	return render_template('index.html')
+
 # open jobs page for exec
 @app.route('/exec/open', methods=['GET', 'POST'])
 def execFilterOpen():
 
 	# get all the current client entries
 	all_je = db.child("jlg_main").child('jlg_execution').get()
-
-	all_job_exec = []
+	all_job_exec_key = []
+	all_job_exec_val = []
 
 	try:
 		for item in all_je.each():
 			if(item.val()['jobComplete'] == 'no'):
-				all_job_exec.append(item.val())
+				all_job_exec_key.append(item.key())
+				all_job_exec_val.append(item.val())
 	except Exception as e:
 		print(e)
 		print("Empty Execution Database")
 
-	return render_template('execData.html', allExec=all_job_exec, what='Open')
+	print(all_job_exec_key)
+
+	return render_template('execData.html', allExec=all_job_exec_val, myKeys=all_job_exec_key, what='Open')
 
 # closed jobs page for exec
 @app.route('/exec/closed', methods=['GET', 'POST'])
