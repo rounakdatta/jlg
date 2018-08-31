@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>JLG | Job Execution Database [{{what}}]</title>
+
+<link rel='stylesheet' href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'><link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.0/bootstrap-table.min.css'><link rel='stylesheet' href='//rawgit.com/vitalets/x-editable/master/dist/bootstrap3-editable/css/bootstrap-editable.css'>
+<style class="cp-pen-styles"></style>
+<link rel="stylesheet" href="https://fengyuanchen.github.io/datepicker/css/datepicker.css">
+</head>
+<body>
+
+	<h1>Job Execution Database [{{what}}]</h1>
+
+	<input type="button" id="shipping1" value="Shipping 1st Part"></input>
+	<input type="button" id="custom" value="Custom Part"></button>
+	<input type="button" id="dock" value="Dock Part"></button>
+	<input type="button" id="delv"value="Client Delv"></button>
+	<input type="button" id="shipping2" value="Shipping 2nd Part"></button>
+	<br>
+	<input type="button" id="showcomplete" value="Show Complete {{what}} Table"></button>
+
+	<br><br><hr>
+
+	<div class="container">
+
+	<div id="toolbar">
+		<select class="form-control">
+				<option value="all">Export All</option>
+				<option value="selected">Export Selected</option>
+		</select>
+	</div>
+
+	{% if allExec %}
+		<table id="table" border="1" align="center"
+			 data-toggle="table"
+			 data-search="true"
+			 data-show-columns="true"
+			 data-filter-control="true" 
+			 data-show-export="true"
+			 data-click-to-select="true"
+			 data-toolbar="#toolbar"
+       		 class="table-responsive">
+       	<thead>
+		<tr>
+			<th data-field="state" data-checkbox="true"></th>
+
+			<th data-field="slno" data-filter-control="input" data-sortable="true" id="slno">Sl No</th>
+
+			<th data-field="jobno1" data-filter-control="input" data-sortable="true">JayLGCPL Job No</th>
+
+			<th data-field="jobno2" data-filter-control="input" data-sortable="true">JLG&Co Job No</th>
+
+			<th data-field="jobopen" data-filter-control="input" data-sortable="true">Job Open Date</th>
+
+			<th data-field="clientname" data-filter-control="input" data-sortable="true">Client Name</th>
+
+			<th data-field="bondready" data-filter-control="input" data-sortable="true">Bond cte. Ready</th>
+
+			<th data-field="dobill" data-filter-control="input" data-sortable="true">DO Bill Received</th>
+
+			<th data-field="doready" data-filter-control="input" data-sortable="true">DO Ready</th>
+
+			<th data-field="shipping1over" data-filter-control="input" data-sortable="true">Shipping 1st Part Over</th>
+
+			<th data-field="befilled" data-filter-control="input" data-sortable="true">BE Filed</th>
+
+			<th data-field="bereleased" data-filter-control="input" data-sortable="true">BE Released</th>
+
+			<th data-field="dutypaid" data-filter-control="input" data-sortable="true">Duty Paid</th>
+
+			<th data-field="customover" data-filter-control="input" data-sortable="true">Custom Part Over</th>
+
+			<th data-field="cfsover" data-filter-control="input" data-sortable="true">CFS/Doc Assess Over</th>
+
+			<th data-field="cargorel" data-filter-control="input" data-sortable="true">Cargo Released</th>
+
+			<th data-field="dockover" data-filter-control="input" data-sortable="true">Dock Part Over</th>
+
+			<th data-field="cargotruck" data-filter-control="input" data-sortable="true">Cargo shift to truck</th>
+
+			<th data-field="delvclient" data-filter-control="input" data-sortable="true">Delivery at client space</th>
+
+			<th data-field="delvover" data-filter-control="input" data-sortable="true">Client Delv Over</th>
+
+			<th data-field="slotextn" data-filter-control="input" data-sortable="true">Slot Extn if required</th>
+
+			<th data-field="emptydep" data-filter-control="input" data-sortable="true">Empty Deposit</th>
+
+			<th data-field="shipping2over" data-filter-control="input" data-sortable="true">Shipping 2nd Part Over</th>
+
+			<th data-field="jobComplete" data-filter-control="input" data-sortable="true">Job Complete</th>
+		</tr>
+	</thead>
+		<tbody>
+		{% for client in allExec %}
+		<tr>
+		   <td class="bs-checkbox "><input data-index="{{loop.index0 + 1}}" name="btSelectItem" type="checkbox"></td>
+		   <td style="text-align:center;" class="serialNumber">{{loop.index0 + 1}}</td>
+		   <td style="text-align:center;" class="j1">{{client['jobno1']}}</td>
+		   <td style="text-align:center;" class="j2">{{client['jobno2']}}</td>
+		   <td style="text-align:center;" class="j3">{{client['jobopen']}}</td>
+		   <td style="text-align:center;" class="j4">{{client['clientname']}}</td>
+		   <td style="text-align:center;" class="j5">{{client['bondready']}}</td>
+		   <td style="text-align:center;" class="j5">{{client['dobill']}}</td>
+		   <td style="text-align:center;" class="j5">{{client['doready']}}</td>
+		   <td style="text-align:center;" class="j5">{{client['shipping1over']}}</td>
+		   <td style="text-align:center;" class="j6">{{client['befilled']}}</td>
+		   <td style="text-align:center;" class="j6">{{client['bereleased']}}</td>
+		   <td style="text-align:center;" class="j6">{{client['dutypaid']}}</td>
+		   <td style="text-align:center;" class="j6">{{client['customover']}}</td>
+		   <td style="text-align:center;" class="j7">{{client['cfsover']}}</td>
+		   <td style="text-align:center;" class="j7">{{client['cargorel']}}</td>
+		   <td style="text-align:center;" class="j7">{{client['dockover']}}</td>
+		   <td style="text-align:center;" class="j7">{{client['cargotruck']}}</td>
+		   <td style="text-align:center;" class="j8">{{client['delvclient']}}</td>
+		   <td style="text-align:center;" class="j8">{{client['delvover']}}</td>
+		   <td style="text-align:center;" class="j8">{{client['slotextn']}}</td>
+		   <td style="text-align:center;" class="j8">{{client['emptydep']}}</td>
+		   <td style="text-align:center;" class="j8">{{client['shipping2over']}}</td>
+		   <td style="text-align:center;" class="j8">{{client['jobComplete']}}</td>
+		</tr>
+		{% endfor %}
+		</tbody>
+		</table>
+	{% endif %}
+
+	</div>
+
+	<br><br>
+
+</body>
+
+<script src='//static.codepen.io/assets/common/stopExecutionOnTimeout-41c52890748cd7143004e05d3c5f786c66b19939c4500ce446314d1748483e13.js'></script><script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script><script src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'></script><script src='//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.0/bootstrap-table.js'></script><script src='//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.9.1/extensions/editable/bootstrap-table-editable.js'></script><script src='//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.9.1/extensions/export/bootstrap-table-export.js'></script><script src='//rawgit.com/hhurz/tableExport.jquery.plugin/master/tableExport.js'></script><script src='//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.9.1/extensions/filter-control/bootstrap-table-filter-control.js'></script>
+
+<script type="text/javascript">
+	//exporte les données sélectionnées
+var $table = $('#table');
+    $(function () {
+        $('#toolbar').find('select').change(function () {
+            $table.bootstrapTable('refreshOptions', {
+                exportDataType: $(this).val()
+            });
+        });
+        $('#toolbar')
+    })
+
+		var trBoldBlue = $("table");
+
+	$(trBoldBlue).on("click", "tr", function (){
+			$(this).toggleClass("bold-blue");
+	});
+</script>
+
+
+<script type="text/javascript">
+	
+	$(function() {
+      $("#shipping1").click( function()
+           {
+             $('#table').bootstrapTable('hideColumn', "befilled");
+             $('#table').bootstrapTable('hideColumn', "bereleased");
+             $('#table').bootstrapTable('hideColumn', "dutypaid");
+             $('#table').bootstrapTable('hideColumn', "customover");
+             $('#table').bootstrapTable('hideColumn', "cfsover");
+             $('#table').bootstrapTable('hideColumn', "cargorel");
+             $('#table').bootstrapTable('hideColumn', "dockover");
+             $('#table').bootstrapTable('hideColumn', "cargotruck");
+             $('#table').bootstrapTable('hideColumn', "delvclient");
+             $('#table').bootstrapTable('hideColumn', "delvover");
+             $('#table').bootstrapTable('hideColumn', "slotextn");
+             $('#table').bootstrapTable('hideColumn', "emptydep");
+             $('#table').bootstrapTable('hideColumn', "shipping2over");
+             $('#shipping1').prop('disabled', true);
+             $('#custom').prop('disabled', true);
+             $('#dock').prop('disabled', true);
+             $('#delv').prop('disabled', true);
+             $('#shipping2').prop('disabled', true);
+           }
+      );
+	});
+
+	$(function() {
+      $("#custom").click( function()
+           {
+             $('#table').bootstrapTable('hideColumn', "bondready");
+             $('#table').bootstrapTable('hideColumn', "dobill");
+             $('#table').bootstrapTable('hideColumn', "doready");
+             $('#table').bootstrapTable('hideColumn', "shipping1over");
+             $('#table').bootstrapTable('hideColumn', "cfsover");
+             $('#table').bootstrapTable('hideColumn', "cargorel");
+             $('#table').bootstrapTable('hideColumn', "dockover");
+             $('#table').bootstrapTable('hideColumn', "cargotruck");
+             $('#table').bootstrapTable('hideColumn', "delvclient");
+             $('#table').bootstrapTable('hideColumn', "delvover");
+             $('#table').bootstrapTable('hideColumn', "slotextn");
+             $('#table').bootstrapTable('hideColumn', "emptydep");
+             $('#table').bootstrapTable('hideColumn', "shipping2over");
+             $('#shipping1').prop('disabled', true);
+             $('#custom').prop('disabled', true);
+             $('#dock').prop('disabled', true);
+             $('#delv').prop('disabled', true);
+             $('#shipping2').prop('disabled', true);
+           }
+      );
+	});
+
+	$(function() {
+      $("#dock").click( function()
+           {
+             $('#table').bootstrapTable('hideColumn', "bondready");
+             $('#table').bootstrapTable('hideColumn', "dobill");
+             $('#table').bootstrapTable('hideColumn', "doready");
+             $('#table').bootstrapTable('hideColumn', "shipping1over");
+             $('#table').bootstrapTable('hideColumn', "befilled");
+             $('#table').bootstrapTable('hideColumn', "bereleased");
+             $('#table').bootstrapTable('hideColumn', "dutypaid");
+             $('#table').bootstrapTable('hideColumn', "customover");
+             $('#table').bootstrapTable('hideColumn', "cargotruck");
+             $('#table').bootstrapTable('hideColumn', "delvclient");
+             $('#table').bootstrapTable('hideColumn', "delvover");
+             $('#table').bootstrapTable('hideColumn', "slotextn");
+             $('#table').bootstrapTable('hideColumn', "emptydep");
+             $('#table').bootstrapTable('hideColumn', "shipping2over");
+             $('#shipping1').prop('disabled', true);
+             $('#custom').prop('disabled', true);
+             $('#dock').prop('disabled', true);
+             $('#delv').prop('disabled', true);
+             $('#shipping2').prop('disabled', true);
+           }
+      );
+  });
+
+	$(function() {
+      $("#delv").click( function()
+           {
+             $('#table').bootstrapTable('hideColumn', "bondready");
+             $('#table').bootstrapTable('hideColumn', "dobill");
+             $('#table').bootstrapTable('hideColumn', "doready");
+             $('#table').bootstrapTable('hideColumn', "shipping1over");
+             $('#table').bootstrapTable('hideColumn', "befilled");
+             $('#table').bootstrapTable('hideColumn', "bereleased");
+             $('#table').bootstrapTable('hideColumn', "dutypaid");
+             $('#table').bootstrapTable('hideColumn', "customover");
+             $('#table').bootstrapTable('hideColumn', "cfsover");
+             $('#table').bootstrapTable('hideColumn', "cargorel");
+             $('#table').bootstrapTable('hideColumn', "dockover");
+             $('#table').bootstrapTable('hideColumn', "slotextn");
+             $('#table').bootstrapTable('hideColumn', "emptydep");
+             $('#table').bootstrapTable('hideColumn', "shipping2over");
+             $('#shipping1').prop('disabled', true);
+             $('#custom').prop('disabled', true);
+             $('#dock').prop('disabled', true);
+             $('#delv').prop('disabled', true);
+             $('#shipping2').prop('disabled', true);
+           }
+      );
+  });
+
+	$(function() {
+      $("#shipping2").click( function()
+           {
+             $('#table').bootstrapTable('hideColumn', "bondready");
+             $('#table').bootstrapTable('hideColumn', "dobill");
+             $('#table').bootstrapTable('hideColumn', "doready");
+             $('#table').bootstrapTable('hideColumn', "shipping1over");
+             $('#table').bootstrapTable('hideColumn', "befilled");
+             $('#table').bootstrapTable('hideColumn', "bereleased");
+             $('#table').bootstrapTable('hideColumn', "dutypaid");
+             $('#table').bootstrapTable('hideColumn', "customover");
+             $('#table').bootstrapTable('hideColumn', "cfsover");
+             $('#table').bootstrapTable('hideColumn', "cargorel");
+             $('#table').bootstrapTable('hideColumn', "dockover");
+             $('#table').bootstrapTable('hideColumn', "cargotruck");
+             $('#table').bootstrapTable('hideColumn', "delvclient");
+             $('#table').bootstrapTable('hideColumn', "delvover");
+             $('#shipping1').prop('disabled', true);
+             $('#custom').prop('disabled', true);
+             $('#dock').prop('disabled', true);
+             $('#delv').prop('disabled', true);
+             $('#shipping2').prop('disabled', true);
+           }
+      );
+  });
+
+	$(function() {
+      $("#showcomplete").click( function()
+           {
+             $('#table').bootstrapTable('showColumn', "bondready");
+             $('#table').bootstrapTable('showColumn', "dobill");
+             $('#table').bootstrapTable('showColumn', "doready");
+             $('#table').bootstrapTable('showColumn', "shipping1over");
+             $('#table').bootstrapTable('showColumn', "befilled");
+             $('#table').bootstrapTable('showColumn', "bereleased");
+             $('#table').bootstrapTable('showColumn', "dutypaid");
+             $('#table').bootstrapTable('showColumn', "customover");
+             $('#table').bootstrapTable('showColumn', "cfsover");
+             $('#table').bootstrapTable('showColumn', "cargorel");
+             $('#table').bootstrapTable('showColumn', "dockover");
+             $('#table').bootstrapTable('showColumn', "cargotruck");
+             $('#table').bootstrapTable('showColumn', "delvclient");
+             $('#table').bootstrapTable('showColumn', "delvover");
+             $('#table').bootstrapTable('showColumn', "slotextn");
+             $('#table').bootstrapTable('showColumn', "emptydep");
+             $('#table').bootstrapTable('showColumn', "shipping2over");
+             $('#shipping1').prop('disabled', false);
+             $('#custom').prop('disabled', false);
+             $('#dock').prop('disabled', false);
+             $('#delv').prop('disabled', false);
+             $('#shipping2').prop('disabled', false);
+           }
+      );
+  });
+
+</script>
+
+
+<!--script type="text/javascript">
+	async function demo() {
+  console.log('Taking a break...');
+  await sleep(2000);
+  console.log('Two second later');
+}
+
+	console.log('doing')
+
+	document.evaluate('/html/body/div[1]/div[1]/div[1]/div[2]/div[1]/ul/li[6]', document, null, XPathResult.ANY_TYPE, null).iterateNext().style.display = "none";
+	document.evaluate('/html/body/div[1]/div[1]/div[1]/div[2]/div[1]/ul/li[7]', document, null, XPathResult.ANY_TYPE, null).iterateNext().style.display = "none";
+	document.evaluate('/html/body/div[1]/div[1]/div[1]/div[2]/div[1]/ul/li[8]', document, null, XPathResult.ANY_TYPE, null).iterateNext().style.display = "none";
+	document.evaluate('/html/body/div[1]/div[1]/div[1]/div[2]/div[1]/ul/li[10]', document, null, XPathResult.ANY_TYPE, null).iterateNext().style.display = "none";
+	document.evaluate('/html/body/div[1]/div[1]/div[1]/div[2]/div[1]/ul/li[11]', document, null, XPathResult.ANY_TYPE, null).iterateNext().style.display = "none";
+	document.evaluate('/html/body/div[1]/div[1]/div[1]/div[2]/div[1]/ul/li[12]', document, null, XPathResult.ANY_TYPE, null).iterateNext().style.display = "none";
+	document.evaluate('/html/body/div[1]/div[1]/div[1]/div[2]/div[1]/ul/li[14]', document, null, XPathResult.ANY_TYPE, null).iterateNext().style.display = "none";
+	document.evaluate('/html/body/div[1]/div[1]/div[1]/div[2]/div[1]/ul/li[15]', document, null, XPathResult.ANY_TYPE, null).iterateNext().style.display = "none";
+	document.evaluate('/html/body/div[1]/div[1]/div[1]/div[2]/div[1]/ul/li[17]', document, null, XPathResult.ANY_TYPE, null).iterateNext().style.display = "none";
+	document.evaluate('/html/body/div[1]/div[1]/div[1]/div[2]/div[1]/ul/li[18]', document, null, XPathResult.ANY_TYPE, null).iterateNext().style.display = "none";
+	document.evaluate('/html/body/div[1]/div[1]/div[1]/div[2]/div[1]/ul/li[20]', document, null, XPathResult.ANY_TYPE, null).iterateNext().style.display = "none";
+	document.evaluate('/html/body/div[1]/div[1]/div[1]/div[2]/div[1]/ul/li[21]', document, null, XPathResult.ANY_TYPE, null).iterateNext().style.display = "none";
+</script-->
+
+<script type="text/javascript" src="https://fengyuanchen.github.io/datepicker/js/datepicker.js"></script>
+<script type="text/javascript" src="https://fengyuanchen.github.io/datepicker/js/datepicker.en-US.js"></script>
+<script type="text/javascript" src="https://fengyuanchen.github.io/datepicker/js/main.js"></script>
+
+</html>

@@ -151,7 +151,50 @@ def clientdb():
 
 	return render_template('client.html', allClients=all_job_clients, allJobs=all_job_owners, jobProfits=all_job_profits, jobBelongs=all_job_belong)
 
-# execution database
+# index page for exec
+@app.route('/exec', methods=['GET', 'POST'])
+def execIndex():
+	return render_template('execIndex.html')
+
+# open jobs page for exec
+@app.route('/exec/open', methods=['GET', 'POST'])
+def execFilterOpen():
+
+	# get all the current client entries
+	all_je = db.child("jlg_main").child('jlg_execution').get()
+
+	all_job_exec = []
+
+	try:
+		for item in all_je.each():
+			if(item.val()['jobComplete'] == 'no'):
+				all_job_exec.append(item.val())
+	except Exception as e:
+		print(e)
+		print("Empty Execution Database")
+
+	return render_template('execData.html', allExec=all_job_exec, what='Open')
+
+# closed jobs page for exec
+@app.route('/exec/closed', methods=['GET', 'POST'])
+def execFilterClosed():
+
+	# get all the current client entries
+	all_je = db.child("jlg_main").child('jlg_execution').get()
+
+	all_job_exec = []
+
+	try:
+		for item in all_je.each():
+			if(item.val()['jobComplete'] == 'yes'):
+				all_job_exec.append(item.val())
+	except Exception as e:
+		print(e)
+		print("Empty Execution Database")
+
+	return render_template('execData.html', allExec=all_job_exec, what='Closed')
+
+# execution database API (don't use)
 @app.route('/execstatusdb', methods=['GET', 'POST'])
 def execstatusdb():
 
@@ -189,9 +232,14 @@ def execstatusdb():
 
 	############################## prefetch data end #############################################
 
-	if request.method == 'POST' and 'jobno1' in request.form and 'jobno2' in request.form and 'jobopen' in request.form and 'bondready' in request.form and 'dobill' in request.form:
+	if request.method == 'POST':
 		db.child("jlg_main").child("jlg_execution")
-		data = {'jobno1' : request.form['jobno1'], 'jobno2' : request.form['jobno2'], 'jobopen' : request.form['jobopen'], 'clientname' : request.form['clientname'], 'bondready' : request.form['bondready'], 'dobill' : request.form['dobill'], 'doready' : request.form['doready'], 'shipping1over' : request.form['shipping1over'], 'befilled' : request.form['befilled'], 'bereleased' : request.form['bereleased'], 'dutypaid' : request.form['dutypaid'], 'customover' : request.form['customover'], 'cfsover' : request.form['cfsover'], 'cargorel' : request.form['cargorel'], 'dockover' : request.form['dockover'], 'cargotruck' : request.form['cargotruck'], 'delvclient' : request.form['delvclient'], 'delvover' : request.form['delvover'], 'slotextn' : request.form['slotextn'], 'emptydep' : request.form['emptydep'], 'shipping2over' : request.form['shipping2over']}
+
+		jobDone = 'no'
+		if(request.form['shipping1over'] == 'yes' and request.form['customover'] == 'yes' and request.form['dockover'] == 'yes' and request.form['delvover'] == 'yes' and request.form['shipping2over'] == 'yes'):
+			jobDone = 'yes'
+
+		data = {'jobno1' : request.form['jobno1'], 'jobno2' : request.form['jobno2'], 'jobopen' : request.form['jobopen'], 'clientname' : request.form['clientname'], 'bondready' : request.form['bondready'], 'dobill' : request.form['dobill'], 'doready' : request.form['doready'], 'shipping1over' : request.form['shipping1over'], 'befilled' : request.form['befilled'], 'bereleased' : request.form['bereleased'], 'dutypaid' : request.form['dutypaid'], 'customover' : request.form['customover'], 'cfsover' : request.form['cfsover'], 'cargorel' : request.form['cargorel'], 'dockover' : request.form['dockover'], 'cargotruck' : request.form['cargotruck'], 'delvclient' : request.form['delvclient'], 'delvover' : request.form['delvover'], 'slotextn' : request.form['slotextn'], 'emptydep' : request.form['emptydep'], 'shipping2over' : request.form['shipping2over'], 'jobComplete' : jobDone}
 		db.push(data)
 		print('push complete')
 

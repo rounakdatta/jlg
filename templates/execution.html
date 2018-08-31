@@ -79,6 +79,8 @@
 			<th data-field="emptydep" data-filter-control="input" data-sortable="true">Empty Deposit</th>
 
 			<th data-field="shipping2over" data-filter-control="input" data-sortable="true">Shipping 2nd Part Over</th>
+
+			<th data-field="jobComplete" data-filter-control="input" data-sortable="true">Job Complete</th>
 		</tr>
 	</thead>
 		<tbody>
@@ -107,6 +109,7 @@
 		   <td style="text-align:center;" class="j8">{{client['slotextn']}}</td>
 		   <td style="text-align:center;" class="j8">{{client['emptydep']}}</td>
 		   <td style="text-align:center;" class="j8">{{client['shipping2over']}}</td>
+		   <td style="text-align:center;" class="j8">{{client['jobComplete']}}</td>
 		</tr>
 		{% endfor %}
 		</tbody>
@@ -116,6 +119,8 @@
 	</div>
 
 	<br><br>
+
+	<div id="execApi">
 
 	<form action="/execstatusdb" method="POST">
 		<label for="jobno1">JayLGCPL Job No :</label>
@@ -316,6 +321,8 @@
 
 		<button type="submit">Submit</button>
 	</form>
+
+	</div>
 
 </body>
 
