@@ -25,7 +25,18 @@ def index():
 # job number database
 @app.route('/jobnodb', methods=['GET', 'POST'])
 def jobno():
-	return render_template('jobIndex.html')
+
+	# get all the job entries
+	all_je = db.child("jlg_main").child('jlg_execution').get()
+	all_job_exec = []
+
+	try:
+		for item in all_je.each():
+			all_job_exec.append(item.val())
+	except:
+		print("Empty Execution Database")
+
+	return render_template('jobIndex.html', allExec=all_job_exec)
 
 
 # new job entry
