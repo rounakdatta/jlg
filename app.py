@@ -196,7 +196,6 @@ def clientdb():
 # index page for exec
 @app.route('/exec', methods=['GET', 'POST'])
 def execIndex():
-	checkDataConsistency()
 
 	# get all the current client entries
 	all_je = db.child("jlg_main").child('jlg_execution').get()
@@ -213,8 +212,6 @@ def execIndex():
 
 def checkDataConsistency():
 	all_je = db.child("jlg_main").child('jlg_execution').get()
-
-	payload = []
 
 	try:
 		for item in all_je.each():
@@ -237,12 +234,28 @@ def checkDataConsistency():
 			# final one
 			if item.val()['shipping1over'] == 'yes' and item.val()['customover'] == 'yes' and item.val()['dockover'] == 'yes' and item.val()['delvover'] == 'yes' and item.val()['shipping2over'] == 'yes':
 				db.child("jlg_main").child('jlg_execution').child(item.key()).update({'jobComplete': 'yes'})
-
-			payload.append(item.val())
+				closeDate = str(datetime.now(timezone('Asia/Kolkata')))[:-22]
+				db.child("jlg_main").child('jlg_execution').child(item.key()).update({'jobCloseDate': closeDate})
 
 	except Exception as e:
 		print(e)
 		print("Empty Execution Database")
+
+
+# update confirmation
+@app.route('/updateConfirmation', methods=['GET', 'POST'])
+def confirmUpdate():
+
+	checkDataConsistency()
+	return render_template('index.html')
+
+
+# update cancellation
+@app.route('/updateAPI/cancel/<objectId>/<attributeId>', methods=['GET', 'POST'])
+def cancelUpdate(objectId, attributeId):
+
+	db.child("jlg_main").child('jlg_execution').child(objectId).update({attributeId: ""})
+	return render_template('index.html')
 
 
 # update API (restricted use)
@@ -252,7 +265,7 @@ def updateAPI(objectId, attributeId):
 	timeData = str(datetime.now(timezone('Asia/Kolkata')))[:-16]
 	db.child("jlg_main").child('jlg_execution').child(objectId).update({attributeId: timeData})
 
-	return render_template('index.html')
+	return render_template('confirmSubmit.html', objectId=objectId, attributeId=attributeId)
 
 
 # open jobs page for exec
