@@ -11,9 +11,25 @@
 <h2>Are you sure the Sub-Job is COMPLETE? Press one of the below to Confirm</h2>
 <h3>DO NOT CLOSE / REFRESH / GO BACK</h3>
 
-<a href="/updateConfirmation"><button>CONFIRM</button></a><br><br><br>
-<a href="/updateAPI/cancel/{{objectId}}/{{attributeId}}"><button>CANCEL</button></a>
+<br><progress value="0" max="5" id="progressBar"></progress><br>
+
+<div ><a href="/updateConfirmation"><button id="confirmBtn" disabled>CONFIRM</button></a></div><br><br><br>
+<div ><a href="/updateAPI/cancel/{{objectId}}/{{attributeId}}"><button id="cancelBtn" disabled>CANCEL</button></a></div>
 </center>
+
+<script type="text/javascript">
+	
+var timeleft = 5;
+var downloadTimer = setInterval(function(){
+  document.getElementById("progressBar").value = 5 - --timeleft;
+  if(timeleft <= 0) {
+    clearInterval(downloadTimer);
+    document.getElementById("confirmBtn").disabled = false;
+    document.getElementById("cancelBtn").disabled = false; 
+	}
+},1000);	
+
+</script>
 
 </body>
 </html>
