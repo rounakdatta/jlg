@@ -11,21 +11,32 @@
 <h2>Are you sure the Sub-Job is COMPLETE? Press one of the below to Confirm</h2>
 <h3>DO NOT CLOSE / REFRESH / GO BACK</h3>
 
-<br><progress value="0" max="5" id="progressBar"></progress><br>
+<br><progress value="0" max="5" id="progressBar"></progress><br><br><hr>
 
-<div ><a href="/updateConfirmation"><button id="confirmBtn" disabled>CONFIRM</button></a></div><br><br><br>
-<div ><a href="/updateAPI/cancel/{{objectId}}/{{attributeId}}"><button id="cancelBtn" disabled>CANCEL</button></a></div>
+<div id="controlsMain">
+	<a href="/updateConfirmation"><button>CONFIRM</button></a><br><br><br>
+	<a href="/updateAPI/cancel/{{objectId}}/{{attributeId}}"><button>CANCEL</button></a>
+</div>
 </center>
 
+<script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
 <script type="text/javascript">
-	
+
+$("#controlsMain").find("input, button, submit, textarea, select").attr("disabled", "disabled");
+$("#controlsMain").find("a").addClass("disablehyper").click(function (e) {                
+    e.preventDefault();
+});
+
 var timeleft = 5;
 var downloadTimer = setInterval(function(){
   document.getElementById("progressBar").value = 5 - --timeleft;
   if(timeleft <= 0) {
     clearInterval(downloadTimer);
-    document.getElementById("confirmBtn").disabled = false;
-    document.getElementById("cancelBtn").disabled = false; 
+
+	$("#controlsMain").find("input, button, submit, textarea, select").removeAttr("disabled");
+	$("#controlsMain").find("a").removeClass("disablehyper").unbind("click");
+
 	}
 },1000);	
 

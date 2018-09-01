@@ -234,8 +234,10 @@ def checkDataConsistency():
 			# final one
 			if item.val()['shipping1over'] == 'yes' and item.val()['customover'] == 'yes' and item.val()['dockover'] == 'yes' and item.val()['delvover'] == 'yes' and item.val()['shipping2over'] == 'yes':
 				db.child("jlg_main").child('jlg_execution').child(item.key()).update({'jobComplete': 'yes'})
-				closeDate = str(datetime.now(timezone('Asia/Kolkata')))[:-22]
-				db.child("jlg_main").child('jlg_execution').child(item.key()).update({'jobCloseDate': closeDate})
+
+				if(item.val()['jobCloseDate'] == ''):
+					closeDate = str(datetime.now(timezone('Asia/Kolkata')))[:-22]
+					db.child("jlg_main").child('jlg_execution').child(item.key()).update({'jobCloseDate': closeDate})
 
 	except Exception as e:
 		print(e)
@@ -246,6 +248,8 @@ def checkDataConsistency():
 @app.route('/updateConfirmation', methods=['GET', 'POST'])
 def confirmUpdate():
 
+	# double-check data consistency
+	checkDataConsistency()
 	checkDataConsistency()
 	return render_template('index.html')
 
