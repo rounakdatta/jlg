@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, send_file, flash, redirect, session, abort
+from flask import Flask, render_template, request, send_file, flash, redirect, session, abort, url_for
 import pyrebase
 
 from datetime import datetime
@@ -16,15 +16,152 @@ config = {
 firebase = pyrebase.initialize_app(config)
 db = firebase.database()
 
+
+# register route
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+
+	# first check if user exists or not
+	allUsers = db.child("jlg_main").child("accounts").get()
+	try:
+		for person in allUsers.each():
+			if person.val()['username'] == request.form['username'] or person.val()['email'] == request.form['email']:
+				return redirect(url_for('index', note='Account with email/username exists!'))
+	except:
+		print('Go on!')
+
+	# now register the person
+	if request.method == 'POST' and request.form['secretCode'].lower() == 'jlg2018':
+		data = {'email': request.form['email'], 'username': request.form['username'], 'password': request.form['password'], 'admin': 'no'}
+		db.child("jlg_main").child("accounts").push(data)
+		return redirect(url_for('index', note='Account creation successful!'))
+
+	return render_template('registerUser.html')
+
+
+# login route
+@app.route('/login', methods=['POST'])
+def login():
+
+	userPermissions = []
+	# all logins
+	logins = db.child("jlg_main").child('accounts').get()
+
+	try:
+		for person in logins.each():
+			if person.val()['username'] == request.form['username'] and person.val()['password'] == request.form['password']:
+				
+				try:
+					userPermissions.append(person.val()['job1'])
+				except:
+					userPermissions.append('null')
+
+				try:
+					userPermissions.append(person.val()['job2'])
+				except:
+					userPermissions.append('null')
+
+				try:
+					userPermissions.append(person.val()['job3'])
+				except:
+					userPermissions.append('null')
+
+				try:
+					userPermissions.append(person.val()['job4'])
+				except:
+					userPermissions.append('null')
+
+				try:
+					userPermissions.append(person.val()['job5'])
+				except:
+					userPermissions.append('null')
+
+				session['userPermissions'] = userPermissions
+
+				session['loggedIn'] = True
+				session['user'] = request.form['username']
+
+				if(person.val()['admin'] == 'yes'):
+					session['admin'] = 'yes'
+				else:
+					session['admin'] = 'no'
+
+				return redirect(url_for('index', note='Login successful!'))
+	except Exception as e:
+		print(e)
+		print("Empty Accounts Database")
+
+	return redirect(url_for('index', note='Invalid credentials!'))
+
+
+# logout route
+@app.route('/logout', methods=['POST'])
+def logout():
+	session['loggedIn'] = False
+	session['user'] = ''
+	session['userPermissions'] = []
+	session['admin'] = 'no'
+	return redirect('/')
+
+
+# admin API for updating access level permissions
+@app.route('/adminAPI/<userId>/<job>', methods=['GET', 'POST'])
+def adminAPI(userId, job):
+	if(session['admin'] != 'yes'):
+		return "no!"
+
+	db.child("jlg_main").child('accounts').child(userId).update({job: 'yes'})
+	if(job == 'admin'):
+		db.child("jlg_main").child('accounts').child(userId).update({'job1': 'yes'})
+		db.child("jlg_main").child('accounts').child(userId).update({'job2': 'yes'})
+		db.child("jlg_main").child('accounts').child(userId).update({'job3': 'yes'})
+		db.child("jlg_main").child('accounts').child(userId).update({'job4': 'yes'})
+		db.child("jlg_main").child('accounts').child(userId).update({'job5': 'yes'})
+
+	return redirect('/')
+
+
+# managing users permission level (index)
+@app.route('/manageUsers', methods=['GET', 'POST'])
+def manageUsers():
+
+	if(session['admin'] != 'yes'):
+		return "no!"
+
+	logins = db.child("jlg_main").child('accounts').get()
+	all_users = []
+	all_keys = []
+
+	try:
+		for user in logins.each():
+			all_users.append(user.val())
+			all_keys.append(user.key())
+	except:
+		print('Accounts DB empty!')
+
+	return render_template('manageUsers.html', allUsers=all_users, myKeys=all_keys)	
+
+
 # home page
 @app.route('/', methods=['GET', 'POST'])
 def index():
-	return render_template('index.html')
+	if(request.args.get('note')):
+		whatToSay = request.args.get('note')
+	else:
+		whatToSay = ''
+
+	if(session.get('loggedIn')):
+		return render_template('index.html', loggedIn=session['loggedIn'], user=session['user'], isAdmin=session['admin'], note=whatToSay)
+	else:
+		return render_template('index.html', loggedIn=False, note=whatToSay)
 
 
 # job number database
 @app.route('/jobnodb', methods=['GET', 'POST'])
 def jobno():
+
+	if not session.get('loggedIn'):
+		return redirect('/')
 
 	# get all the job entries
 	all_je = db.child("jlg_main").child('jlg_execution').get()
@@ -42,6 +179,9 @@ def jobno():
 # new job entry
 @app.route('/jobnodb/new', methods=['GET', 'POST'])
 def newjob():
+
+	if not session.get('loggedIn'):
+		return redirect('/')
 
 	############################## prefetch data #############################################
 
@@ -62,7 +202,7 @@ def newjob():
 		data = {'jobno1': request.form['jobno1'], 'jobno2': request.form['jobno2'], 'jobopen': request.form['jobopen'], 'clientname': request.form['clientname'], 'jobBelong': request.form['jobBelong'], 'jobOwn': request.form['jobOwn'], 'jobProfit': request.form['jobProfit'], 'packageq': request.form['packageq'], 'ncontainer': request.form['ncontainer'], 'cargotype': request.form['cargotype'], 'commodity': request.form['commodity'], 'invoice': request.form['invoice'], 'bondready' : '', 'dobill' : '', 'doready' : '', 'shipping1over' : 'no', 'befilled' : '', 'bereleased' : '', 'dutypaid' : '', 'customover' : 'no', 'cfsover' : '', 'cargorel' : '', 'dockover' : 'no', 'cargotruck' : '', 'delvclient' : '', 'delvover' : 'no', 'slotextn' : '', 'emptydep' : '', 'shipping2over' : 'no', 'jobComplete' : 'no', 'jobCloseDate' : ''}
 		db.push(data)
 
-		return render_template('index.html')
+		return redirect('/')
 
 	return render_template('newJob.html', allClients=all_job_clients)
 
@@ -70,6 +210,9 @@ def newjob():
 # job profit database
 @app.route('/jobprofitdb', methods=['GET', 'POST'])
 def jobprofitdb():
+
+	if not session.get('loggedIn'):
+		return redirect('/')
 
 	# get all the current job profit entries
 	all_jp = db.child("jlg_main").child('jlg_jobprofit').get()
@@ -86,7 +229,7 @@ def jobprofitdb():
 		data = {"jobName" : request.form['jobProfitEntry']}
 		db.push(data)
 
-		return render_template('index.html')
+		return redirect('/')
 
 	return render_template('jobprofit.html', allJobs=all_job_profits)
 
@@ -94,6 +237,9 @@ def jobprofitdb():
 # job belonging database
 @app.route('/jobbelongdb', methods=['GET', 'POST'])
 def jobbelongdb():
+
+	if not session.get('loggedIn'):
+		return redirect('/')
 
 	# get all the current job belonging entries
 	all_jb = db.child("jlg_main").child('jlg_jobbelong').get()
@@ -110,7 +256,7 @@ def jobbelongdb():
 		data = {"compName" : request.form['jobBelongEntry']}
 		db.push(data)
 
-		return render_template('index.html')
+		return redirect('/')
 
 	return render_template('jobbelong.html', allJobs=all_job_belong)
 
@@ -118,6 +264,9 @@ def jobbelongdb():
 # job owner database
 @app.route('/jobownerdb', methods=['GET', 'POST'])
 def jobownerdb():
+
+	if not session.get('loggedIn'):
+		return redirect('/')
 
 	# get all the current job profit centres
 	all_jb = db.child("jlg_main").child('jlg_jobprofit').get()
@@ -144,7 +293,7 @@ def jobownerdb():
 		data = {request.form['jobOwner'] : request.form['jobProfitCentre']}
 		db.push(data)
 
-		return render_template('index.html')
+		return redirect('/')
 
 	return render_template('jobowner.html', allJobs=all_job_owners, jobProfits=all_job_profits)
 
@@ -152,6 +301,9 @@ def jobownerdb():
 # client database
 @app.route('/clientdb', methods=['GET', 'POST'])
 def clientdb():
+
+	if not session.get('loggedIn'):
+		return redirect('/')
 
 	# get all the current job profit centres
 	all_jb = db.child("jlg_main").child('jlg_jobprofit').get()
@@ -188,7 +340,7 @@ def clientdb():
 		data = {'clientName' : request.form['clientName'], 'jobBelong' : request.form['jobBelong'], 'jobOwn' : request.form['jobOwn'], 'jobProfit' : request.form['jobProfit'], 'clientAddress1' : request.form['clientAddress1'], 'clientAddress2' : request.form['clientAddress2'], 'clientAddress3' : request.form['clientAddress3'], 'gstin' : request.form['gstin']}
 		db.push(data)
 
-		return render_template('index.html')
+		return redirect('/')
 
 	# get all the current client entries
 	all_jc = db.child("jlg_main").child('jlg_clients').get()
@@ -207,6 +359,9 @@ def clientdb():
 # index page for exec
 @app.route('/exec', methods=['GET', 'POST'])
 def execIndex():
+
+	if not session.get('loggedIn'):
+		return redirect('/')
 
 	# get all the current client entries
 	all_je = db.child("jlg_main").child('jlg_execution').get()
@@ -259,23 +414,32 @@ def checkDataConsistency():
 @app.route('/updateConfirmation', methods=['GET', 'POST'])
 def confirmUpdate():
 
+	if not session.get('loggedIn'):
+		return redirect('/')
+
 	# double-check data consistency
 	checkDataConsistency()
 	checkDataConsistency()
-	return render_template('index.html')
+	return redirect('/')
 
 
 # update cancellation
 @app.route('/updateAPI/cancel/<objectId>/<attributeId>', methods=['GET', 'POST'])
 def cancelUpdate(objectId, attributeId):
 
+	if not session.get('loggedIn'):
+		return redirect('/')
+
 	db.child("jlg_main").child('jlg_execution').child(objectId).update({attributeId: ""})
-	return render_template('index.html')
+	return redirect('/')
 
 
 # update API (restricted use)
 @app.route('/updateAPI/<objectId>/<attributeId>', methods=['GET', 'POST'])
 def updateAPI(objectId, attributeId):
+
+	if not session.get('loggedIn'):
+		return redirect('/')
 
 	timeData = str(datetime.now(timezone('Asia/Kolkata')))[:-16]
 	db.child("jlg_main").child('jlg_execution').child(objectId).update({attributeId: timeData})
@@ -286,6 +450,9 @@ def updateAPI(objectId, attributeId):
 # open jobs page for exec
 @app.route('/exec/open', methods=['GET', 'POST'])
 def execFilterOpen():
+
+	if not session.get('loggedIn'):
+		return redirect('/')
 
 	# get all the current client entries
 	all_je = db.child("jlg_main").child('jlg_execution').get()
@@ -301,14 +468,15 @@ def execFilterOpen():
 		print(e)
 		print("Empty Execution Database")
 
-	print(all_job_exec_key)
-
-	return render_template('execData.html', allExec=all_job_exec_val, myKeys=all_job_exec_key, what='Open')
+	return render_template('execData.html', allExec=all_job_exec_val, myKeys=all_job_exec_key, what='Open', permissions=session['userPermissions'])
 
 
 # closed jobs page for exec
 @app.route('/exec/closed', methods=['GET', 'POST'])
 def execFilterClosed():
+
+	if not session.get('loggedIn'):
+		return redirect('/')
 
 	# get all the current client entries
 	all_je = db.child("jlg_main").child('jlg_execution').get()
@@ -324,14 +492,15 @@ def execFilterClosed():
 		print(e)
 		print("Empty Execution Database")
 
-	print(all_job_exec_key)
-
-	return render_template('execData.html', allExec=all_job_exec_val, myKeys=all_job_exec_key, what='Closed')
+	return render_template('execData.html', allExec=all_job_exec_val, myKeys=all_job_exec_key, what='Closed', permissions=['yes', 'yes', 'yes', 'yes', 'yes'])
 
 
 # execution database API (don't use - only for mass data push)
 @app.route('/execstatusdb', methods=['GET', 'POST'])
 def execstatusdb():
+
+	if not session.get('loggedIn'):
+		return redirect('/')
 
 	############################## prefetch data #############################################
 
@@ -378,7 +547,7 @@ def execstatusdb():
 		db.push(data)
 		print('push complete')
 
-		return render_template('index.html')
+		return redirect('/')
 
 	# get all the current client entries
 	all_je = db.child("jlg_main").child('jlg_execution').get()

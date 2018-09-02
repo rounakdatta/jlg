@@ -143,84 +143,186 @@
 		   <td style="text-align:center;" class="j3">{{client['jobopen']}}</td>
 		   <td style="text-align:center;" class="j4">{{client['clientname']}}</td>
 
-		   {% if client['bondready'] == "" %}
-		   <td class="xyz btn btn-primary btn-block clickable-cell" data-href='/updateAPI/{{myKeys[loop.index0]}}/bondready'>✅ Done</td>
-		   {% else %}
-		   	<td style="text-align:center;">{{client['bondready']}}</td>
-		   {% endif %}
+		   {% if permissions[0] != 'null' %}
 
-		   {% if client['dobill'] == "" %}
-		   <td class="xyz btn btn-primary btn-block clickable-cell" data-href='/updateAPI/{{myKeys[loop.index0]}}/dobill'>✅ Done</td>
-		   {% else %}
-		   <td style="text-align:center;">{{client['dobill']}}</td>
-		   {% endif %}
+			   {% if client['bondready'] == "" %}
+			   <td class="xyz btn btn-primary btn-block clickable-cell" data-href='/updateAPI/{{myKeys[loop.index0]}}/bondready'>✅ Done</td>
+			   {% else %}
+			   	<td style="text-align:center;">{{client['bondready']}}</td>
+			   {% endif %}
 
-		   {% if client['doready'] == "" %}
-		   <td class="xyz btn btn-primary btn-block clickable-cell" data-href='/updateAPI/{{myKeys[loop.index0]}}/doready'>✅ Done</td>
+			   {% if client['dobill'] == "" %}
+			   <td class="xyz btn btn-primary btn-block clickable-cell" data-href='/updateAPI/{{myKeys[loop.index0]}}/dobill'>✅ Done</td>
+			   {% else %}
+			   <td style="text-align:center;">{{client['dobill']}}</td>
+			   {% endif %}
+
+			   {% if client['doready'] == "" %}
+			   <td class="xyz btn btn-primary btn-block clickable-cell" data-href='/updateAPI/{{myKeys[loop.index0]}}/doready'>✅ Done</td>
+			   {% else %}
+			   	<td style="text-align:center;">{{client['doready']}}</td>
+			   {% endif %}
+
 		   {% else %}
-		   	<td style="text-align:center;">{{client['doready']}}</td>
+
+			   {% if client['bondready'] == "" %}
+			   <td class="xyz btn btn-primary btn-block">✅ Done</td>
+			   {% else %}
+			   	<td style="text-align:center;">{{client['bondready']}}</td>
+			   {% endif %}
+
+			   {% if client['dobill'] == "" %}
+			   <td class="xyz btn btn-primary btn-block">✅ Done</td>
+			   {% else %}
+			   <td style="text-align:center;">{{client['dobill']}}</td>
+			   {% endif %}
+
+			   {% if client['doready'] == "" %}
+			   <td class="xyz btn btn-primary btn-block">✅ Done</td>
+			   {% else %}
+			   	<td style="text-align:center;">{{client['doready']}}</td>
+			   {% endif %}
+
 		   {% endif %}
 
 		   <td style="text-align:center;" class="j5">{{client['shipping1over']}}</td>
 
-		   {% if client['befilled'] == "" %}
-		   <td class="xyz btn btn-info btn-block clickable-cell" data-href='/updateAPI/{{myKeys[loop.index0]}}/befilled'>✅ Done</td>
-		   {% else %}
-		   	<td style="text-align:center;">{{client['befilled']}}</td>
-		   {% endif %}
+		   {% if permissions[1] != 'null' %}
 
-		   {% if client['bereleased'] == "" %}
-		   <td class="xyz btn btn-info btn-block clickable-cell" data-href='/updateAPI/{{myKeys[loop.index0]}}/bereleased'>✅ Done</td>
-		   {% else %}
-		   	<td style="text-align:center;">{{client['bereleased']}}</td>
-		   {% endif %}
+			   {% if client['befilled'] == "" %}
+			   <td class="xyz btn btn-info btn-block clickable-cell" data-href='/updateAPI/{{myKeys[loop.index0]}}/befilled'>✅ Done</td>
+			   {% else %}
+			   	<td style="text-align:center;">{{client['befilled']}}</td>
+			   {% endif %}
 
-		   {% if client['dutypaid'] == "" %}
-		   <td class="xyz btn btn-info btn-block clickable-cell" data-href='/updateAPI/{{myKeys[loop.index0]}}/dutypaid'>✅ Done</td>
-		   {% else %}
-		   	<td style="text-align:center;">{{client['dutypaid']}}</td>
-		   {% endif %}
+			   {% if client['bereleased'] == "" %}
+			   <td class="xyz btn btn-info btn-block clickable-cell" data-href='/updateAPI/{{myKeys[loop.index0]}}/bereleased'>✅ Done</td>
+			   {% else %}
+			   	<td style="text-align:center;">{{client['bereleased']}}</td>
+			   {% endif %}
+
+			   {% if client['dutypaid'] == "" %}
+			   <td class="xyz btn btn-info btn-block clickable-cell" data-href='/updateAPI/{{myKeys[loop.index0]}}/dutypaid'>✅ Done</td>
+			   {% else %}
+			   	<td style="text-align:center;">{{client['dutypaid']}}</td>
+			   {% endif %}
+			
+			{% else %}
+
+			   {% if client['befilled'] == "" %}
+			   <td class="xyz btn btn-info btn-block">✅ Done</td>
+			   {% else %}
+			   	<td style="text-align:center;">{{client['befilled']}}</td>
+			   {% endif %}
+
+			   {% if client['bereleased'] == "" %}
+			   <td class="xyz btn btn-info btn-block">✅ Done</td>
+			   {% else %}
+			   	<td style="text-align:center;">{{client['bereleased']}}</td>
+			   {% endif %}
+
+			   {% if client['dutypaid'] == "" %}
+			   <td class="xyz btn btn-info btn-block">✅ Done</td>
+			   {% else %}
+			   	<td style="text-align:center;">{{client['dutypaid']}}</td>
+			   {% endif %}
+			
+			{% endif %}
 
 		   <td style="text-align:center;" class="j6">{{client['customover']}}</td>
 
-		   {% if client['cfsover'] == "" %}
-		   <td class="xyz btn btn-warning btn-block clickable-cell" data-href='/updateAPI/{{myKeys[loop.index0]}}/cfsover'>✅ Done</td>
-		   {% else %}
-		   	<td style="text-align:center;">{{client['cfsover']}}</td>
-		   {% endif %}
+		   {% if permissions[2] != 'null' %}
 
-		   {% if client['cargorel'] == "" %}
-		   <td class="xyz btn btn-warning btn-block clickable-cell" data-href='/updateAPI/{{myKeys[loop.index0]}}/cargorel'>✅ Done</td>
-		   {% else %}
-		   	<td style="text-align:center;">{{client['cargorel']}}</td>
-		   {% endif %}
+			   {% if client['cfsover'] == "" %}
+			   <td class="xyz btn btn-warning btn-block clickable-cell" data-href='/updateAPI/{{myKeys[loop.index0]}}/cfsover'>✅ Done</td>
+			   {% else %}
+			   	<td style="text-align:center;">{{client['cfsover']}}</td>
+			   {% endif %}
+
+			   {% if client['cargorel'] == "" %}
+			   <td class="xyz btn btn-warning btn-block clickable-cell" data-href='/updateAPI/{{myKeys[loop.index0]}}/cargorel'>✅ Done</td>
+			   {% else %}
+			   	<td style="text-align:center;">{{client['cargorel']}}</td>
+			   {% endif %}
+
+			{% else %}
+
+			   {% if client['cfsover'] == "" %}
+			   <td class="xyz btn btn-warning btn-block">✅ Done</td>
+			   {% else %}
+			   	<td style="text-align:center;">{{client['cfsover']}}</td>
+			   {% endif %}
+			
+			   {% if client['cargorel'] == "" %}
+			   <td class="xyz btn btn-warning btn-block">✅ Done</td>
+			   {% else %}
+			   	<td style="text-align:center;">{{client['cargorel']}}</td>
+			   {% endif %}
+
+			{% endif %}
 
 		   <td style="text-align:center;" class="j7">{{client['dockover']}}</td>
 
-		   {% if client['cargotruck'] == "" %}
-		   <td class="xyz btn btn-grey btn-block clickable-cell" data-href='/updateAPI/{{myKeys[loop.index0]}}/cargotruck'>✅ Done</td>
-		   {% else %}
-		   	<td style="text-align:center;">{{client['cargotruck']}}</td>
-		   {% endif %}
+		   {% if permissions[3] != 'null' %}
 
-		   {% if client['delvclient'] == "" %}
-		   <td class="xyz btn btn-grey btn-block clickable-cell" data-href='/updateAPI/{{myKeys[loop.index0]}}/delvclient'>✅ Done</td>
+			   {% if client['cargotruck'] == "" %}
+			   <td class="xyz btn btn-grey btn-block clickable-cell" data-href='/updateAPI/{{myKeys[loop.index0]}}/cargotruck'>✅ Done</td>
+			   {% else %}
+			   	<td style="text-align:center;">{{client['cargotruck']}}</td>
+			   {% endif %}
+
+			   {% if client['delvclient'] == "" %}
+			   <td class="xyz btn btn-grey btn-block clickable-cell" data-href='/updateAPI/{{myKeys[loop.index0]}}/delvclient'>✅ Done</td>
+			   {% else %}
+			   	<td style="text-align:center;">{{client['delvclient']}}</td>
+			   {% endif %}
+
 		   {% else %}
-		   	<td style="text-align:center;">{{client['delvclient']}}</td>
+
+			   {% if client['cargotruck'] == "" %}
+			   <td class="xyz btn btn-grey btn-block">✅ Done</td>
+			   {% else %}
+			   	<td style="text-align:center;">{{client['cargotruck']}}</td>
+			   {% endif %}
+			
+			   {% if client['delvclient'] == "" %}
+			   <td class="xyz btn btn-grey btn-block">✅ Done</td>
+			   {% else %}
+			   	<td style="text-align:center;">{{client['delvclient']}}</td>
+			   {% endif %}		   
+
 		   {% endif %}
 
 		   <td style="text-align:center;" class="j8">{{client['delvover']}}</td>
 
-		   {% if client['slotextn'] == "" %}
-		   <td class="xyz btn btn-violet btn-block clickable-cell" data-href='/updateAPI/{{myKeys[loop.index0]}}/slotextn'>✅ Done</td>
-		   {% else %}
-		   	<td style="text-align:center;">{{client['slotextn']}}</td>
-		   {% endif %}
+		   {% if permissions[4] != 'null' %}
 
-		   {% if client['emptydep'] == "" %}
-		   <td class="xyz btn btn-violet btn-block clickable-cell" data-href='/updateAPI/{{myKeys[loop.index0]}}/emptydep'>✅ Done</td>
+			   {% if client['slotextn'] == "" %}
+			   <td class="xyz btn btn-violet btn-block clickable-cell" data-href='/updateAPI/{{myKeys[loop.index0]}}/slotextn'>✅ Done</td>
+			   {% else %}
+			   	<td style="text-align:center;">{{client['slotextn']}}</td>
+			   {% endif %}
+
+			   {% if client['emptydep'] == "" %}
+			   <td class="xyz btn btn-violet btn-block clickable-cell" data-href='/updateAPI/{{myKeys[loop.index0]}}/emptydep'>✅ Done</td>
+			   {% else %}
+			   	<td style="text-align:center;">{{client['emptydep']}}</td>
+			   {% endif %}
+
 		   {% else %}
-		   	<td style="text-align:center;">{{client['emptydep']}}</td>
+
+			   {% if client['slotextn'] == "" %}
+			   <td class="xyz btn btn-violet btn-block">✅ Done</td>
+			   {% else %}
+			   	<td style="text-align:center;">{{client['slotextn']}}</td>
+			   {% endif %}
+			
+			   {% if client['emptydep'] == "" %}
+			   <td class="xyz btn btn-violet btn-block">✅ Done</td>
+			   {% else %}
+			   	<td style="text-align:center;">{{client['emptydep']}}</td>
+			   {% endif %}
+
 		   {% endif %}
 
 		   <td style="text-align:center;" class="j8">{{client['shipping2over']}}</td>

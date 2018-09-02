@@ -5,15 +5,48 @@
 </head>
 <body>
 
-	<h1>Welcome to JLG Operations</h1>
+	<center>
+	<h1>Welcome to JLG Operations</h1><br><br>
 	
-	Administrator<br>
+	{% if not loggedIn %}
+	<form action="/login" method="POST">
+		<input type="text" id="username" name="username" placeholder="Username" required>
+		<input type="password" id="password" name="password" placeholder="Password" required>
+		<button type="submit" id="loginButton" name="loginButton">Login</button>
+	</form>
+
+	<br><a href="/register">New User</a>
+
+	{% else %}
+	Welcome {{user}}
+
+
+	{% if isAdmin == 'yes' %}
+	 <b>[Administrator]</b><br><br>
+	 <a href="/manageUsers">Manage Users</a>
+	{% endif %}
+
+
+	<br><br>
+	<form action="/logout" method="POST">
+	<button type="submit" id="logoutButton" name="logoutButton">Log Out</button>
+	</form>
+	{% endif %}
+
+	<br><br>
+	{% if note %}
+	{{note}}
+	{% endif %}
+	<hr><br><br>
+
 	<a href="/clientdb">Client Database</a><br>
 	<a href="/jobnodb">Job Number Database</a><br>
 	<a href="/exec">Execution Status Database</a><br>
 	<a href="/jobprofitdb">Job Profit Database</a><br>
 	<a href="/jobbelongdb">Job Belonging Database</a><br>
 	<a href="/jobownerdb">Job Owner Database</a>
+	</center>
 
 </body>
+
 </html>
