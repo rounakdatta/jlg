@@ -11,7 +11,7 @@
 <h2>Are you sure the Sub-Job is COMPLETE? Press one of the below to Confirm</h2>
 <h3>DO NOT CLOSE / REFRESH / GO BACK</h3>
 
-<br><progress value="0" max="5" id="progressBar"></progress><br><br><hr>
+<br><progress value="0" max="1" id="progressBar"></progress><br><br><hr>
 
 <div id="controlsMain">
 	<a href="/updateConfirmation"><button>CONFIRM</button></a><br><br><br>
@@ -28,9 +28,9 @@ $("#controlsMain").find("a").addClass("disablehyper").click(function (e) {
     e.preventDefault();
 });
 
-var timeleft = 5;
+var timeleft = 1;
 var downloadTimer = setInterval(function(){
-  document.getElementById("progressBar").value = 5 - --timeleft;
+  document.getElementById("progressBar").value = 1 - --timeleft;
   if(timeleft <= 0) {
     clearInterval(downloadTimer);
 

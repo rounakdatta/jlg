@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, send_file, flash, redirect, session, abort, url_for
 import pyrebase
 
+import time
 from datetime import datetime
 from pytz import timezone
 
@@ -95,12 +96,32 @@ def login():
 
 
 # logout route
-@app.route('/logout', methods=['POST'])
+@app.route('/logout', methods=['GET', 'POST'])
 def logout():
 	session['loggedIn'] = False
 	session['user'] = ''
 	session['userPermissions'] = []
 	session['admin'] = 'no'
+	return redirect('/')
+
+
+# admin API to delete a user
+@app.route('/adminAPI/delete/<userId>', methods=['GET', 'POST'])
+def deleteUser(userId):
+	if(session['admin'] != 'yes'):
+		return "no!"
+
+	db.child("jlg_main").child('accounts').child(userId).remove()
+	return redirect('/')	
+
+
+# admin API to revoke permissions
+@app.route('/adminAPI/cancel/<userId>/<job>', methods=['GET', 'POST'])
+def revokeAccess(userId, job):
+	if(session['admin'] != 'yes'):
+		return "no!"
+
+	db.child("jlg_main").child('accounts').child(userId).update({job: 'no'})
 	return redirect('/')
 
 
@@ -160,8 +181,10 @@ def index():
 @app.route('/jobnodb', methods=['GET', 'POST'])
 def jobno():
 
-	if not session.get('loggedIn'):
-		return redirect('/')
+	if session['user'] != '':
+		aright = "yes"
+	else:
+		aright = "no"
 
 	# get all the job entries
 	all_je = db.child("jlg_main").child('jlg_execution').get()
@@ -173,7 +196,7 @@ def jobno():
 	except:
 		print("Empty Execution Database")
 
-	return render_template('jobIndex.html', allExec=all_job_exec)
+	return render_template('jobIndex.html', allExec=all_job_exec, user=aright)
 
 
 # new job entry
@@ -211,8 +234,10 @@ def newjob():
 @app.route('/jobprofitdb', methods=['GET', 'POST'])
 def jobprofitdb():
 
-	if not session.get('loggedIn'):
-		return redirect('/')
+	if session['admin'] == 'yes':
+		aright = "yes"
+	else:
+		aright = "no"
 
 	# get all the current job profit entries
 	all_jp = db.child("jlg_main").child('jlg_jobprofit').get()
@@ -231,15 +256,17 @@ def jobprofitdb():
 
 		return redirect('/')
 
-	return render_template('jobprofit.html', allJobs=all_job_profits)
+	return render_template('jobprofit.html', admin=aright, allJobs=all_job_profits)
 
 
 # job belonging database
 @app.route('/jobbelongdb', methods=['GET', 'POST'])
 def jobbelongdb():
 
-	if not session.get('loggedIn'):
-		return redirect('/')
+	if session['admin'] == 'yes':
+		aright = "yes"
+	else:
+		aright = "no"
 
 	# get all the current job belonging entries
 	all_jb = db.child("jlg_main").child('jlg_jobbelong').get()
@@ -258,15 +285,17 @@ def jobbelongdb():
 
 		return redirect('/')
 
-	return render_template('jobbelong.html', allJobs=all_job_belong)
+	return render_template('jobbelong.html', admin=aright, allJobs=all_job_belong)
 
 
 # job owner database
 @app.route('/jobownerdb', methods=['GET', 'POST'])
 def jobownerdb():
 
-	if not session.get('loggedIn'):
-		return redirect('/')
+	if session['admin'] == 'yes':
+		aright = "yes"
+	else:
+		aright = "no"
 
 	# get all the current job profit centres
 	all_jb = db.child("jlg_main").child('jlg_jobprofit').get()
@@ -295,15 +324,17 @@ def jobownerdb():
 
 		return redirect('/')
 
-	return render_template('jobowner.html', allJobs=all_job_owners, jobProfits=all_job_profits)
+	return render_template('jobowner.html', admin=aright, allJobs=all_job_owners, jobProfits=all_job_profits)
 
 
 # client database
 @app.route('/clientdb', methods=['GET', 'POST'])
 def clientdb():
 
-	if not session.get('loggedIn'):
-		return redirect('/')
+	if session['user'] == 'yes':
+		aright = "yes"
+	else:
+		aright = "no"
 
 	# get all the current job profit centres
 	all_jb = db.child("jlg_main").child('jlg_jobprofit').get()
@@ -353,15 +384,17 @@ def clientdb():
 		print("Empty Client Database")
 
 
-	return render_template('client.html', allClients=all_job_clients, allJobs=all_job_owners, jobProfits=all_job_profits, jobBelongs=all_job_belong)
+	return render_template('client.html', user=aright, allClients=all_job_clients, allJobs=all_job_owners, jobProfits=all_job_profits, jobBelongs=all_job_belong)
 
 
 # index page for exec
 @app.route('/exec', methods=['GET', 'POST'])
 def execIndex():
 
-	if not session.get('loggedIn'):
-		return redirect('/')
+	if session['admin'] == 'yes':
+		aright = "yes"
+	else:
+		aright = "no"
 
 	# get all the current client entries
 	all_je = db.child("jlg_main").child('jlg_execution').get()
@@ -373,41 +406,104 @@ def execIndex():
 	except:
 		print("Empty Execution Database")
 
-	return render_template('execIndex.html', allExec=all_job_exec)
+	return render_template('execIndex.html', admin=aright, allExec=all_job_exec)
 
 
-def checkDataConsistency():
-	all_je = db.child("jlg_main").child('jlg_execution').get()
+def checkDataConsistency(myId="all"):
+
+	if(myId == "all"):
+		print('Entire Database check')
+		try:
+			all_je = db.child("jlg_main").child('jlg_execution').get()
+			for item in all_je.each():
+	
+				if item.val()['bondready'] != '' and item.val()['dobill'] != '' and item.val()['doready'] != '':
+					db.child("jlg_main").child('jlg_execution').child(item.key()).update({'shipping1over': 'yes'})
+				else:
+					db.child("jlg_main").child('jlg_execution').child(item.key()).update({'shipping1over': 'no'})
+	
+				if item.val()['befilled'] != '' and item.val()['bereleased'] != '' and item.val()['dutypaid'] != '':
+					db.child("jlg_main").child('jlg_execution').child(item.key()).update({'customover': 'yes'})
+				else:
+					db.child("jlg_main").child('jlg_execution').child(item.key()).update({'customover': 'no'})
+	
+				if item.val()['cfsover'] != '' and item.val()['cargorel'] != '':
+					db.child("jlg_main").child('jlg_execution').child(item.key()).update({'dockover': 'yes'})
+				else:
+					db.child("jlg_main").child('jlg_execution').child(item.key()).update({'dockover': 'no'})
+	
+				if item.val()['cargotruck'] != '' and item.val()['delvclient'] != '':
+					db.child("jlg_main").child('jlg_execution').child(item.key()).update({'delvover': 'yes'})
+				else:
+					db.child("jlg_main").child('jlg_execution').child(item.key()).update({'delvover': 'no'})
+	
+				if item.val()['slotextn'] != '' and item.val()['emptydep'] != '':
+					db.child("jlg_main").child('jlg_execution').child(item.key()).update({'shipping2over': 'yes'})
+				else:
+					db.child("jlg_main").child('jlg_execution').child(item.key()).update({'shipping2over': 'no'})
+	
+				# final one
+				if item.val()['shipping1over'] == 'yes' and item.val()['customover'] == 'yes' and item.val()['dockover'] == 'yes' and item.val()['delvover'] == 'yes' and item.val()['shipping2over'] == 'yes':
+					db.child("jlg_main").child('jlg_execution').child(item.key()).update({'jobComplete': 'yes'})
+
+					if(item.val()['jobCloseDate'] == ''):
+						closeDate = str(datetime.now(timezone('Asia/Kolkata')))[:-22]
+						db.child("jlg_main").child('jlg_execution').child(item.key()).update({'jobCloseDate': closeDate})
+
+				else:
+					db.child("jlg_main").child('jlg_execution').child(item.key()).update({'jobComplete': 'no'})
+					db.child("jlg_main").child('jlg_execution').child(item.key()).update({'jobCloseDate': ''})
+
+	
+		except Exception as e:
+			print(e)
+			print("Empty Execution Database")
+
+		return
 
 	try:
-		for item in all_je.each():
+		item = db.child("jlg_main").child('jlg_execution').child(myId).get()
+		print('Single item Database check')
 
-			if item.val()['bondready'] != '' and item.val()['dobill'] != '' and item.val()['doready'] != '':
-				db.child("jlg_main").child('jlg_execution').child(item.key()).update({'shipping1over': 'yes'})
-
-			if item.val()['befilled'] != '' and item.val()['bereleased'] != '' and item.val()['dutypaid'] != '':
-				db.child("jlg_main").child('jlg_execution').child(item.key()).update({'customover': 'yes'})
-
-			if item.val()['cfsover'] != '' and item.val()['cargorel'] != '':
-				db.child("jlg_main").child('jlg_execution').child(item.key()).update({'dockover': 'yes'})
-
-			if item.val()['cargotruck'] != '' and item.val()['delvclient'] != '':
-				db.child("jlg_main").child('jlg_execution').child(item.key()).update({'delvover': 'yes'})
-
-			if item.val()['slotextn'] != '' and item.val()['emptydep'] != '':
-				db.child("jlg_main").child('jlg_execution').child(item.key()).update({'shipping2over': 'yes'})
-
-			# final one
-			if item.val()['shipping1over'] == 'yes' and item.val()['customover'] == 'yes' and item.val()['dockover'] == 'yes' and item.val()['delvover'] == 'yes' and item.val()['shipping2over'] == 'yes':
-				db.child("jlg_main").child('jlg_execution').child(item.key()).update({'jobComplete': 'yes'})
-
-				if(item.val()['jobCloseDate'] == ''):
-					closeDate = str(datetime.now(timezone('Asia/Kolkata')))[:-22]
-					db.child("jlg_main").child('jlg_execution').child(item.key()).update({'jobCloseDate': closeDate})
-
+		if item.val()['bondready'] != '' and item.val()['dobill'] != '' and item.val()['doready'] != '':
+			db.child("jlg_main").child('jlg_execution').child(item.key()).update({'shipping1over': 'yes'})
+		else:
+			db.child("jlg_main").child('jlg_execution').child(item.key()).update({'shipping1over': 'no'})
+		if item.val()['befilled'] != '' and item.val()['bereleased'] != '' and item.val()['dutypaid'] != '':
+			db.child("jlg_main").child('jlg_execution').child(item.key()).update({'customover': 'yes'})
+		else:
+			db.child("jlg_main").child('jlg_execution').child(item.key()).update({'customover': 'no'})
+		if item.val()['cfsover'] != '' and item.val()['cargorel'] != '':
+			db.child("jlg_main").child('jlg_execution').child(item.key()).update({'dockover': 'yes'})
+		else:
+			db.child("jlg_main").child('jlg_execution').child(item.key()).update({'dockover': 'no'})
+		if item.val()['cargotruck'] != '' and item.val()['delvclient'] != '':
+			db.child("jlg_main").child('jlg_execution').child(item.key()).update({'delvover': 'yes'})
+		else:
+			db.child("jlg_main").child('jlg_execution').child(item.key()).update({'delvover': 'no'})
+		if item.val()['slotextn'] != '' and item.val()['emptydep'] != '':
+			db.child("jlg_main").child('jlg_execution').child(item.key()).update({'shipping2over': 'yes'})
+		else:
+			db.child("jlg_main").child('jlg_execution').child(item.key()).update({'shipping2over': 'no'})
+		# final one
+		if item.val()['shipping1over'] == 'yes' and item.val()['customover'] == 'yes' and item.val()['dockover'] == 'yes' and item.val()['delvover'] == 'yes' and item.val()['shipping2over'] == 'yes':
+			db.child("jlg_main").child('jlg_execution').child(item.key()).update({'jobComplete': 'yes'})
+			if(item.val()['jobCloseDate'] == ''):
+				closeDate = str(datetime.now(timezone('Asia/Kolkata')))[:-22]
+				db.child("jlg_main").child('jlg_execution').child(item.key()).update({'jobCloseDate': closeDate})
+		else:
+			db.child("jlg_main").child('jlg_execution').child(item.key()).update({'jobComplete': 'no'})
+			db.child("jlg_main").child('jlg_execution').child(item.key()).update({'jobCloseDate': ''})
 	except Exception as e:
 		print(e)
-		print("Empty Execution Database")
+		print('Updation problem')		
+
+
+# manual data consistency check
+@app.route('/refreshData', methods=['GET', 'POST'])
+def refreshDB():
+	checkDataConsistency()
+	return redirect('/')
 
 
 # update confirmation
@@ -417,10 +513,7 @@ def confirmUpdate():
 	if not session.get('loggedIn'):
 		return redirect('/')
 
-	# double-check data consistency
-	checkDataConsistency()
-	checkDataConsistency()
-	return redirect('/')
+	return redirect('/logout')
 
 
 # update cancellation
@@ -431,7 +524,15 @@ def cancelUpdate(objectId, attributeId):
 		return redirect('/')
 
 	db.child("jlg_main").child('jlg_execution').child(objectId).update({attributeId: ""})
-	return redirect('/')
+
+	# sleep for 3s because Firebase needs a little time to update
+	time.sleep(3)
+
+	# double-check for extra surity
+	checkDataConsistency(objectId)
+	checkDataConsistency(objectId)
+
+	return redirect('/logout')
 
 
 # update API (restricted use)
@@ -441,8 +542,15 @@ def updateAPI(objectId, attributeId):
 	if not session.get('loggedIn'):
 		return redirect('/')
 
-	timeData = str(datetime.now(timezone('Asia/Kolkata')))[:-16]
+	timeData = str(datetime.now(timezone('Asia/Kolkata')))[:-16] + ' ' + session['user']
 	db.child("jlg_main").child('jlg_execution').child(objectId).update({attributeId: timeData})
+	
+	# sleep for 3s because Firebase needs a little time to update
+	time.sleep(3)
+
+	# double-check for extra surity
+	checkDataConsistency(objectId)
+	checkDataConsistency(objectId)
 
 	return render_template('confirmSubmit.html', objectId=objectId, attributeId=attributeId)
 
@@ -451,8 +559,10 @@ def updateAPI(objectId, attributeId):
 @app.route('/exec/open', methods=['GET', 'POST'])
 def execFilterOpen():
 
-	if not session.get('loggedIn'):
-		return redirect('/')
+	if session['admin'] == 'yes':
+		aright = "yes"
+	else:
+		aright = "no"
 
 	# get all the current client entries
 	all_je = db.child("jlg_main").child('jlg_execution').get()
@@ -468,15 +578,17 @@ def execFilterOpen():
 		print(e)
 		print("Empty Execution Database")
 
-	return render_template('execData.html', allExec=all_job_exec_val, myKeys=all_job_exec_key, what='Open', permissions=session['userPermissions'])
+	return render_template('execData.html', admin=aright, allExec=all_job_exec_val, myKeys=all_job_exec_key, what='Open', permissions=session['userPermissions'])
 
 
 # closed jobs page for exec
 @app.route('/exec/closed', methods=['GET', 'POST'])
 def execFilterClosed():
 
-	if not session.get('loggedIn'):
-		return redirect('/')
+	if session['admin'] == 'yes':
+		aright = "yes"
+	else:
+		aright = "no"
 
 	# get all the current client entries
 	all_je = db.child("jlg_main").child('jlg_execution').get()
@@ -492,15 +604,17 @@ def execFilterClosed():
 		print(e)
 		print("Empty Execution Database")
 
-	return render_template('execData.html', allExec=all_job_exec_val, myKeys=all_job_exec_key, what='Closed', permissions=['yes', 'yes', 'yes', 'yes', 'yes'])
+	return render_template('execData.html', admin=aright, allExec=all_job_exec_val, myKeys=all_job_exec_key, what='Closed', permissions=['yes', 'yes', 'yes', 'yes', 'yes'])
 
 
 # execution database API (don't use - only for mass data push)
 @app.route('/execstatusdb', methods=['GET', 'POST'])
 def execstatusdb():
 
-	if not session.get('loggedIn'):
-		return redirect('/')
+	if session['admin'] == 'yes':
+		aright = "yes"
+	else:
+		aright = "no"
 
 	############################## prefetch data #############################################
 
@@ -560,7 +674,7 @@ def execstatusdb():
 		print("Empty Execution Database")
 
 
-	return render_template('execution.html', allExec=all_job_exec, allJobs=all_job_owners, jobProfits=all_job_profits, jobBelongs=all_job_belong)
+	return render_template('execution.html', admin=aright, allExec=all_job_exec, allJobs=all_job_owners, jobProfits=all_job_profits, jobBelongs=all_job_belong)
 
 
 app.secret_key = "jlg-ops"

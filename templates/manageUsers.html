@@ -19,6 +19,7 @@
     <th>Dock Part</th>
     <th>Client Delv</th>
     <th>Shipping 2nd Part</th>
+    <th>DELETE</th>
   </tr>
 
   {% for user in allUsers %}
@@ -27,40 +28,42 @@
     <td>{{user['email']}}</td>
 
     {% if user['admin'] == 'yes' %}
-    <td>✔</td>
+    <td>✔ <a href="/adminAPI/cancel/{{myKeys[loop.index0]}}/admin">Revoke</a></td>
     {% else %}
     <td><a href="/adminAPI/{{myKeys[loop.index0]}}/admin">Grant</a></td>
     {% endif %}
 
     {% if user['job1'] == 'yes' %}
-    <td>✔</td>
+    <td>✔ <a href="/adminAPI/cancel/{{myKeys[loop.index0]}}/job1">Revoke</a></td>
     {% else %}
     <td><a href="/adminAPI/{{myKeys[loop.index0]}}/job1">Grant</a></td>
     {% endif %}
 
     {% if user['job2'] == 'yes' %}
-    <td>✔</td>
+    <td>✔ <a href="/adminAPI/cancel/{{myKeys[loop.index0]}}/job2">Revoke</a></td>
     {% else %}
     <td><a href="/adminAPI/{{myKeys[loop.index0]}}/job2">Grant</a></td>
     {% endif %}
 
     {% if user['job3'] == 'yes' %}
-    <td>✔</td>
+    <td>✔ <a href="/adminAPI/cancel/{{myKeys[loop.index0]}}/job3">Revoke</a></td>
     {% else %}
     <td><a href="/adminAPI/{{myKeys[loop.index0]}}/job3">Grant</a></td>
     {% endif %}
 
     {% if user['job4'] == 'yes' %}
-    <td>✔</td>
+    <td>✔ <a href="/adminAPI/cancel/{{myKeys[loop.index0]}}/job4">Revoke</a></td>
     {% else %}
     <td><a href="/adminAPI/{{myKeys[loop.index0]}}/job4">Grant</a></td>
     {% endif %}
 
     {% if user['job5'] == 'yes' %}
-    <td>✔</td>
+    <td>✔ <a href="/adminAPI/cancel/{{myKeys[loop.index0]}}/job5">Revoke</a></td>
     {% else %}
     <td><a href="/adminAPI/{{myKeys[loop.index0]}}/job5">Grant</a></td>
     {% endif %}
+
+    <td><a href="/adminAPI/delete/{{myKeys[loop.index0]}}">✖</a></td>
 
   </tr>
   {% endfor %}

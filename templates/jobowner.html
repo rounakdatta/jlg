@@ -28,6 +28,7 @@
 
 	<br><br>
 
+	{% if admin == "yes"%}
 	<form action="/jobownerdb" method="POST">
 		<label for="jobOwner">New Job Owner :</label>
 		<input id="jobOwner" name="jobOwner" type="text">
@@ -43,6 +44,7 @@
 
 		<button type="submit">Submit</button>
 	</form>
+	{% endif %}
 
 </body>
 </html>

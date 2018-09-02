@@ -24,12 +24,14 @@
 
 	<br><br>
 
+	{% if admin == "yes"%}
 	<form action="/jobprofitdb" method="POST">
 		<label for="jobProfitEntry">New Job Profit Centre :</label>
 		<input id="jobProfitEntry" name="jobProfitEntry" type="text">
 
 		<button type="submit">Submit</button>
 	</form>
+	{% endif %}
 
 </body>
 </html>
