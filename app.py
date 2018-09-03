@@ -172,6 +172,7 @@ def index():
 	else:
 		session['user'] = ''
 		session['admin'] = ''
+		session['userPermissions'] = ['no', 'no', 'no', 'no', 'no']
 
 	if(request.args.get('note')):
 		whatToSay = request.args.get('note')
