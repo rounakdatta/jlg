@@ -424,6 +424,8 @@ def checkDataConsistency(myId="all"):
 		try:
 			all_je = db.child("jlg_main").child('jlg_execution').get()
 			for item in all_je.each():
+				if item.val() is None:
+					continue
 	
 				if item.val()['bondready'] != '' and item.val()['dobill'] != '' and item.val()['doready'] != '':
 					db.child("jlg_main").child('jlg_execution').child(item.key()).update({'shipping1over': 'yes'})
@@ -579,6 +581,10 @@ def execFilterOpen():
 
 	try:
 		for item in all_je.each():
+
+			if item.val() is None:
+				continue
+
 			if(item.val()['jobComplete'] == 'no'):
 				all_job_exec_key.append(item.key())
 				all_job_exec_val.append(item.val())
@@ -605,6 +611,10 @@ def execFilterClosed():
 
 	try:
 		for item in all_je.each():
+
+			if item.val() is None:
+				continue
+			
 			if(item.val()['jobComplete'] == 'yes'):
 				all_job_exec_key.append(item.key())
 				all_job_exec_val.append(item.val())
