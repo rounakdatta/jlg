@@ -166,6 +166,13 @@ def manageUsers():
 # home page
 @app.route('/', methods=['GET', 'POST'])
 def index():
+
+	if session.get('user') or session.get('admin'):
+		print('Welcome')
+	else:
+		session['user'] = ''
+		session['admin'] = ''
+
 	if(request.args.get('note')):
 		whatToSay = request.args.get('note')
 	else:
