@@ -339,7 +339,7 @@ def jobownerdb():
 @app.route('/clientdb', methods=['GET', 'POST'])
 def clientdb():
 
-	if session['user'] == 'yes':
+	if session['user'] != '':
 		aright = "yes"
 	else:
 		aright = "no"
@@ -376,7 +376,7 @@ def clientdb():
 
 	if request.method == 'POST' and 'clientName' in request.form and 'jobBelong' in request.form and 'jobOwn' in request.form and 'jobProfit' in request.form and 'clientAddress1' in request.form and 'clientAddress2' in request.form and 'clientAddress3' in request.form and 'gstin' in request.form:
 		db.child("jlg_main").child("jlg_clients")
-		data = {'clientName' : request.form['clientName'], 'jobBelong' : request.form['jobBelong'], 'jobOwn' : request.form['jobOwn'], 'jobProfit' : request.form['jobProfit'], 'clientAddress1' : request.form['clientAddress1'], 'clientAddress2' : request.form['clientAddress2'], 'clientAddress3' : request.form['clientAddress3'], 'gstin' : request.form['gstin']}
+		data = {'clientname' : request.form['clientName'], 'jobBelong' : request.form['jobBelong'], 'jobOwn' : request.form['jobOwn'], 'jobProfit' : request.form['jobProfit'], 'clientAddress1' : request.form['clientAddress1'], 'clientAddress2' : request.form['clientAddress2'], 'clientAddress3' : request.form['clientAddress3'], 'gstin' : request.form['gstin']}
 		db.push(data)
 
 		return redirect('/')
@@ -388,7 +388,8 @@ def clientdb():
 	try:
 		for item in all_jc.each():
 			all_job_clients.append(item.val())
-	except:
+	except Exception as e:
+		print(e)
 		print("Empty Client Database")
 
 
