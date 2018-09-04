@@ -51,6 +51,8 @@
 
 			<th data-field="jobopen" data-filter-control="input" data-sortable="true">Job Open Date</th>
 
+			<th data-field="jobCloseDate" data-filter-control="input" data-sortable="true">Job Close Date</th>
+
 			<th data-field="clientname" data-filter-control="input" data-sortable="true">Client Name</th>
 
 			<th data-field="jobBelong" data-filter-control="input" data-sortable="true">Client Of</th>
@@ -69,8 +71,6 @@
 
 			<th data-field="invoice" data-filter-control="input" data-sortable="true">Invoice & Bill of Lading Details</th>
 
-			<th data-field="jobCloseDate" data-filter-control="input" data-sortable="true">Job Close Date</th>
-
 		</tr>
 	</thead>
 		<tbody>
@@ -81,6 +81,7 @@
 		   <td style="text-align:center;" class="j1">{{client['jobno1']}}</td>
 		   <td style="text-align:center;" class="j2">{{client['jobno2']}}</td>
 		   <td style="text-align:center;" class="j3">{{client['jobopen']}}</td>
+		   <td style="text-align:center;" class="j7">{{client['jobCloseDate']}}</td>
 		   <td style="text-align:center;" class="j4">{{client['clientname']}}</td>
 		   <td style="text-align:center;" class="j5">{{client['jobBelong']}}</td>
 		   <td style="text-align:center;" class="j5">{{client['jobOwn']}}</td>
@@ -90,7 +91,7 @@
 		   <td style="text-align:center;" class="j6">{{client['cargotype']}}</td>
 		   <td style="text-align:center;" class="j6">{{client['commodity']}}</td>
 		   <td style="text-align:center;" class="j6">{{client['invoice']}}</td>
-		   <td style="text-align:center;" class="j7">{{client['jobCloseDate']}}</td>
+		
 		</tr>
 		{% endfor %}
 		</tbody>

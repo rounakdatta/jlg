@@ -51,7 +51,7 @@ def login():
 	try:
 		for person in logins.each():
 			if person.val()['username'] == request.form['username'] and person.val()['password'] == request.form['password']:
-				
+
 				try:
 					userPermissions.append(person.val()['job1'])
 				except:
@@ -112,7 +112,7 @@ def deleteUser(userId):
 		return "no!"
 
 	db.child("jlg_main").child('accounts').child(userId).remove()
-	return redirect('/')	
+	return redirect('/')
 
 
 # admin API to revoke permissions
@@ -160,7 +160,7 @@ def manageUsers():
 	except:
 		print('Accounts DB empty!')
 
-	return render_template('manageUsers.html', allUsers=all_users, myKeys=all_keys)	
+	return render_template('manageUsers.html', allUsers=all_users, myKeys=all_keys)
 
 
 # home page
@@ -426,32 +426,32 @@ def checkDataConsistency(myId="all"):
 			for item in all_je.each():
 				if item.val() is None:
 					continue
-	
+
 				if item.val()['bondready'] != '' and item.val()['dobill'] != '' and item.val()['doready'] != '':
 					db.child("jlg_main").child('jlg_execution').child(item.key()).update({'shipping1over': 'yes'})
 				else:
 					db.child("jlg_main").child('jlg_execution').child(item.key()).update({'shipping1over': 'no'})
-	
+
 				if item.val()['befilled'] != '' and item.val()['bereleased'] != '' and item.val()['dutypaid'] != '':
 					db.child("jlg_main").child('jlg_execution').child(item.key()).update({'customover': 'yes'})
 				else:
 					db.child("jlg_main").child('jlg_execution').child(item.key()).update({'customover': 'no'})
-	
+
 				if item.val()['cfsover'] != '' and item.val()['cargorel'] != '':
 					db.child("jlg_main").child('jlg_execution').child(item.key()).update({'dockover': 'yes'})
 				else:
 					db.child("jlg_main").child('jlg_execution').child(item.key()).update({'dockover': 'no'})
-	
+
 				if item.val()['cargotruck'] != '' and item.val()['delvclient'] != '':
 					db.child("jlg_main").child('jlg_execution').child(item.key()).update({'delvover': 'yes'})
 				else:
 					db.child("jlg_main").child('jlg_execution').child(item.key()).update({'delvover': 'no'})
-	
+
 				if item.val()['slotextn'] != '' and item.val()['emptydep'] != '':
 					db.child("jlg_main").child('jlg_execution').child(item.key()).update({'shipping2over': 'yes'})
 				else:
 					db.child("jlg_main").child('jlg_execution').child(item.key()).update({'shipping2over': 'no'})
-	
+
 				# final one
 				if item.val()['shipping1over'] == 'yes' and item.val()['customover'] == 'yes' and item.val()['dockover'] == 'yes' and item.val()['delvover'] == 'yes' and item.val()['shipping2over'] == 'yes':
 					db.child("jlg_main").child('jlg_execution').child(item.key()).update({'jobComplete': 'yes'})
@@ -464,7 +464,7 @@ def checkDataConsistency(myId="all"):
 					db.child("jlg_main").child('jlg_execution').child(item.key()).update({'jobComplete': 'no'})
 					db.child("jlg_main").child('jlg_execution').child(item.key()).update({'jobCloseDate': ''})
 
-	
+
 		except Exception as e:
 			print(e)
 			print("Empty Execution Database")
@@ -506,7 +506,7 @@ def checkDataConsistency(myId="all"):
 			db.child("jlg_main").child('jlg_execution').child(item.key()).update({'jobCloseDate': ''})
 	except Exception as e:
 		print(e)
-		print('Updation problem')		
+		print('Updation problem')
 
 
 # manual data consistency check
@@ -554,7 +554,7 @@ def updateAPI(objectId, attributeId):
 
 	timeData = str(datetime.now(timezone('Asia/Kolkata')))[:-16] + ' ' + session['user']
 	db.child("jlg_main").child('jlg_execution').child(objectId).update({attributeId: timeData})
-	
+
 	# sleep for 3s because Firebase needs a little time to update
 	time.sleep(3)
 
@@ -614,7 +614,7 @@ def execFilterClosed():
 
 			if item.val() is None:
 				continue
-			
+
 			if(item.val()['jobComplete'] == 'yes'):
 				all_job_exec_key.append(item.key())
 				all_job_exec_val.append(item.val())
@@ -698,4 +698,4 @@ def execstatusdb():
 app.secret_key = "jlg-ops"
 
 if __name__ == '__main__':
-	app.run(debug=True)
+	app.run(threaded=True)
