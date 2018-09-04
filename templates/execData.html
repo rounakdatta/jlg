@@ -6,6 +6,7 @@
 <link rel='stylesheet' href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'><link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.0/bootstrap-table.min.css'><link rel='stylesheet' href='//rawgit.com/vitalets/x-editable/master/dist/bootstrap3-editable/css/bootstrap-editable.css'>
 <style class="cp-pen-styles"></style>
 <link rel="stylesheet" href="https://fengyuanchen.github.io/datepicker/css/datepicker.css">
+<link rel="stylesheet" type="text/css" href="https://raw.githubusercontent.com/wenzhixin/bootstrap-table-fixed-columns/master/bootstrap-table-fixed-columns.css">
 
 <style type="text/css">
 	
@@ -115,8 +116,10 @@ tbody {
 			 data-show-columns="true"
 			 data-filter-control="true"
 			 data-pagination="true" 
+			 data-height="800"
 			 data-show-export="true"
 			 data-toolbar="#toolbar"
+			 data-response-handler="responseHandler"
        		 class="table-responsive">
        	<thead>
 		<tr>
@@ -605,6 +608,7 @@ var $table = $('#table');
 	document.evaluate('/html/body/div[1]/div[1]/div[1]/div[2]/div[1]/ul/li[21]', document, null, XPathResult.ANY_TYPE, null).iterateNext().style.display = "none";
 </script-->
 
+<script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap-table-fixed-columns.js') }}"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/floatthead/2.1.2/jquery.floatThead.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/floatthead/2.1.2/jquery.floatThead.min.js"></script>
 <script type="text/javascript" src="https://fengyuanchen.github.io/datepicker/js/datepicker.js"></script>
