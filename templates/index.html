@@ -1,21 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>JLG | Home</title>
+	<title>JLG Operations | Home</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
 
 	<center>
-	<h1>Welcome to JLG Operations</h1><br><br>
+	
+	<div class="container">
+	  <div class="jumbotron">
+	    <h1>Welcome to JLG Operations</h1>
+	  </div>   
+	</div>
+
 	
 	{% if not loggedIn %}
 	<form action="/login" method="POST">
 		<input type="text" id="username" name="username" placeholder="Username" required>
 		<input type="password" id="password" name="password" placeholder="Password" required>
-		<button type="submit" id="loginButton" name="loginButton">Login</button>
+		<button type="submit" id="loginButton" name="loginButton" class="btn btn-primary">Login</button>
 	</form>
 
-	<br><a href="/register">New User</a>
+	<br><a href="/register"><button type="button" class="btn btn-primary active">New User Registration</button></a>
 
 	{% else %}
 	Welcome {{user}}
@@ -29,7 +40,7 @@
 
 	<br><br>
 	<form action="/logout" method="POST">
-	<button type="submit" id="logoutButton" name="logoutButton">Log Out</button>
+	<button type="submit" id="logoutButton" name="logoutButton" class="btn btn-primary">Log Out</button>
 	</form>
 	{% endif %}
 

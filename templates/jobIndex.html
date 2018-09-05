@@ -10,13 +10,36 @@
 
 </head>
 <body>
+ <nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">JLG Operations</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a>→</a></li>
+      <li class="active"><a>Job Number</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+    	<li><a>
+    	{% if userx == '' %}
+    	Not Logged In
+    	{% else %}
+    	{{userx}}
+    	{% endif %}
+    </a></li>
+    </ul>
+  </div>
+</nav> 
 
-	<h1>JLG | Job Number Database</h1>
-
-	<a href="/">BACK</a><br>
+<br><br><br>
 
 	{% if user == 'yes' %}
-	<a href="/jobnodb/new">New Data</a><br>
+		<center>
+	<p class="text-primary">
+	<a href="/jobnodb/new"><button class="btn btn-lg">Create New Job</button></a>
+	</p>
+	</center>
+	<hr>
 	{% endif %}
 
 
@@ -36,6 +59,8 @@
 			 data-show-columns="true"
 			 data-filter-control="true" 
 			 data-show-export="true"
+			 data-pagination="true" 
+			 data-height="800"
 			 data-click-to-select="true"
 			 data-toolbar="#toolbar"
        		 class="table-responsive">

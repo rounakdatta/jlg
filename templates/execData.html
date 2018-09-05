@@ -85,20 +85,44 @@ tbody {
 </head>
 <body>
 
-	<h1>Job Execution Database [{{what}}]</h1>
+ <nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">JLG Operations</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a>→</a></li>
+      <li><a href="/exec">Job Execution Status</a></li>
+      <li><a>→</a></li>
+      <li class="active"><a>Open Jobs</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+    	<li><a>
+    	{% if user == '' %}
+    	Not Logged In
+    	{% else %}
+    	{{user}}
+    	{% endif %}
+    </a></li>
+    </ul>
+  </div>
+</nav> 
 
-	<a href="/exec">BACK</a>
-	<br><br>
+<br><br><br>
 
-	<input type="button" id="shipping1" value="Shipping 1st Part"></input>
-	<input type="button" id="custom" value="Custom Part"></button>
-	<input type="button" id="dock" value="Dock Part"></button>
-	<input type="button" id="delv"value="Client Delv"></button>
-	<input type="button" id="shipping2" value="Shipping 2nd Part"></button>
-	<br>
-	<input type="button" id="showcomplete" value="Show Complete {{what}} Table"></button>
+	<center>
+	<p class="text-primary">
+	<button id="shipping1" class="btn btn-lg">Shipping 1st Part</button>
+	<button id="custom" class="btn btn-lg">Custom Part</button>
+	<button id="dock" class="btn btn-lg">Dock Part</button>
+	<button id="delv" class="btn btn-lg">Client Delv</button>
+	<button id="shipping2" class="btn btn-lg">Shipping 2nd Part</button><br><br>
 
-	<br><br><hr>
+	<button id="showcomplete" class="btn btn-lg">Show Complete {{what}} Table</button>
+
+	</p>
+	</center>
+	<hr>
 
 	<div class="container">
 

@@ -18,6 +18,12 @@ firebase = pyrebase.initialize_app(config)
 db = firebase.database()
 
 
+# new UI
+@app.route('/newUI')
+def newUI():
+	return render_template('newIndex.html')
+
+
 # register route
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -204,7 +210,7 @@ def jobno():
 	except:
 		print("Empty Execution Database")
 
-	return render_template('jobIndex.html', allExec=all_job_exec, user=aright)
+	return render_template('jobIndex.html', userx=session['user'], allExec=all_job_exec, user=aright)
 
 
 # new job entry
@@ -415,7 +421,7 @@ def execIndex():
 	except:
 		print("Empty Execution Database")
 
-	return render_template('execIndex.html', admin=aright, allExec=all_job_exec)
+	return render_template('execIndex.html', admin=aright, user=session['user'], allExec=all_job_exec)
 
 
 def checkDataConsistency(myId="all"):
@@ -593,7 +599,7 @@ def execFilterOpen():
 		print(e)
 		print("Empty Execution Database")
 
-	return render_template('execData.html', admin=aright, allExec=all_job_exec_val, myKeys=all_job_exec_key, what='Open', permissions=session['userPermissions'])
+	return render_template('execData.html', admin=aright, user=session['user'], allExec=all_job_exec_val, myKeys=all_job_exec_key, what='Open', permissions=session['userPermissions'])
 
 
 # closed jobs page for exec
@@ -623,7 +629,7 @@ def execFilterClosed():
 		print(e)
 		print("Empty Execution Database")
 
-	return render_template('execData.html', admin=aright, allExec=all_job_exec_val, myKeys=all_job_exec_key, what='Closed', permissions=['yes', 'yes', 'yes', 'yes', 'yes'])
+	return render_template('execData.html', admin=aright, user=session['user'], allExec=all_job_exec_val, myKeys=all_job_exec_key, what='Closed', permissions=['yes', 'yes', 'yes', 'yes', 'yes'])
 
 
 # execution database API (don't use - only for mass data push)
@@ -696,7 +702,13 @@ def execstatusdb():
 	return render_template('execution.html', admin=aright, allExec=all_job_exec, allJobs=all_job_owners, jobProfits=all_job_profits, jobBelongs=all_job_belong)
 
 
+# customer error display and reporting page
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+
+
 app.secret_key = "jlg-ops"
 
 if __name__ == '__main__':
-	app.run(threaded=True)
+	app.run(debug=True, threaded=True)

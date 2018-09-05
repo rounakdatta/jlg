@@ -8,15 +8,36 @@
 </head>
 <body>
 
-	<h1>Execution Status Database</h1>
+ <nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">JLG Operations</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a>→</a></li>
+      <li class="active"><a>Job Execution Status</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+    	<li><a>
+    	{% if user == '' %}
+    	Not Logged In
+    	{% else %}
+    	{{user}}
+    	{% endif %}
+    </a></li>
+    </ul>
+  </div>
+</nav> 
 
-	<a href="/">BACK</a>
-	<br><br>
-
-	<a href="/exec/open">Open Jobs</a><br><br>
-	<a href="/exec/closed">Closed Jobs</a>
-
-	<br><br><hr>
+<br><br><br>
+	
+	<center>
+	<p class="text-primary">
+	<a href="/exec/open"><button class="btn btn-lg">Open Jobs</button></a>
+	<a href="/exec/closed"><button class="btn btn-lg">Closed Jobs</button></a>
+	</p>
+	</center>
+	<hr>
 
 	<div class="container">
 
