@@ -7,6 +7,9 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style type="text/css">
+  	@import url(https://fonts.googleapis.com/css?family=Pacifico);
+  </style>
 </head>
 <body>
 
@@ -14,7 +17,7 @@
 	
 	<div class="container">
 	  <div class="jumbotron">
-	    <h1>Welcome to JLG Operations</h1>
+	    <h1 style="font-family: 'Pacifico';"><img src="https://i.imgur.com/iay3dFW.jpg" style="height: 60px; width: 60px"> Welcome to JLG Operations <img src="https://i.imgur.com/oY0ZxPu.jpg" style="height: 60px; width: 60px"></h1>
 	  </div>   
 	</div>
 
@@ -50,12 +53,32 @@
 	{% endif %}
 	<hr><br><br>
 
-	<a href="/clientdb">Client Database</a><br>
-	<a href="/jobnodb">Job Number Database</a><br>
-	<a href="/exec">Execution Status Database</a><br>
-	<a href="/jobprofitdb">Job Profit Database</a><br>
-	<a href="/jobbelongdb">Job Belonging Database</a><br>
-	<a href="/jobownerdb">Job Owner Database</a>
+
+	<div class="container">
+		
+		<div class="row">
+			<div class="col-md-2">
+				<div class="well"><a href="/clientdb"><font size="4">Client Database</a></div>
+			</div>
+			<div class="col-md-2">
+				<div class="well"><a href="/jobnodb">Job Number Database</a></div>
+			</div>
+			<div class="col-md-2">
+				<div class="well"><a href="/exec">Execution Status Database</a></div>
+			</div>
+			<div class="col-md-2">
+				<div class="well"><a href="/jobprofitdb">Job Profit Database</a></div>
+			</div>
+			<div class="col-md-2">
+				<div class="well"><a href="/jobbelongdb">Job Belonging Database</a></div>
+			</div>
+			<div class="col-md-2">
+				<div class="well"><a href="/jobownerdb">Job Owner Database</a></div>
+			</div>
+		</div>
+
+	</div>
+
 	</center>
 
 </body>

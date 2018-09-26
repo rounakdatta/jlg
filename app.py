@@ -38,7 +38,7 @@ def register():
 		print('Go on!')
 
 	# now register the person
-	if request.method == 'POST' and request.form['secretCode'].lower() == 'jlg2018':
+	if request.method == 'POST': # and request.form['secretCode'].lower() == 'jlg2018':
 		data = {'email': request.form['email'], 'username': request.form['username'], 'password': request.form['password'], 'admin': 'no'}
 		db.child("jlg_main").child("accounts").push(data)
 		return redirect(url_for('index', note='Account creation successful!'))
@@ -195,6 +195,8 @@ def index():
 @app.route('/jobnodb', methods=['GET', 'POST'])
 def jobno():
 
+	print(session['userPermissions'])
+
 	if session['user'] != '':
 		aright = "yes"
 	else:
@@ -345,7 +347,7 @@ def jobownerdb():
 @app.route('/clientdb', methods=['GET', 'POST'])
 def clientdb():
 
-	if session['user'] != '':
+	if session['admin'] == 'yes':
 		aright = "yes"
 	else:
 		aright = "no"
@@ -465,6 +467,7 @@ def checkDataConsistency(myId="all"):
 
 					if(item.val()['jobCloseDate'] == ''):
 						closeDate = str(datetime.now(timezone('Asia/Kolkata')))[:-22]
+						closeDate = closeDate.split('-')[2] + '-' + closeDate.split('-')[1] + '-' + closeDate.split('-')[0][-2:]
 						db.child("jlg_main").child('jlg_execution').child(item.key()).update({'jobCloseDate': closeDate})
 
 				else:
@@ -507,6 +510,8 @@ def checkDataConsistency(myId="all"):
 			db.child("jlg_main").child('jlg_execution').child(item.key()).update({'jobComplete': 'yes'})
 			if(item.val()['jobCloseDate'] == ''):
 				closeDate = str(datetime.now(timezone('Asia/Kolkata')))[:-22]
+				closeDate = closeDate.split('-')[2] + '-' + closeDate.split('-')[1] + '-' + closeDate.split('-')[0][-2:]
+
 				db.child("jlg_main").child('jlg_execution').child(item.key()).update({'jobCloseDate': closeDate})
 		else:
 			db.child("jlg_main").child('jlg_execution').child(item.key()).update({'jobComplete': 'no'})
@@ -557,9 +562,11 @@ def cancelUpdate(objectId, attributeId):
 def updateAPI(objectId, attributeId):
 
 	if not session.get('loggedIn'):
-		return redirect('/')
+		flash('You don’t have permission to execute this action!')
+		return redirect(request.referrer)
 
-	timeData = str(datetime.now(timezone('Asia/Kolkata')))[:-16] + ' ' + session['user']
+	closeDate = str(datetime.now(timezone('Asia/Kolkata')))
+	timeData = closeDate[:-22].split('-')[2] + '-' + closeDate[:-22].split('-')[1] + '-' + closeDate[:-22].split('-')[0][-2:] + ' ' + closeDate[:-16][-5:] + ' ' + session['user']
 	db.child("jlg_main").child('jlg_execution').child(objectId).update({attributeId: timeData})
 
 	# sleep for 3s because Firebase needs a little time to update

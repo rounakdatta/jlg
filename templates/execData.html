@@ -94,7 +94,7 @@ tbody {
       <li><a>→</a></li>
       <li><a href="/exec">Job Execution Status</a></li>
       <li><a>→</a></li>
-      <li class="active"><a>Open Jobs</a></li>
+      <li class="active"><a>{{what}} Jobs</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
     	<li><a>
@@ -119,6 +119,15 @@ tbody {
 	<button id="shipping2" class="btn btn-lg">Shipping 2nd Part</button><br><br>
 
 	<button id="showcomplete" class="btn btn-lg">Show Complete {{what}} Table</button>
+
+	{% with messages = get_flashed_messages() %}
+	   {% if messages %}
+	      {% for message in messages %}
+	      	 <br>
+	         <h1 style="color: red;">{{ message }}</h1>
+	      {% endfor %}
+	   {% endif %}
+	{% endwith %}
 
 	</p>
 	</center>
@@ -194,6 +203,11 @@ tbody {
 			<th data-field="shipping2over" data-filter-control="input" data-sortable="true">Shipping 2nd Part Over</th>
 
 			<th data-field="jobComplete" data-filter-control="input" data-sortable="true">Job Complete</th>
+
+			{% if what == 'Closed' %}
+			<th data-field="jobCompleteDate" data-filter-control="input" data-sortable="true">Job Close Date</th>
+			{% endif %}
+
 		</tr>
 	</thead>
 		<tbody>
@@ -395,6 +409,11 @@ tbody {
 		   {% else %}
 		   <td style="text-align:center;" class="yay j8">{{client['jobComplete']}}</td>
 		   {% endif %}
+
+		   {% if what == 'Closed' %}
+		   <td style="text-align:center;">{{client['jobCloseDate']}}</td>
+		   {% endif %}
+
 		</tr>
 		{% endfor %}
 		</tbody>
