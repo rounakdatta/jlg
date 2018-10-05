@@ -246,6 +246,15 @@ def newjob():
 	return render_template('newJob.html', allClients=all_job_clients)
 
 
+# admin API to delete a profitDB entry
+@app.route('/adminAPI/delete/profit/<entry>', methods=['GET', 'POST'])
+def deleteProfit(entry):
+	if(session['admin'] != 'yes'):
+		return "no!"
+
+	db.child("jlg_main").child('jlg_jobprofit').child(entry).remove()
+	return redirect('/')
+
 # job profit database
 @app.route('/jobprofitdb', methods=['GET', 'POST'])
 def jobprofitdb():
@@ -258,9 +267,11 @@ def jobprofitdb():
 	# get all the current job profit entries
 	all_jp = db.child("jlg_main").child('jlg_jobprofit').get()
 	all_job_profits = []
+	all_job_profits_keys = []
 
 	try:
 		for item in all_jp.each():
+			all_job_profits_keys.append(item.key())
 			all_job_profits.append(item.val()['jobName'])
 	except:
 		print("Empty Job Profit Database")
@@ -272,7 +283,7 @@ def jobprofitdb():
 
 		return redirect('/')
 
-	return render_template('jobprofit.html', admin=aright, allJobs=all_job_profits)
+	return render_template('jobprofit.html', admin=aright, allJobs=all_job_profits, allJobsKeys=all_job_profits_keys)
 
 
 # job belonging database

@@ -1,10 +1,10 @@
-# Let me help you upload your old data to Firebase
+# Let me help you upload your old bulk data to Firebase
 
 1. Export the Excel file as CSV
 
 2. Use this [tool](https://codebeautify.org/csv-to-xml-json) to convert this CSV to JSON
 
-3. Use a text editor Find-and-Replace to change ```{``` to ```"x": {```. Also remove the [] in the beginning and ending.
+3. Use a text editor Find-and-Replace to change ```{``` to ```"x": {```. Also remove the ```[]``` in the beginning and ending.
 
 4. Use this Linux command to change each of the ```x``` to incemental numbers
 
