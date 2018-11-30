@@ -60,7 +60,7 @@
 
 			<th data-field="jobno1" data-filter-control="input" data-sortable="true">Job Profit Centre</th>
 
-			{% if admin == "yes"%}
+			{% if hereAdmin == "yes"%}
 			<th data-field="delete"></th>
 			{% endif %}
 
@@ -72,7 +72,7 @@
 		   <td class="bs-checkbox "><input data-index="{{loop.index0 + 1}}" name="btSelectItem" type="checkbox"></td>
 		   <td style="text-align:center;" class="serialNumber">{{loop.index0 + 1}}</td>
 		   <td style="text-align:center;" class="j1">{{job}}</td>
-		   {% if admin == "yes"%}
+		   {% if hereAdmin == "yes"%}
 		   <td style="text-align:center;" class="btn-block clickable-cell"  data-href='/adminAPI/delete/profit/{{allJobsKeys[loop.index0]}}'>❌</td>
 		   {% endif %}
 		</tr>
@@ -87,7 +87,7 @@
 
 	<center>
 
-	{% if admin == "yes"%}
+	{% if hereAdmin == "yes"%}
 	<form action="/jobprofitdb" method="POST">
 		<label for="jobProfitEntry">New Job Profit Centre :</label>
 		<input id="jobProfitEntry" name="jobProfitEntry" type="text">

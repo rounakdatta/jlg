@@ -1,0 +1,37 @@
+<html>
+  <head>
+    <title>Enter Bill Number</title>
+  </head>
+  <body>
+ 
+<div id="billEntry">
+
+  	<h1>Enter Bill Number</h1>
+
+  	<form action="/updateAPI/bill/{{objectId}}/{{attributeId}}", method="POST">
+  		<input type="text" id="billText" name="billText" required>
+  		<input type="submit" id="send" name="send" onclick="closeThisForGood()" value="CONFIRM">
+  	</form>
+</div>
+
+<div id="finalText" style="display: none">
+	
+<h1>Data has been recorded successfully!</h1>
+
+<h2>REFRESH the main page to update the data</h2>
+
+<h4>You can safely close this window.</h4>
+
+</div>
+
+<script type="text/javascript">
+	
+function closeThisForGood() {
+	document.getElementById("billEntry").style.display = 'none';
+	document.getElementById("finalText").style.display = 'inline';
+}
+
+</script>
+
+  </body>
+</html>

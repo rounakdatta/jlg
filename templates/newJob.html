@@ -43,6 +43,8 @@
   		</select>
 		<br>
 
+		<input type="text" id="clientxname" name="clientxname" readonly="readonly">
+
 		<label for="jobBelong">Job Belongs To :</label>
 		<input type="text" id="jobBelong" name="jobBelong" readonly="readonly">
 
@@ -92,9 +94,13 @@
 	$(function(){
 		$('select[name="clientname"]').change(function(){
 
+			var foo = $('#clientname').find(":selected").text();
+			console.log(foo);
+
 			{% for client in allClients %}
 
-				if('{{client['clientName']}}' == $('#clientname').val()) {
+				if('{{client['clientname']}}' == foo) {
+					$('#clientxname').val(foo);
 					$('#jobBelong').val('{{client['jobBelong']}}');
 					$('#jobOwn').val('{{client['jobOwn']}}');
 					$('#jobProfit').val('{{client['jobProfit']}}');

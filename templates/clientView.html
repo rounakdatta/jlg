@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>JLG | Job Client Database</title>
+</head>
+<body>
+
+	<h1>Client Database</h1>
+
+	<a href="/">BACK</a>
+	<br><br>
+
+	{% if hereAdmin == 'yes' %}
+	<a href="/clientdb">Create New Client</a>
+	{% endif %}
+
+	{% if allClients %}
+		<table border="1">
+		<tr>
+			<th>Sl No</th>
+			<th>Client Name</th>
+			<th>Job belongs to</th>
+			<th>Job Owner</th>
+			<th>Job Profit Centre</th>
+			<th>Client Address 1</th>
+			<th>Client Address 2</th>
+			<th>Client Address 3</th>
+			<th>GSTIN</th>
+		</tr>
+		{% for client in allClients %}
+		<tr>
+		   <td class="serialNumber">{{loop.index0 + 1}}</td>
+		   <td class="j1">{{client['clientname']}}</td>
+		   <td class="j2">{{client['jobBelong']}}</td>
+		   <td class="j3">{{client['jobOwn']}}</td>
+		   <td class="j4">{{client['jobProfit']}}</td>
+		   <td class="j5">{{client['clientAddress1']}}</td>
+		   <td class="j6">{{client['clientAddress2']}}</td>
+		   <td class="j7">{{client['clientAddress3']}}</td>
+		   <td class="j8">{{client['GSTIN']}}</td>
+		</tr>
+		{% endfor %}
+		</table>
+	{% endif %}
+
+
+</html>

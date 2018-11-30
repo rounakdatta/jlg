@@ -19,6 +19,11 @@
     <th>Dock Part</th>
     <th>Client Delv</th>
     <th>Shipping 2nd Part</th>
+    <th>Client DB</th>
+    <th>Job Number DB</th>
+    <th>Job Profit DB</th>
+    <th>Job Belonging DB</th>
+    <th>Job Owner DB</th>
     <th>DELETE</th>
   </tr>
 
@@ -63,12 +68,44 @@
     <td><a href="/adminAPI/{{myKeys[loop.index0]}}/job5">Grant</a></td>
     {% endif %}
 
+    {% if user['db1'] == 'yes' %}
+    <td>✔ <a href="/adminAPI/cancel/{{myKeys[loop.index0]}}/db1">Revoke</a></td>
+    {% else %}
+    <td><a href="/adminAPI/{{myKeys[loop.index0]}}/db1">Grant</a></td>
+    {% endif %}
+
+    {% if user['db2'] == 'yes' %}
+    <td>✔ <a href="/adminAPI/cancel/{{myKeys[loop.index0]}}/db2">Revoke</a></td>
+    {% else %}
+    <td><a href="/adminAPI/{{myKeys[loop.index0]}}/db2">Grant</a></td>
+    {% endif %}
+
+    {% if user['db3'] == 'yes' %}
+    <td>✔ <a href="/adminAPI/cancel/{{myKeys[loop.index0]}}/db3">Revoke</a></td>
+    {% else %}
+    <td><a href="/adminAPI/{{myKeys[loop.index0]}}/db3">Grant</a></td>
+    {% endif %}
+
+    {% if user['db4'] == 'yes' %}
+    <td>✔ <a href="/adminAPI/cancel/{{myKeys[loop.index0]}}/db4">Revoke</a></td>
+    {% else %}
+    <td><a href="/adminAPI/{{myKeys[loop.index0]}}/db4">Grant</a></td>
+    {% endif %}
+
+    {% if user['db5'] == 'yes' %}
+    <td>✔ <a href="/adminAPI/cancel/{{myKeys[loop.index0]}}/db5">Revoke</a></td>
+    {% else %}
+    <td><a href="/adminAPI/{{myKeys[loop.index0]}}/db5">Grant</a></td>
+    {% endif %}
+
     <td><a href="/adminAPI/delete/{{myKeys[loop.index0]}}">✖</a></td>
 
   </tr>
   {% endfor %}
 
 </table>
+
+<center><h4>REMEMBER : User permissions get updated only when they re-login.</h4></center>
 
 </body>
 </html>

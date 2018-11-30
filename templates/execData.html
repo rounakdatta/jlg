@@ -204,6 +204,10 @@ tbody {
 
 			<th data-field="jobComplete" data-filter-control="input" data-sortable="true">Job Complete</th>
 
+			<th data-field="bill1" data-filter-control="input" data-sortable="true">Bill 1</th>
+
+			<th data-field="bill2" data-filter-control="input" data-sortable="true">Bill 2</th>
+
 			{% if what == 'Closed' %}
 			<th data-field="jobCompleteDate" data-filter-control="input" data-sortable="true">Job Close Date</th>
 			{% endif %}
@@ -410,6 +414,29 @@ tbody {
 		   <td style="text-align:center;" class="yay j8">{{client['jobComplete']}}</td>
 		   {% endif %}
 
+		   <!--need to give the permissions here-->
+
+    	{% if user == '' %}
+
+    	<td style="text-align:center;">{{client['bill1']}}</td>
+    	<td style="text-align:center;">{{client['bill2']}}</td>
+    	
+    	{% else %}
+
+			   {% if client['bill1'] == "" %}
+			   <td class="xyz btn btn-violet btn-block openable-cell" data-href='/updateAPI/bill/{{myKeys[loop.index0]}}/bill1'>🖋 Bill</td>
+			   {% else %}
+			   	<td style="text-align:center;">{{client['bill1']}}</td>
+			   {% endif %}
+
+			   {% if client['bill2'] == "" %}
+			   <td class="xyz btn btn-violet btn-block openable-cell" data-href='/updateAPI/bill/{{myKeys[loop.index0]}}/bill2'>🖋 Bill</td>
+			   {% else %}
+			   	<td style="text-align:center;">{{client['bill2']}}</td>
+			   {% endif %}
+
+    	{% endif %}
+
 		   {% if what == 'Closed' %}
 		   <td style="text-align:center;">{{client['jobCloseDate']}}</td>
 		   {% endif %}
@@ -436,6 +463,10 @@ $('#table').on('all.bs.table', function () {
     $(".clickable-cell").click(function() {
         window.location = $(this).data("href");
     });
+
+    $(".openable-cell").click(function() {
+        window.open ($(this).data("href"),"mywindow","menubar=1,resizable=1,width=350,height=250");
+    });
     
 });
 
@@ -452,6 +483,10 @@ var $table = $('#table');
 
             $(".clickable-cell").click(function() {
         		window.location = $(this).data("href");
+    		});
+
+            $(".openable-cell").click(function() {
+        		window.open ($(this).data("href"),"mywindow","menubar=1,resizable=1,width=350,height=250");
     		});
 
         });
@@ -490,6 +525,10 @@ var $table = $('#table');
         		window.location = $(this).data("href");
     		 });
 
+             $(".openable-cell").click(function() {
+        		window.open ($(this).data("href"),"mywindow","menubar=1,resizable=1,width=350,height=250");
+    		 });
+
 
            }
       );
@@ -515,6 +554,10 @@ var $table = $('#table');
 
              $(".clickable-cell").click(function() {
         		window.location = $(this).data("href");
+    		 });
+
+             $(".openable-cell").click(function() {
+        		window.open ($(this).data("href"),"mywindow","menubar=1,resizable=1,width=350,height=250");
     		 });
 
 
@@ -543,7 +586,11 @@ var $table = $('#table');
 
              $(".clickable-cell").click(function() {
         		window.location = $(this).data("href");
-    		 });             
+    		 });
+
+             $(".openable-cell").click(function() {
+        		window.open ($(this).data("href"),"mywindow","menubar=1,resizable=1,width=350,height=250");
+    		 });        
 
            }
       );
@@ -572,6 +619,10 @@ var $table = $('#table');
         		window.location = $(this).data("href");
     		 });
 
+             $(".openable-cell").click(function() {
+        		window.open ($(this).data("href"),"mywindow","menubar=1,resizable=1,width=350,height=250");
+    		 });
+
            }
       );
   });
@@ -597,6 +648,10 @@ var $table = $('#table');
 
              $(".clickable-cell").click(function() {
         		window.location = $(this).data("href");
+    		 });
+
+             $(".openable-cell").click(function() {
+        		window.open ($(this).data("href"),"mywindow","menubar=1,resizable=1,width=350,height=250");
     		 });
 
            }
@@ -632,6 +687,10 @@ var $table = $('#table');
 
              $(".clickable-cell").click(function() {
         		window.location = $(this).data("href");
+    		 });
+
+             $(".openable-cell").click(function() {
+        		window.open ($(this).data("href"),"mywindow","menubar=1,resizable=1,width=350,height=250");
     		 });
 
            }
@@ -687,6 +746,11 @@ var $table = $('#table');
     $(".clickable-cell").click(function() {
         window.location = $(this).data("href");
     });
+
+    $(".openable-cell").click(function() {
+        window.open ($(this).data("href"),"mywindow","menubar=1,resizable=1,width=350,height=250");
+    });
+
 });
 
 </script>
