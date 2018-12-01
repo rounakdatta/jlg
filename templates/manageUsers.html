@@ -19,6 +19,8 @@
     <th>Dock Part</th>
     <th>Client Delv</th>
     <th>Shipping 2nd Part</th>
+    <th>Bill 1</th>
+    <th>Bill 2</th>
     <th>Client DB</th>
     <th>Job Number DB</th>
     <th>Job Profit DB</th>
@@ -66,6 +68,18 @@
     <td>✔ <a href="/adminAPI/cancel/{{myKeys[loop.index0]}}/job5">Revoke</a></td>
     {% else %}
     <td><a href="/adminAPI/{{myKeys[loop.index0]}}/job5">Grant</a></td>
+    {% endif %}
+
+    {% if user['bill1'] == 'yes' %}
+    <td>✔ <a href="/adminAPI/cancel/{{myKeys[loop.index0]}}/bill1">Revoke</a></td>
+    {% else %}
+    <td><a href="/adminAPI/{{myKeys[loop.index0]}}/bill1">Grant</a></td>
+    {% endif %}
+
+    {% if user['bill2'] == 'yes' %}
+    <td>✔ <a href="/adminAPI/cancel/{{myKeys[loop.index0]}}/bill2">Revoke</a></td>
+    {% else %}
+    <td><a href="/adminAPI/{{myKeys[loop.index0]}}/bill2">Grant</a></td>
     {% endif %}
 
     {% if user['db1'] == 'yes' %}

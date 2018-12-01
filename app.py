@@ -108,9 +108,20 @@ def login():
 				except:
 					userPermissions.append('null')
 
+				try:
+					userPermissions.append(person.val()['bill1'])
+				except:
+					userPermissions.append('null')
+
+				try:
+					userPermissions.append(person.val()['bill2'])
+				except:
+					userPermissions.append('null')
+
 				session['userPermissions'] = userPermissions
 
 				session['loggedIn'] = True
+				session['guest'] = False
 				session['user'] = request.form['username']
 
 				if(person.val()['admin'] == 'yes'):
@@ -130,6 +141,7 @@ def login():
 @app.route('/logout', methods=['GET', 'POST'])
 def logout():
 	session['loggedIn'] = False
+	session['guest'] = True
 	session['user'] = ''
 	session['userPermissions'] = []
 	session['admin'] = 'no'
@@ -169,6 +181,8 @@ def adminAPI(userId, job):
 		db.child("jlg_main").child('accounts').child(userId).update({'job3': 'yes'})
 		db.child("jlg_main").child('accounts').child(userId).update({'job4': 'yes'})
 		db.child("jlg_main").child('accounts').child(userId).update({'job5': 'yes'})
+		db.child("jlg_main").child('accounts').child(userId).update({'bill1': 'yes'})
+		db.child("jlg_main").child('accounts').child(userId).update({'bill2': 'yes'})
 		db.child("jlg_main").child('accounts').child(userId).update({'db1': 'yes'})
 		db.child("jlg_main").child('accounts').child(userId).update({'db2': 'yes'})
 		db.child("jlg_main").child('accounts').child(userId).update({'db3': 'yes'})
@@ -208,7 +222,8 @@ def index():
 	else:
 		session['user'] = ''
 		session['admin'] = ''
-		session['userPermissions'] = ['no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no']
+		session['guest'] = True
+		session['userPermissions'] = ['no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no']
 
 	if(request.args.get('note')):
 		whatToSay = request.args.get('note')
@@ -225,7 +240,7 @@ def index():
 @app.route('/jobnodb', methods=['GET', 'POST'])
 def jobno():
 
-	if session['loggedIn'] and session['userPermissions'][6] == 'yes':
+	if not session['guest'] and session['userPermissions'][6] == 'yes':
 		hereAdmin = 'yes'
 	else:
 		hereAdmin = 'no'
@@ -290,7 +305,7 @@ def deleteProfit(entry):
 @app.route('/jobprofitdb', methods=['GET', 'POST'])
 def jobprofitdb():
 
-	if session['loggedIn'] and session['userPermissions'][7] == 'yes':
+	if not session['guest'] and session['userPermissions'][7] == 'yes':
 		hereAdmin = 'yes'
 	else:
 		hereAdmin = 'no'
@@ -321,7 +336,7 @@ def jobprofitdb():
 @app.route('/jobbelongdb', methods=['GET', 'POST'])
 def jobbelongdb():
 
-	if session['loggedIn'] and session['userPermissions'][8] == 'yes':
+	if not session['guest'] and session['userPermissions'][8] == 'yes':
 		hereAdmin = 'yes'
 	else:
 		hereAdmin = 'no'
@@ -350,7 +365,7 @@ def jobbelongdb():
 @app.route('/jobownerdb', methods=['GET', 'POST'])
 def jobownerdb():
 
-	if session['loggedIn'] and session['userPermissions'][9] == 'yes':
+	if not session['guest'] and session['userPermissions'][9] == 'yes':
 		hereAdmin = 'yes'
 	else:
 		hereAdmin = 'no'
@@ -393,7 +408,7 @@ def clientView():
 	all_jc = db.child("jlg_main").child('jlg_clients').get()
 	all_job_clients = []
 
-	if session['loggedIn'] and session['userPermissions'][5] == 'yes':
+	if not session['guest'] and session['userPermissions'][5] == 'yes':
 		hereAdmin = 'yes'
 	else:
 		hereAdmin = 'no'
@@ -595,7 +610,7 @@ def checkDataConsistency(myId="all"):
 		print('Updation problem')
 
 
-# manual data consistency check
+# manual data consistency check - beware VERY VERY COSTLY PROCESS
 @app.route('/refreshData', methods=['GET', 'POST'])
 def refreshDB():
 	checkDataConsistency()
@@ -699,6 +714,8 @@ def execFilterOpen():
 		print(e)
 		print("Empty Execution Database")
 
+	print(session['userPermissions'])
+
 	return render_template('execData.html', admin=aright, user=session['user'], allExec=all_job_exec_val, myKeys=all_job_exec_key, what='Open', permissions=session['userPermissions'])
 
 
@@ -729,7 +746,7 @@ def execFilterClosed():
 		print(e)
 		print("Empty Execution Database")
 
-	return render_template('execData.html', admin=aright, user=session['user'], allExec=all_job_exec_val, myKeys=all_job_exec_key, what='Closed', permissions=['yes', 'yes', 'yes', 'yes', 'yes', 'yes', 'yes', 'yes', 'yes', 'yes'])
+	return render_template('execData.html', admin=aright, user=session['user'], allExec=all_job_exec_val, myKeys=all_job_exec_key, what='Closed', permissions=['yes', 'yes', 'yes', 'yes', 'yes', 'yes', 'yes', 'yes', 'yes', 'yes', 'yes', 'yes'])
 
 
 # execution database API (don't use - only for mass data push)

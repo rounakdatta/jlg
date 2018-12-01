@@ -224,7 +224,7 @@ tbody {
 		   <td style="text-align:center;" class="j3">{{client['jobopen']}}</td>
 		   <td style="text-align:center;" class="j4">{{client['clientname']}}</td>
 
-		   {% if permissions[0] != 'null' %}
+		   {% if permissions[0] == 'yes' %}
 
 			   {% if client['bondready'] == "" %}
 			   <td class="xyz btn btn-primary btn-block clickable-cell" data-href='/updateAPI/{{myKeys[loop.index0]}}/bondready'>✅ Done</td>
@@ -268,7 +268,7 @@ tbody {
 
 		   <td style="text-align:center;" class="j5">{{client['shipping1over']}}</td>
 
-		   {% if permissions[1] != 'null' %}
+		   {% if permissions[1] == 'yes' %}
 
 			   {% if client['befilled'] == "" %}
 			   <td class="xyz btn btn-info btn-block clickable-cell" data-href='/updateAPI/{{myKeys[loop.index0]}}/befilled'>✅ Done</td>
@@ -312,7 +312,7 @@ tbody {
 
 		   <td style="text-align:center;" class="j6">{{client['customover']}}</td>
 
-		   {% if permissions[2] != 'null' %}
+		   {% if permissions[2] == 'yes' %}
 
 			   {% if client['cfsover'] == "" %}
 			   <td class="xyz btn btn-warning btn-block clickable-cell" data-href='/updateAPI/{{myKeys[loop.index0]}}/cfsover'>✅ Done</td>
@@ -344,7 +344,7 @@ tbody {
 
 		   <td style="text-align:center;" class="j7">{{client['dockover']}}</td>
 
-		   {% if permissions[3] != 'null' %}
+		   {% if permissions[3] == 'yes' %}
 
 			   {% if client['cargotruck'] == "" %}
 			   <td class="xyz btn btn-grey btn-block clickable-cell" data-href='/updateAPI/{{myKeys[loop.index0]}}/cargotruck'>✅ Done</td>
@@ -376,7 +376,7 @@ tbody {
 
 		   <td style="text-align:center;" class="j8">{{client['delvover']}}</td>
 
-		   {% if permissions[4] != 'null' %}
+		   {% if permissions[4] == 'yes' %}
 
 			   {% if client['slotextn'] == "" %}
 			   <td class="xyz btn btn-violet btn-block clickable-cell" data-href='/updateAPI/{{myKeys[loop.index0]}}/slotextn'>✅ Done</td>
@@ -414,8 +414,6 @@ tbody {
 		   <td style="text-align:center;" class="yay j8">{{client['jobComplete']}}</td>
 		   {% endif %}
 
-		   <!--need to give the permissions here-->
-
     	{% if user == '' %}
 
     	<td style="text-align:center;">{{client['bill1']}}</td>
@@ -423,17 +421,29 @@ tbody {
     	
     	{% else %}
 
+    		{% if permissions[10] == 'yes' %}
+
 			   {% if client['bill1'] == "" %}
 			   <td class="xyz btn btn-violet btn-block openable-cell" data-href='/updateAPI/bill/{{myKeys[loop.index0]}}/bill1'>🖋 Bill</td>
 			   {% else %}
 			   	<td style="text-align:center;">{{client['bill1']}}</td>
 			   {% endif %}
 
+			{% else %}
+				<td style="text-align:center;">{{client['bill1']}}</td>
+			{% endif %}
+
+			{% if permissions[11] == 'yes' %}
+
 			   {% if client['bill2'] == "" %}
 			   <td class="xyz btn btn-violet btn-block openable-cell" data-href='/updateAPI/bill/{{myKeys[loop.index0]}}/bill2'>🖋 Bill</td>
 			   {% else %}
 			   	<td style="text-align:center;">{{client['bill2']}}</td>
 			   {% endif %}
+
+			{% else %}
+				<td style="text-align:center;">{{client['bill2']}}</td>
+			{% endif %}
 
     	{% endif %}
 
