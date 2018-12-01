@@ -168,6 +168,24 @@ def revokeAccess(userId, job):
 	return redirect('/')
 
 
+# bill permissions updateAPI (special case)
+@app.route('/adminAPI/billpermission/<userId>', methods=['GET', 'POST'])
+def billPermission(userId):
+
+	adminAPI(userId, 'bill1')
+	adminAPI(userId, 'bill2')
+	return redirect('/')
+
+
+# bill permissions updateAPI (special case)
+@app.route('/adminAPI/billpermission/cancel/<userId>', methods=['GET', 'POST'])
+def billPermissionRevoke(userId):
+
+	revokeAccess(userId, 'bill1')
+	revokeAccess(userId, 'bill2')
+	return redirect('/')
+
+
 # admin API for updating access level permissions
 @app.route('/adminAPI/<userId>/<job>', methods=['GET', 'POST'])
 def adminAPI(userId, job):
@@ -300,6 +318,7 @@ def deleteProfit(entry):
 
 	db.child("jlg_main").child('jlg_jobprofit').child(entry).remove()
 	return redirect('/')
+
 
 # job profit database
 @app.route('/jobprofitdb', methods=['GET', 'POST'])
@@ -482,7 +501,7 @@ def clientdb():
 		print("Empty Client Database")
 
 
-	return render_template('client.html', user=aright, allClients=all_job_clients, allJobs=all_job_owners, jobProfits=all_job_profits, jobBelongs=all_job_belong)
+	return render_template('client.html', allClients=all_job_clients, allJobs=all_job_owners, jobProfits=all_job_profits, jobBelongs=all_job_belong)
 
 
 # index page for exec
@@ -545,9 +564,10 @@ def checkDataConsistency(myId="all"):
 				# preclose one
 				if item.val()['shipping1over'] == 'yes' and item.val()['customover'] == 'yes' and item.val()['dockover'] == 'yes' and item.val()['delvover'] == 'yes' and item.val()['shipping2over'] == 'yes':
 					db.child("jlg_main").child('jlg_execution').child(item.key()).update({'preClose': 'yes'})
-
-				if item.val()['preClose'] == 'yes' and item.val()['bill1'] != '' and item.val()['bill2'] != '':
 					db.child("jlg_main").child('jlg_execution').child(item.key()).update({'jobComplete': 'yes'})
+
+				# if item.val()['preClose'] == 'yes' and item.val()['bill1'] != '' and item.val()['bill2'] != '':
+				# 	db.child("jlg_main").child('jlg_execution').child(item.key()).update({'jobComplete': 'yes'})
 
 					if(item.val()['jobCloseDate'] == ''):
 						closeDate = str(datetime.now(timezone('Asia/Kolkata')))[:-22]
@@ -593,9 +613,10 @@ def checkDataConsistency(myId="all"):
 		# preclose one
 		if item.val()['shipping1over'] == 'yes' and item.val()['customover'] == 'yes' and item.val()['dockover'] == 'yes' and item.val()['delvover'] == 'yes' and item.val()['shipping2over'] == 'yes':
 			db.child("jlg_main").child('jlg_execution').child(item.key()).update({'preClose': 'yes'})
-
-		if item.val()['preClose'] == 'yes' and item.val()['bill1'] != '' and item.val()['bill2'] != '':
 			db.child("jlg_main").child('jlg_execution').child(item.key()).update({'jobComplete': 'yes'})
+
+		# if item.val()['preClose'] == 'yes' and item.val()['bill1'] != '' and item.val()['bill2'] != '':
+		# 	db.child("jlg_main").child('jlg_execution').child(item.key()).update({'jobComplete': 'yes'})
 
 			if(item.val()['jobCloseDate'] == ''):
 				closeDate = str(datetime.now(timezone('Asia/Kolkata')))[:-22]

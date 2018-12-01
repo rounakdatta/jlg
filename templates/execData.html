@@ -421,7 +421,7 @@ tbody {
     	
     	{% else %}
 
-    		{% if permissions[10] == 'yes' %}
+    		{% if permissions[10] == 'yes' and client['jobComplete'] == 'yes' %}
 
 			   {% if client['bill1'] == "" %}
 			   <td class="xyz btn btn-violet btn-block openable-cell" data-href='/updateAPI/bill/{{myKeys[loop.index0]}}/bill1'>🖋 Bill</td>
@@ -433,7 +433,7 @@ tbody {
 				<td style="text-align:center;">{{client['bill1']}}</td>
 			{% endif %}
 
-			{% if permissions[11] == 'yes' %}
+			{% if permissions[11] == 'yes' and client['jobComplete'] == 'yes' %}
 
 			   {% if client['bill2'] == "" %}
 			   <td class="xyz btn btn-violet btn-block openable-cell" data-href='/updateAPI/bill/{{myKeys[loop.index0]}}/bill2'>🖋 Bill</td>
@@ -476,6 +476,7 @@ $('#table').on('all.bs.table', function () {
 
     $(".openable-cell").click(function() {
         window.open ($(this).data("href"),"mywindow","menubar=1,resizable=1,width=350,height=250");
+        window.location = '/logout';
     });
     
 });
@@ -497,6 +498,7 @@ var $table = $('#table');
 
             $(".openable-cell").click(function() {
         		window.open ($(this).data("href"),"mywindow","menubar=1,resizable=1,width=350,height=250");
+        		window.location = '/logout';
     		});
 
         });
@@ -537,6 +539,7 @@ var $table = $('#table');
 
              $(".openable-cell").click(function() {
         		window.open ($(this).data("href"),"mywindow","menubar=1,resizable=1,width=350,height=250");
+        		window.location = '/logout';
     		 });
 
 
@@ -568,6 +571,7 @@ var $table = $('#table');
 
              $(".openable-cell").click(function() {
         		window.open ($(this).data("href"),"mywindow","menubar=1,resizable=1,width=350,height=250");
+        		window.location = '/logout';
     		 });
 
 
@@ -600,6 +604,7 @@ var $table = $('#table');
 
              $(".openable-cell").click(function() {
         		window.open ($(this).data("href"),"mywindow","menubar=1,resizable=1,width=350,height=250");
+        		window.location = '/logout';
     		 });        
 
            }
@@ -631,6 +636,7 @@ var $table = $('#table');
 
              $(".openable-cell").click(function() {
         		window.open ($(this).data("href"),"mywindow","menubar=1,resizable=1,width=350,height=250");
+        		window.location = '/logout';
     		 });
 
            }
@@ -662,6 +668,7 @@ var $table = $('#table');
 
              $(".openable-cell").click(function() {
         		window.open ($(this).data("href"),"mywindow","menubar=1,resizable=1,width=350,height=250");
+        		window.location = '/logout';
     		 });
 
            }
@@ -701,6 +708,7 @@ var $table = $('#table');
 
              $(".openable-cell").click(function() {
         		window.open ($(this).data("href"),"mywindow","menubar=1,resizable=1,width=350,height=250");
+        		window.location = '/logout';
     		 });
 
            }
@@ -759,6 +767,7 @@ var $table = $('#table');
 
     $(".openable-cell").click(function() {
         window.open ($(this).data("href"),"mywindow","menubar=1,resizable=1,width=350,height=250");
+        window.location = '/logout';
     });
 
 });
