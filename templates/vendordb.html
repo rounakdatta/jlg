@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>JLG | Vendor Database</title>
+</head>
+<body>
+
+	<h1>Vendor Database</h1>
+
+	{% if allJobs %}
+		<table border="1">
+		<tr>
+			<th>Sl No</th>
+			<th>Vendor</th>
+		</tr>
+		{% for job in allJobs %}
+		<tr>
+		   <td class="serialNumber">{{loop.index0 + 1}}</td>
+		   <td class="job">{{job}}</td>
+		</tr>
+		{% endfor %}
+		</table>
+	{% endif %}
+
+	<br><br>
+
+	{% if hereAdmin == "yes"%}
+	<form action="/vendordb" method="POST">
+		<label for="vendorName">Vendor Name :</label>
+		<input id="vendorName" name="vendorName" type="text"><br>
+
+		<label for="vendorService">Vendor Service type :</label>
+		<input id="vendorService" name="vendorService" type="text"><br>
+
+		<button type="submit">Submit</button>
+	</form>
+	{% endif %}
+
+</body>
+</html>

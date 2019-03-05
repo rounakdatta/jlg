@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>JLG | Country Database</title>
+</head>
+<body>
+
+	<h1>Country Database</h1>
+
+	{% if allJobs %}
+		<table border="1">
+		<tr>
+			<th>Sl No</th>
+			<th>Country</th>
+		</tr>
+		{% for job in allJobs %}
+		<tr>
+		   <td class="serialNumber">{{loop.index0 + 1}}</td>
+		   <td class="job">{{job}}</td>
+		</tr>
+		{% endfor %}
+		</table>
+	{% endif %}
+
+	<br><br>
+
+	{% if hereAdmin == "yes"%}
+	<form action="/countrydb" method="POST">
+		<label for="countryName">Country :</label>
+		<input id="countryName" name="countryName" type="text"><br>
+
+		<button type="submit">Submit</button>
+	</form>
+	{% endif %}
+
+</body>
+</html>

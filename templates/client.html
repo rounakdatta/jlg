@@ -28,22 +28,39 @@
 
   		<br>
 
-		<label for="jobOwn">Job Owner :</label>
+		<label for="sourceCountry">Source Country :</label>
 		
-		<select id="jobOwn" name="jobOwn">
+		<select id="sourceCountry" name="sourceCountry">
 			<option disabled selected value> -- select an option -- </option>
-			{% for job in allJobs %}
-			{% for key, value in job.items() %}
-  			<option value="{{key}}">{{key}}</option>
-  			{% endfor %}
+			{% for job in allCountries %}
+  			<option value="{{job}}">{{job}}</option>
   			{% endfor %}
   		</select>
 
   		<br>
 
-		<label for="jobProfit">Job Profit Centre :</label>
-  		<input type="text" id="jobProfit" name="jobProfit" readonly="readonly">
-  		<br>
+		  <label for="transitCountry">Transit Country :</label>
+		
+		  <select id="transitCountry" name="transitCountry">
+			  <option disabled selected value> -- select an option -- </option>
+			  {% for job in allCountries %}
+				<option value="{{job}}">{{job}}</option>
+==
+				{% endfor %}
+			</select>
+  
+			<br>
+
+			<label for="chaname">CHA Name :</label>
+		
+			<select id="chaname" name="chaname">
+				<option disabled selected value> -- select an option -- </option>
+				{% for job in allVendors %}
+				  <option value="{{job['vendorName']}}">{{job['vendorName']}}</option>
+				  {% endfor %}
+			  </select>
+	
+			  <br>
 
   		<label for="clientAddress1">Client Address 1 :</label>
   		<input type="text" id="clientAddress1" name="clientAddress1">

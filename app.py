@@ -8,10 +8,10 @@ from pytz import timezone
 app = Flask(__name__)
 
 config = {
-  "apiKey": "AIzaSyDtnnxWWrjydXpBdPckxIPDXigBSLEVQsA",
-  "authDomain": "jlg-ops.firebaseapp.com",
-  "databaseURL": "https://jlg-ops.firebaseio.com",
-  "storageBucket": "jlg-ops.appspot.com",
+  "apiKey": "AIzaSyApPe5g7BlYVZshE00PXKGcI5ldzVjbj7g",
+  "authDomain": "aops-cf59e.firebaseapp.com",
+  "databaseURL": "https://aops-cf59e.firebaseio.com",
+  "storageBucket": "aops-cf59e.appspot.com",
 }
 
 firebase = pyrebase.initialize_app(config)
@@ -29,7 +29,7 @@ def newUI():
 def register():
 
 	# first check if user exists or not
-	allUsers = db.child("jlg_main").child("accounts").get()
+	allUsers = db.child("main_db").child("accounts").get()
 	try:
 		for person in allUsers.each():
 			if person.val()['username'] == request.form['username'] or person.val()['email'] == request.form['email']:
@@ -40,7 +40,7 @@ def register():
 	# now register the person
 	if request.method == 'POST': # and request.form['secretCode'].lower() == 'jlg2018':
 		data = {'email': request.form['email'], 'username': request.form['username'], 'password': request.form['password'], 'admin': 'no'}
-		db.child("jlg_main").child("accounts").push(data)
+		db.child("main_db").child("accounts").push(data)
 		return redirect(url_for('index', note='Account creation successful!'))
 
 	return render_template('registerUser.html')
@@ -52,7 +52,7 @@ def login():
 
 	userPermissions = []
 	# all logins
-	logins = db.child("jlg_main").child('accounts').get()
+	logins = db.child("main_db").child('accounts').get()
 
 	try:
 		for person in logins.each():
@@ -154,7 +154,7 @@ def deleteUser(userId):
 	if(session['admin'] != 'yes'):
 		return "no!"
 
-	db.child("jlg_main").child('accounts').child(userId).remove()
+	db.child("main_db").child('accounts').child(userId).remove()
 	return redirect('/')
 
 
@@ -164,7 +164,7 @@ def revokeAccess(userId, job):
 	if(session['admin'] != 'yes'):
 		return "no!"
 
-	db.child("jlg_main").child('accounts').child(userId).update({job: 'no'})
+	db.child("main_db").child('accounts').child(userId).update({job: 'no'})
 	return redirect('/')
 
 
@@ -192,20 +192,20 @@ def adminAPI(userId, job):
 	if(session['admin'] != 'yes'):
 		return "no!"
 
-	db.child("jlg_main").child('accounts').child(userId).update({job: 'yes'})
+	db.child("main_db").child('accounts').child(userId).update({job: 'yes'})
 	if(job == 'admin'):
-		db.child("jlg_main").child('accounts').child(userId).update({'job1': 'yes'})
-		db.child("jlg_main").child('accounts').child(userId).update({'job2': 'yes'})
-		db.child("jlg_main").child('accounts').child(userId).update({'job3': 'yes'})
-		db.child("jlg_main").child('accounts').child(userId).update({'job4': 'yes'})
-		db.child("jlg_main").child('accounts').child(userId).update({'job5': 'yes'})
-		db.child("jlg_main").child('accounts').child(userId).update({'bill1': 'yes'})
-		db.child("jlg_main").child('accounts').child(userId).update({'bill2': 'yes'})
-		db.child("jlg_main").child('accounts').child(userId).update({'db1': 'yes'})
-		db.child("jlg_main").child('accounts').child(userId).update({'db2': 'yes'})
-		db.child("jlg_main").child('accounts').child(userId).update({'db3': 'yes'})
-		db.child("jlg_main").child('accounts').child(userId).update({'db4': 'yes'})
-		db.child("jlg_main").child('accounts').child(userId).update({'db5': 'yes'})
+		db.child("main_db").child('accounts').child(userId).update({'job1': 'yes'})
+		db.child("main_db").child('accounts').child(userId).update({'job2': 'yes'})
+		db.child("main_db").child('accounts').child(userId).update({'job3': 'yes'})
+		db.child("main_db").child('accounts').child(userId).update({'job4': 'yes'})
+		db.child("main_db").child('accounts').child(userId).update({'job5': 'yes'})
+		db.child("main_db").child('accounts').child(userId).update({'bill1': 'yes'})
+		db.child("main_db").child('accounts').child(userId).update({'bill2': 'yes'})
+		db.child("main_db").child('accounts').child(userId).update({'db1': 'yes'})
+		db.child("main_db").child('accounts').child(userId).update({'db2': 'yes'})
+		db.child("main_db").child('accounts').child(userId).update({'db3': 'yes'})
+		db.child("main_db").child('accounts').child(userId).update({'db4': 'yes'})
+		db.child("main_db").child('accounts').child(userId).update({'db5': 'yes'})
 
 	return redirect('/')
 
@@ -217,7 +217,7 @@ def manageUsers():
 	if(session['admin'] != 'yes'):
 		return "no!"
 
-	logins = db.child("jlg_main").child('accounts').get()
+	logins = db.child("main_db").child('accounts').get()
 	all_users = []
 	all_keys = []
 
@@ -264,7 +264,7 @@ def jobno():
 		hereAdmin = 'no'
 
 	# get all the job entries
-	all_je = db.child("jlg_main").child('jlg_execution').get()
+	all_je = db.child("main_db").child('jlg_execution').get()
 	all_job_exec = []
 
 	try:
@@ -289,7 +289,7 @@ def newjob():
 	############################## prefetch data #############################################
 
 	# get all the current client entries
-	all_jc = db.child("jlg_main").child('jlg_clients').get()
+	all_jc = db.child("main_db").child('all_clients').get()
 	all_job_clients = []
 
 	try:
@@ -301,7 +301,7 @@ def newjob():
 	############################## prefetch data end #############################################
 
 	if request.method == 'POST':
-		db.child("jlg_main").child("jlg_execution")
+		db.child("main_db").child("jlg_execution")
 		data = {'jobno1': request.form['jobno1'], 'jobno2': request.form['jobno2'], 'jobopen': request.form['jobopen'], 'clientname': request.form['clientxname'], 'jobBelong': request.form['jobBelong'], 'jobOwn': request.form['jobOwn'], 'jobProfit': request.form['jobProfit'], 'packageq': request.form['packageq'], 'ncontainer': request.form['ncontainer'], 'cargotype': request.form['cargotype'], 'commodity': request.form['commodity'], 'invoice': request.form['invoice'], 'bondready' : '', 'dobill' : '', 'doready' : '', 'shipping1over' : 'no', 'befilled' : '', 'bereleased' : '', 'dutypaid' : '', 'customover' : 'no', 'cfsover' : '', 'cargorel' : '', 'dockover' : 'no', 'cargotruck' : '', 'delvclient' : '', 'delvover' : 'no', 'slotextn' : '', 'emptydep' : '', 'shipping2over' : 'no', 'jobComplete' : 'no', 'jobCloseDate' : '', 'bill1' : '', 'bill2' : '', 'preClose' : 'no'}
 		db.push(data)
 
@@ -316,7 +316,7 @@ def deleteProfit(entry):
 	if(session['admin'] != 'yes'):
 		return "no!"
 
-	db.child("jlg_main").child('jlg_jobprofit').child(entry).remove()
+	db.child("main_db").child('jlg_jobprofit').child(entry).remove()
 	return redirect('/')
 
 
@@ -330,7 +330,7 @@ def jobprofitdb():
 		hereAdmin = 'no'
 
 	# get all the current job profit entries
-	all_jp = db.child("jlg_main").child('jlg_jobprofit').get()
+	all_jp = db.child("main_db").child('jlg_jobprofit').get()
 	all_job_profits = []
 	all_job_profits_keys = []
 
@@ -342,7 +342,7 @@ def jobprofitdb():
 		print("Empty Job Profit Database")
 
 	if request.method == 'POST' and 'jobProfitEntry' in request.form:
-		db.child("jlg_main").child("jlg_jobprofit")
+		db.child("main_db").child("jlg_jobprofit")
 		data = {"jobName" : request.form['jobProfitEntry']}
 		db.push(data)
 
@@ -361,7 +361,7 @@ def jobbelongdb():
 		hereAdmin = 'no'
 
 	# get all the current job belonging entries
-	all_jb = db.child("jlg_main").child('jlg_jobbelong').get()
+	all_jb = db.child("main_db").child('jlg_jobbelong').get()
 	all_job_belong = []
 
 	try:
@@ -371,7 +371,7 @@ def jobbelongdb():
 		print("Empty Job Belonging Database")
 
 	if request.method == 'POST' and 'jobBelongEntry' in request.form:
-		db.child("jlg_main").child("jlg_jobbelong")
+		db.child("main_db").child("jlg_jobbelong")
 		data = {"compName" : request.form['jobBelongEntry']}
 		db.push(data)
 
@@ -379,6 +379,62 @@ def jobbelongdb():
 
 	return render_template('jobbelong.html', hereAdmin=hereAdmin, allJobs=all_job_belong)
 
+
+# vendor database
+@app.route('/vendordb', methods=['GET', 'POST'])
+def vendordb():
+
+	if not session['guest'] and session['userPermissions'][8] == 'yes': # notice
+		hereAdmin = 'yes'
+	else:
+		hereAdmin = 'no'
+
+	# get all the current job belonging entries
+	all_vendor = db.child("main_db").child('vendordb').get()
+	all_vendor_collected = []
+
+	try:
+		for item in all_vendor.each():
+			all_vendor_collected.append(item.val()['vendorName'])
+	except:
+		print("Empty Vendor Database")
+
+	if request.method == 'POST' and 'vendorName' in request.form and 'vendorService' in request.form:
+		db.child("main_db").child("vendordb")
+		data = {"vendorName" : request.form['vendorName'], "vendorService" : request.form['vendorService']}
+		db.push(data)
+
+		return redirect('/')
+
+	return render_template('vendordb.html', hereAdmin=hereAdmin, allJobs=all_vendor_collected)
+
+# country database
+@app.route('/countrydb', methods=['GET', 'POST'])
+def countrydb():
+
+	if not session['guest'] and session['userPermissions'][8] == 'yes': # notice
+		hereAdmin = 'yes'
+	else:
+		hereAdmin = 'no'
+
+	# get all the current job belonging entries
+	all_country = db.child("main_db").child('countrydb').get()
+	all_country_collected = []
+
+	try:
+		for item in all_country.each():
+			all_country_collected.append(item.val()['countryName'])
+	except:
+		print("Empty Vendor Database")
+
+	if request.method == 'POST' and 'countryName' in request.form :
+		db.child("main_db").child("countrydb")
+		data = {"countryName" : request.form['countryName']}
+		db.push(data)
+
+		return redirect('/')
+
+	return render_template('countrydb.html', hereAdmin=hereAdmin, allJobs=all_country_collected)
 
 # job owner database
 @app.route('/jobownerdb', methods=['GET', 'POST'])
@@ -390,7 +446,7 @@ def jobownerdb():
 		hereAdmin = 'no'
 
 	# get all the current job profit centres
-	all_jb = db.child("jlg_main").child('jlg_jobprofit').get()
+	all_jb = db.child("main_db").child('jlg_jobprofit').get()
 	all_job_profits = []
 
 	try:
@@ -400,7 +456,7 @@ def jobownerdb():
 		print("Empty Job Profits Database")
 
 	# get all the current job owner entries
-	all_jo = db.child("jlg_main").child('jlg_jobowner').get()
+	all_jo = db.child("main_db").child('jlg_jobowner').get()
 	all_job_owners = []
 
 	try:
@@ -410,7 +466,7 @@ def jobownerdb():
 		print("Empty Job Owner Database")
 
 	if request.method == 'POST' and 'jobOwner' in request.form and 'jobProfitCentre' in request.form:
-		db.child("jlg_main").child("jlg_jobowner")
+		db.child("main_db").child("jlg_jobowner")
 		data = {request.form['jobOwner'] : request.form['jobProfitCentre']}
 		db.push(data)
 
@@ -424,7 +480,7 @@ def jobownerdb():
 def clientView():
 
 	# get all the current client entries
-	all_jc = db.child("jlg_main").child('jlg_clients').get()
+	all_jc = db.child("main_db").child('all_clients').get()
 	all_job_clients = []
 
 	if not session['guest'] and session['userPermissions'][5] == 'yes':
@@ -452,28 +508,28 @@ def clientdb():
 		hereAdmin = 'no'
 		return 'no'
 
-	# get all the current job profit centres
-	all_jb = db.child("jlg_main").child('jlg_jobprofit').get()
-	all_job_profits = []
+	# get all the current country centres
+	all_jc = db.child("main_db").child('countrydb').get()
+	all_country = []
 
 	try:
-		for item in all_jb.each():
-			all_job_profits.append(item.val()['jobName'])
+		for item in all_jc.each():
+			all_country.append(item.val()['countryName'])
 	except:
-		print("Empty Job Profits Database")
+		print("Empty Country Database")
 
-	# get all the current job owner entries
-	all_jo = db.child("jlg_main").child('jlg_jobowner').get()
-	all_job_owners = []
+	# get all the current vendor entries
+	all_jv = db.child("main_db").child('vendordb').get()
+	all_vendor = []
 
 	try:
-		for item in all_jo.each():
-			all_job_owners.append(item.val())
+		for item in all_jv.each():
+			all_vendor.append(item.val())
 	except:
-		print("Empty Job Owner Database")
+		print("Empty Vendor Database")
 
 	# get all the current job belong entries
-	all_jg = db.child("jlg_main").child('jlg_jobbelong').get()
+	all_jg = db.child("main_db").child('jlg_jobbelong').get()
 	all_job_belong = []
 
 	try:
@@ -483,14 +539,14 @@ def clientdb():
 		print("Empty Job Belong Database")
 
 	if request.method == 'POST' and 'clientName' in request.form and 'jobBelong' in request.form and 'jobOwn' in request.form and 'jobProfit' in request.form and 'clientAddress1' in request.form and 'clientAddress2' in request.form and 'clientAddress3' in request.form and 'gstin' in request.form:
-		db.child("jlg_main").child("jlg_clients")
+		db.child("main_db").child("all_clients")
 		data = {'clientname' : request.form['clientName'], 'jobBelong' : request.form['jobBelong'], 'jobOwn' : request.form['jobOwn'], 'jobProfit' : request.form['jobProfit'], 'clientAddress1' : request.form['clientAddress1'], 'clientAddress2' : request.form['clientAddress2'], 'clientAddress3' : request.form['clientAddress3'], 'gstin' : request.form['gstin']}
 		db.push(data)
 
 		return redirect('/')
 
 	# get all the current client entries
-	all_jc = db.child("jlg_main").child('jlg_clients').get()
+	all_jc = db.child("main_db").child('all_clients').get()
 	all_job_clients = []
 
 	try:
@@ -500,8 +556,7 @@ def clientdb():
 		print(e)
 		print("Empty Client Database")
 
-
-	return render_template('client.html', allClients=all_job_clients, allJobs=all_job_owners, jobProfits=all_job_profits, jobBelongs=all_job_belong)
+	return render_template('client.html', allClients=all_job_clients, allCountries=all_country, allVendors=all_vendor, jobBelongs=all_job_belong)
 
 
 # index page for exec
@@ -514,7 +569,7 @@ def execIndex():
 		aright = "no"
 
 	# get all the current client entries
-	all_je = db.child("jlg_main").child('jlg_execution').get()
+	all_je = db.child("main_db").child('jlg_execution').get()
 	all_job_exec = []
 
 	try:
@@ -531,52 +586,52 @@ def checkDataConsistency(myId="all"):
 	if(myId == "all"):
 		print('Entire Database check')
 		try:
-			all_je = db.child("jlg_main").child('jlg_execution').get()
+			all_je = db.child("main_db").child('jlg_execution').get()
 			for item in all_je.each():
 				if item.val() is None:
 					continue
 
 				if item.val()['bondready'] != '' and item.val()['dobill'] != '' and item.val()['doready'] != '':
-					db.child("jlg_main").child('jlg_execution').child(item.key()).update({'shipping1over': 'yes'})
+					db.child("main_db").child('jlg_execution').child(item.key()).update({'shipping1over': 'yes'})
 				else:
-					db.child("jlg_main").child('jlg_execution').child(item.key()).update({'shipping1over': 'no'})
+					db.child("main_db").child('jlg_execution').child(item.key()).update({'shipping1over': 'no'})
 
 				if item.val()['befilled'] != '' and item.val()['bereleased'] != '' and item.val()['dutypaid'] != '':
-					db.child("jlg_main").child('jlg_execution').child(item.key()).update({'customover': 'yes'})
+					db.child("main_db").child('jlg_execution').child(item.key()).update({'customover': 'yes'})
 				else:
-					db.child("jlg_main").child('jlg_execution').child(item.key()).update({'customover': 'no'})
+					db.child("main_db").child('jlg_execution').child(item.key()).update({'customover': 'no'})
 
 				if item.val()['cfsover'] != '' and item.val()['cargorel'] != '':
-					db.child("jlg_main").child('jlg_execution').child(item.key()).update({'dockover': 'yes'})
+					db.child("main_db").child('jlg_execution').child(item.key()).update({'dockover': 'yes'})
 				else:
-					db.child("jlg_main").child('jlg_execution').child(item.key()).update({'dockover': 'no'})
+					db.child("main_db").child('jlg_execution').child(item.key()).update({'dockover': 'no'})
 
 				if item.val()['cargotruck'] != '' and item.val()['delvclient'] != '':
-					db.child("jlg_main").child('jlg_execution').child(item.key()).update({'delvover': 'yes'})
+					db.child("main_db").child('jlg_execution').child(item.key()).update({'delvover': 'yes'})
 				else:
-					db.child("jlg_main").child('jlg_execution').child(item.key()).update({'delvover': 'no'})
+					db.child("main_db").child('jlg_execution').child(item.key()).update({'delvover': 'no'})
 
 				if item.val()['slotextn'] != '' and item.val()['emptydep'] != '':
-					db.child("jlg_main").child('jlg_execution').child(item.key()).update({'shipping2over': 'yes'})
+					db.child("main_db").child('jlg_execution').child(item.key()).update({'shipping2over': 'yes'})
 				else:
-					db.child("jlg_main").child('jlg_execution').child(item.key()).update({'shipping2over': 'no'})
+					db.child("main_db").child('jlg_execution').child(item.key()).update({'shipping2over': 'no'})
 
 				# preclose one
 				if item.val()['shipping1over'] == 'yes' and item.val()['customover'] == 'yes' and item.val()['dockover'] == 'yes' and item.val()['delvover'] == 'yes' and item.val()['shipping2over'] == 'yes':
-					db.child("jlg_main").child('jlg_execution').child(item.key()).update({'preClose': 'yes'})
-					db.child("jlg_main").child('jlg_execution').child(item.key()).update({'jobComplete': 'yes'})
+					db.child("main_db").child('jlg_execution').child(item.key()).update({'preClose': 'yes'})
+					db.child("main_db").child('jlg_execution').child(item.key()).update({'jobComplete': 'yes'})
 
 				# if item.val()['preClose'] == 'yes' and item.val()['bill1'] != '' and item.val()['bill2'] != '':
-				# 	db.child("jlg_main").child('jlg_execution').child(item.key()).update({'jobComplete': 'yes'})
+				# 	db.child("main_db").child('jlg_execution').child(item.key()).update({'jobComplete': 'yes'})
 
 					if(item.val()['jobCloseDate'] == ''):
 						closeDate = str(datetime.now(timezone('Asia/Kolkata')))[:-22]
 						closeDate = closeDate.split('-')[2] + '-' + closeDate.split('-')[1] + '-' + closeDate.split('-')[0][-2:]
-						db.child("jlg_main").child('jlg_execution').child(item.key()).update({'jobCloseDate': closeDate})
+						db.child("main_db").child('jlg_execution').child(item.key()).update({'jobCloseDate': closeDate})
 
 				else:
-					db.child("jlg_main").child('jlg_execution').child(item.key()).update({'jobComplete': 'no'})
-					db.child("jlg_main").child('jlg_execution').child(item.key()).update({'jobCloseDate': ''})
+					db.child("main_db").child('jlg_execution').child(item.key()).update({'jobComplete': 'no'})
+					db.child("main_db").child('jlg_execution').child(item.key()).update({'jobCloseDate': ''})
 
 
 		except Exception as e:
@@ -586,46 +641,46 @@ def checkDataConsistency(myId="all"):
 		return
 
 	try:
-		item = db.child("jlg_main").child('jlg_execution').child(myId).get()
+		item = db.child("main_db").child('jlg_execution').child(myId).get()
 		print('Single item Database check')
 
 		if item.val()['bondready'] != '' and item.val()['dobill'] != '' and item.val()['doready'] != '':
-			db.child("jlg_main").child('jlg_execution').child(item.key()).update({'shipping1over': 'yes'})
+			db.child("main_db").child('jlg_execution').child(item.key()).update({'shipping1over': 'yes'})
 		else:
-			db.child("jlg_main").child('jlg_execution').child(item.key()).update({'shipping1over': 'no'})
+			db.child("main_db").child('jlg_execution').child(item.key()).update({'shipping1over': 'no'})
 		if item.val()['befilled'] != '' and item.val()['bereleased'] != '' and item.val()['dutypaid'] != '':
-			db.child("jlg_main").child('jlg_execution').child(item.key()).update({'customover': 'yes'})
+			db.child("main_db").child('jlg_execution').child(item.key()).update({'customover': 'yes'})
 		else:
-			db.child("jlg_main").child('jlg_execution').child(item.key()).update({'customover': 'no'})
+			db.child("main_db").child('jlg_execution').child(item.key()).update({'customover': 'no'})
 		if item.val()['cfsover'] != '' and item.val()['cargorel'] != '':
-			db.child("jlg_main").child('jlg_execution').child(item.key()).update({'dockover': 'yes'})
+			db.child("main_db").child('jlg_execution').child(item.key()).update({'dockover': 'yes'})
 		else:
-			db.child("jlg_main").child('jlg_execution').child(item.key()).update({'dockover': 'no'})
+			db.child("main_db").child('jlg_execution').child(item.key()).update({'dockover': 'no'})
 		if item.val()['cargotruck'] != '' and item.val()['delvclient'] != '':
-			db.child("jlg_main").child('jlg_execution').child(item.key()).update({'delvover': 'yes'})
+			db.child("main_db").child('jlg_execution').child(item.key()).update({'delvover': 'yes'})
 		else:
-			db.child("jlg_main").child('jlg_execution').child(item.key()).update({'delvover': 'no'})
+			db.child("main_db").child('jlg_execution').child(item.key()).update({'delvover': 'no'})
 		if item.val()['slotextn'] != '' and item.val()['emptydep'] != '':
-			db.child("jlg_main").child('jlg_execution').child(item.key()).update({'shipping2over': 'yes'})
+			db.child("main_db").child('jlg_execution').child(item.key()).update({'shipping2over': 'yes'})
 		else:
-			db.child("jlg_main").child('jlg_execution').child(item.key()).update({'shipping2over': 'no'})
+			db.child("main_db").child('jlg_execution').child(item.key()).update({'shipping2over': 'no'})
 
 		# preclose one
 		if item.val()['shipping1over'] == 'yes' and item.val()['customover'] == 'yes' and item.val()['dockover'] == 'yes' and item.val()['delvover'] == 'yes' and item.val()['shipping2over'] == 'yes':
-			db.child("jlg_main").child('jlg_execution').child(item.key()).update({'preClose': 'yes'})
-			db.child("jlg_main").child('jlg_execution').child(item.key()).update({'jobComplete': 'yes'})
+			db.child("main_db").child('jlg_execution').child(item.key()).update({'preClose': 'yes'})
+			db.child("main_db").child('jlg_execution').child(item.key()).update({'jobComplete': 'yes'})
 
 		# if item.val()['preClose'] == 'yes' and item.val()['bill1'] != '' and item.val()['bill2'] != '':
-		# 	db.child("jlg_main").child('jlg_execution').child(item.key()).update({'jobComplete': 'yes'})
+		# 	db.child("main_db").child('jlg_execution').child(item.key()).update({'jobComplete': 'yes'})
 
 			if(item.val()['jobCloseDate'] == ''):
 				closeDate = str(datetime.now(timezone('Asia/Kolkata')))[:-22]
 				closeDate = closeDate.split('-')[2] + '-' + closeDate.split('-')[1] + '-' + closeDate.split('-')[0][-2:]
 
-				db.child("jlg_main").child('jlg_execution').child(item.key()).update({'jobCloseDate': closeDate})
+				db.child("main_db").child('jlg_execution').child(item.key()).update({'jobCloseDate': closeDate})
 		else:
-			db.child("jlg_main").child('jlg_execution').child(item.key()).update({'jobComplete': 'no'})
-			db.child("jlg_main").child('jlg_execution').child(item.key()).update({'jobCloseDate': ''})
+			db.child("main_db").child('jlg_execution').child(item.key()).update({'jobComplete': 'no'})
+			db.child("main_db").child('jlg_execution').child(item.key()).update({'jobCloseDate': ''})
 	except Exception as e:
 		print(e)
 		print('Updation problem')
@@ -655,7 +710,7 @@ def cancelUpdate(objectId, attributeId):
 	if not session.get('loggedIn'):
 		return redirect('/')
 
-	db.child("jlg_main").child('jlg_execution').child(objectId).update({attributeId: ""})
+	db.child("main_db").child('jlg_execution').child(objectId).update({attributeId: ""})
 
 	# sleep for 3s because Firebase needs a little time to update
 	time.sleep(3)
@@ -677,7 +732,7 @@ def updateAPI(objectId, attributeId):
 
 	closeDate = str(datetime.now(timezone('Asia/Kolkata')))
 	timeData = closeDate[:-22].split('-')[2] + '-' + closeDate[:-22].split('-')[1] + '-' + closeDate[:-22].split('-')[0][-2:] + ' ' + closeDate[:-16][-5:] + ' ' + session['user']
-	db.child("jlg_main").child('jlg_execution').child(objectId).update({attributeId: timeData})
+	db.child("main_db").child('jlg_execution').child(objectId).update({attributeId: timeData})
 
 	# sleep for 3s because Firebase needs a little time to update
 	time.sleep(3)
@@ -695,7 +750,7 @@ def billUpdateAPI(objectId, attributeId):
 
 	if request.method == 'POST':
 		billText = request.form['billText']
-		db.child("jlg_main").child('jlg_execution').child(objectId).update({attributeId: billText})
+		db.child("main_db").child('jlg_execution').child(objectId).update({attributeId: billText})
 		# sleep for 3s because Firebase needs a little time to update
 		time.sleep(3)
 	
@@ -718,7 +773,7 @@ def execFilterOpen():
 		aright = "no"
 
 	# get all the current client entries
-	all_je = db.child("jlg_main").child('jlg_execution').get()
+	all_je = db.child("main_db").child('jlg_execution').get()
 	all_job_exec_key = []
 	all_job_exec_val = []
 
@@ -750,7 +805,7 @@ def execFilterClosed():
 		aright = "no"
 
 	# get all the current client entries
-	all_je = db.child("jlg_main").child('jlg_execution').get()
+	all_je = db.child("main_db").child('jlg_execution').get()
 	all_job_exec_key = []
 	all_job_exec_val = []
 
@@ -782,7 +837,7 @@ def execstatusdb():
 	############################## prefetch data #############################################
 
 	# get all the current job profit centres
-	all_jb = db.child("jlg_main").child('jlg_jobprofit').get()
+	all_jb = db.child("main_db").child('jlg_jobprofit').get()
 	all_job_profits = []
 
 	try:
@@ -792,7 +847,7 @@ def execstatusdb():
 		print("Empty Job Profits Database")
 
 	# get all the current job owner entries
-	all_jo = db.child("jlg_main").child('jlg_jobowner').get()
+	all_jo = db.child("main_db").child('jlg_jobowner').get()
 	all_job_owners = []
 
 	try:
@@ -802,7 +857,7 @@ def execstatusdb():
 		print("Empty Job Owner Database")
 
 	# get all the current job belong entries
-	all_jg = db.child("jlg_main").child('jlg_jobbelong').get()
+	all_jg = db.child("main_db").child('jlg_jobbelong').get()
 	all_job_belong = []
 
 	try:
@@ -814,7 +869,7 @@ def execstatusdb():
 	############################## prefetch data end #############################################
 
 	if request.method == 'POST':
-		db.child("jlg_main").child("jlg_execution")
+		db.child("main_db").child("jlg_execution")
 
 		jobDone = 'no'
 		if(request.form['shipping1over'] == 'yes' and request.form['customover'] == 'yes' and request.form['dockover'] == 'yes' and request.form['delvover'] == 'yes' and request.form['shipping2over'] == 'yes'):
@@ -827,7 +882,7 @@ def execstatusdb():
 		return redirect('/')
 
 	# get all the current client entries
-	all_je = db.child("jlg_main").child('jlg_execution').get()
+	all_je = db.child("main_db").child('jlg_execution').get()
 	all_job_exec = []
 
 	try:
