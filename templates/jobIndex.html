@@ -70,31 +70,23 @@
 
 			<th data-field="slno" data-filter-control="input" data-sortable="true" id="slno">Sl No</th>
 
-			<th data-field="jobno1" data-filter-control="input" data-sortable="true">JayLGCPL Job No</th>
+			<th data-field="jobno1" data-filter-control="input" data-sortable="true">Job Type</th>
 
-			<th data-field="jobno2" data-filter-control="input" data-sortable="true">JLG&Co Job No</th>
+			<th data-field="jobno2" data-filter-control="input" data-sortable="true">Job No</th>
 
 			<th data-field="jobopen" data-filter-control="input" data-sortable="true">Job Open Date</th>
 
-			<th data-field="jobCloseDate" data-filter-control="input" data-sortable="true">Job Close Date</th>
-
 			<th data-field="clientname" data-filter-control="input" data-sortable="true">Client Name</th>
-
-			<th data-field="jobBelong" data-filter-control="input" data-sortable="true">Client Of</th>
-
-			<th data-field="jobOwn" data-filter-control="input" data-sortable="true">Job Owner</th>
-
-			<th data-field="jobProfit" data-filter-control="input" data-sortable="true">Profit Center</th>
-
-			<th data-field="packageq" data-filter-control="input" data-sortable="true">Package Quantity</th>
-
-			<th data-field="ncontainer" data-filter-control="input" data-sortable="true">No of Cont.</th>
-
-			<th data-field="cargotype" data-filter-control="input" data-sortable="true">Cargo Type</th>
 
 			<th data-field="commodity" data-filter-control="input" data-sortable="true">Commodity</th>
 
-			<th data-field="invoice" data-filter-control="input" data-sortable="true">Invoice & Bill of Lading Details</th>
+			<th data-field="packageq" data-filter-control="input" data-sortable="true">Package Quantity</th>
+
+			<th data-field="ncontainer" data-filter-control="input" data-sortable="true">Source Country</th>
+
+			<th data-field="cargotype" data-filter-control="input" data-sortable="true">Transit Country</th>
+
+			<th data-field="invoice" data-filter-control="input" data-sortable="true">CHA Name</th>
 
 		</tr>
 	</thead>
@@ -103,19 +95,15 @@
 		<tr>
 		   <td class="bs-checkbox "><input data-index="{{loop.index0 + 1}}" name="btSelectItem" type="checkbox"></td>
 		   <td style="text-align:center;" class="serialNumber">{{loop.index0 + 1}}</td>
-		   <td style="text-align:center;" class="j1">{{client['jobno1']}}</td>
-		   <td style="text-align:center;" class="j2">{{client['jobno2']}}</td>
+		   <td style="text-align:center;" class="j1">{{client['jobType']}}</td>
+		   <td style="text-align:center;" class="j2">{{client['jobno1']}}</td>
 		   <td style="text-align:center;" class="j3">{{client['jobopen']}}</td>
-		   <td style="text-align:center;" class="j7">{{client['jobCloseDate']}}</td>
-		   <td style="text-align:center;" class="j4">{{client['clientname']}}</td>
-		   <td style="text-align:center;" class="j5">{{client['jobBelong']}}</td>
-		   <td style="text-align:center;" class="j5">{{client['jobOwn']}}</td>
-		   <td style="text-align:center;" class="j5">{{client['jobProfit']}}</td>
+			 <td style="text-align:center;" class="j4">{{client['clientname']}}</td>
+			 <td style="text-align:center;" class="j6">{{client['commodity']}}</td>
 		   <td style="text-align:center;" class="j5">{{client['packageq']}}</td>
-		   <td style="text-align:center;" class="j6">{{client['ncontainer']}}</td>
-		   <td style="text-align:center;" class="j6">{{client['cargotype']}}</td>
-		   <td style="text-align:center;" class="j6">{{client['commodity']}}</td>
-		   <td style="text-align:center;" class="j6">{{client['invoice']}}</td>
+		   <td style="text-align:center;" class="j6">{{client['sourceCountry']}}</td>
+		   <td style="text-align:center;" class="j6">{{client['transitCountry']}}</td>	   
+		   <td style="text-align:center;" class="j6">{{client['chaname']}}</td>
 		
 		</tr>
 		{% endfor %}

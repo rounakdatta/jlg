@@ -17,7 +17,7 @@
 		<input id="clientName" name="clientName" type="text">
 		<br>
 
-		<label for="jobBelong">Job Belongs To :</label>
+		<label for="jobBelong">Job Owner :</label>
 		
 		<select id="jobBelong" name="jobBelong">
 			<option disabled selected value> -- select an option -- </option>
@@ -27,40 +27,6 @@
   		</select>
 
   		<br>
-
-		<label for="sourceCountry">Source Country :</label>
-		
-		<select id="sourceCountry" name="sourceCountry">
-			<option disabled selected value> -- select an option -- </option>
-			{% for job in allCountries %}
-  			<option value="{{job}}">{{job}}</option>
-  			{% endfor %}
-  		</select>
-
-  		<br>
-
-		  <label for="transitCountry">Transit Country :</label>
-		
-		  <select id="transitCountry" name="transitCountry">
-			  <option disabled selected value> -- select an option -- </option>
-			  {% for job in allCountries %}
-				<option value="{{job}}">{{job}}</option>
-==
-				{% endfor %}
-			</select>
-  
-			<br>
-
-			<label for="chaname">CHA Name :</label>
-		
-			<select id="chaname" name="chaname">
-				<option disabled selected value> -- select an option -- </option>
-				{% for job in allVendors %}
-				  <option value="{{job['vendorName']}}">{{job['vendorName']}}</option>
-				  {% endfor %}
-			  </select>
-	
-			  <br>
 
   		<label for="clientAddress1">Client Address 1 :</label>
   		<input type="text" id="clientAddress1" name="clientAddress1">

@@ -59,60 +59,60 @@
 			 data-height="800"
 			 data-click-to-select="true"
 			 data-toolbar="#toolbar"
-       		 class="table-responsive">
+      class="table-responsive">
        	<thead>
 		<tr>
 			<th data-field="state" data-checkbox="true"></th>
 
 			<th data-field="slno" data-filter-control="input" data-sortable="true" id="slno">Sl No</th>
 
-			<th data-field="jobno1" data-filter-control="input" data-sortable="true">JayLGCPL Job No</th>
+			<th data-field="jobType" data-filter-control="input" data-sortable="true">Job Type</th>
 
-			<th data-field="jobno2" data-filter-control="input" data-sortable="true">JLG&Co Job No</th>
+			<th data-field="jobno1" data-filter-control="input" data-sortable="true">Job No</th>
 
 			<th data-field="jobopen" data-filter-control="input" data-sortable="true">Job Open Date</th>
 
 			<th data-field="clientname" data-filter-control="input" data-sortable="true">Client Name</th>
 
-			<th data-field="bondready" data-filter-control="input" data-sortable="true">Bond cte. Ready</th>
+			<th data-field="commodity" data-filter-control="input" data-sortable="true">Commodity</th>
 
-			<th data-field="dobill" data-filter-control="input" data-sortable="true">DO Bill Received</th>
+			<th data-field="packageq" data-filter-control="input" data-sortable="true">Package Qty</th>
 
-			<th data-field="doready" data-filter-control="input" data-sortable="true">DO Ready</th>
+			<th data-field="sourceCountry" data-filter-control="input" data-sortable="true">Source Country (SC)</th>
 
-			<th data-field="shipping1over" data-filter-control="input" data-sortable="true">Shipping 1st Part Over</th>
+			<th data-field="exportFromSource" data-filter-control="input" data-sortable="true">Export Date from SC</th>
 
-			<th data-field="befilled" data-filter-control="input" data-sortable="true">BE Filed</th>
+			<th data-field="transitCountry" data-filter-control="input" data-sortable="true">Transit Country (TC)</th>
 
-			<th data-field="bereleased" data-filter-control="input" data-sortable="true">BE Released</th>
+			<th data-field="importEstimateAtTransit" data-filter-control="input" data-sortable="true">Import ETA at TC</th>
 
-			<th data-field="dutypaid" data-filter-control="input" data-sortable="true">Duty Paid</th>
+			<th data-field="importAtTransit" data-filter-control="input" data-sortable="true">Import Date at TC</th>
 
-			<th data-field="customover" data-filter-control="input" data-sortable="true">Custom Part Over</th>
+			<th data-field="exportFromTransit" data-filter-control="input" data-sortable="true">Export Date from TC</th>
 
-			<th data-field="cfsover" data-filter-control="input" data-sortable="true">CFS/Doc Assess Over</th>
+			<th data-field="importEstimateAtIndia" data-filter-control="input" data-sortable="true">Import ETA at India</th>
 
-			<th data-field="cargorel" data-filter-control="input" data-sortable="true">Cargo Released</th>
+			<th data-field="importAtIndia" data-filter-control="input" data-sortable="true">Import Date at India</th>
 
-			<th data-field="dockover" data-filter-control="input" data-sortable="true">Dock Part Over</th>
+			<th data-field="chaJobNo" data-filter-control="input" data-sortable="true">CHA Job No</th>
 
-			<th data-field="cargotruck" data-filter-control="input" data-sortable="true">Cargo shift to truck</th>
+			<th data-field="chaname" data-filter-control="input" data-sortable="true">CHA Name</th>
 
-			<th data-field="delvclient" data-filter-control="input" data-sortable="true">Delivery at client space</th>
+			<th data-field="bill" data-filter-control="input" data-sortable="true">Bill Entry</th>
 
-			<th data-field="delvover" data-filter-control="input" data-sortable="true">Client Delv Over</th>
+			<th data-field="customDutyAmount" data-filter-control="input" data-sortable="true">Custom Duty Amount</th>
 
-			<th data-field="slotextn" data-filter-control="input" data-sortable="true">Slot Extn if required</th>
+			<th data-field="delFromCFS" data-filter-control="input" data-sortable="true">Delivery from CFS on</th>
 
-			<th data-field="emptydep" data-filter-control="input" data-sortable="true">Empty Deposit</th>
-
-			<th data-field="shipping2over" data-filter-control="input" data-sortable="true">Shipping 2nd Part Over</th>
+			<th data-field="delToClient" data-filter-control="input" data-sortable="true">Delivery to client on</th>
 
 			<th data-field="jobComplete" data-filter-control="input" data-sortable="true">Job Complete</th>
 
-			<th data-field="bill1" data-filter-control="input" data-sortable="true">Bill 1</th>
+			<th data-field="jobCloseDate" data-filter-control="input" data-sortable="true">Job Close Date</th>
 
-			<th data-field="bill2" data-filter-control="input" data-sortable="true">Bill 2</th>
+			<th data-field="invoiceNo" data-filter-control="input" data-sortable="true">Client Invoice No</th>
+
+			<th data-field="invoiceDate" data-filter-control="input" data-sortable="true">Client Invoice Date</th>
 		</tr>
 	</thead>
 		<tbody>
@@ -120,30 +120,30 @@
 		<tr>
 		   <td class="bs-checkbox "><input data-index="{{loop.index0 + 1}}" name="btSelectItem" type="checkbox"></td>
 		   <td style="text-align:center;" class="serialNumber">{{loop.index0 + 1}}</td>
-		   <td style="text-align:center;" class="j1">{{client['jobno1']}}</td>
-		   <td style="text-align:center;" class="j2">{{client['jobno2']}}</td>
+		   <td style="text-align:center;" class="j1">{{client['jobType']}}</td>
+		   <td style="text-align:center;" class="j2">{{client['jobno1']}}</td>
 		   <td style="text-align:center;" class="j3">{{client['jobopen']}}</td>
 		   <td style="text-align:center;" class="j4">{{client['clientname']}}</td>
-		   <td style="text-align:center;" class="j5">{{client['bondready']}}</td>
-		   <td style="text-align:center;" class="j5">{{client['dobill']}}</td>
-		   <td style="text-align:center;" class="j5">{{client['doready']}}</td>
-		   <td style="text-align:center;" class="j5">{{client['shipping1over']}}</td>
-		   <td style="text-align:center;" class="j6">{{client['befilled']}}</td>
-		   <td style="text-align:center;" class="j6">{{client['bereleased']}}</td>
-		   <td style="text-align:center;" class="j6">{{client['dutypaid']}}</td>
-		   <td style="text-align:center;" class="j6">{{client['customover']}}</td>
-		   <td style="text-align:center;" class="j7">{{client['cfsover']}}</td>
-		   <td style="text-align:center;" class="j7">{{client['cargorel']}}</td>
-		   <td style="text-align:center;" class="j7">{{client['dockover']}}</td>
-		   <td style="text-align:center;" class="j7">{{client['cargotruck']}}</td>
-		   <td style="text-align:center;" class="j8">{{client['delvclient']}}</td>
-		   <td style="text-align:center;" class="j8">{{client['delvover']}}</td>
-		   <td style="text-align:center;" class="j8">{{client['slotextn']}}</td>
-		   <td style="text-align:center;" class="j8">{{client['emptydep']}}</td>
-		   <td style="text-align:center;" class="j8">{{client['shipping2over']}}</td>
+		   <td style="text-align:center;" class="j5">{{client['commodity']}}</td>
+		   <td style="text-align:center;" class="j5">{{client['packageq']}}</td>
+		   <td style="text-align:center;" class="j5">{{client['sourceCountry']}}</td>
+		   <td style="text-align:center;" class="j5">{{client['exportFromSource']}}</td>
+		   <td style="text-align:center;" class="j6">{{client['transitCountry']}}</td>
+		   <td style="text-align:center;" class="j6">{{client['importEstimateAtTransit']}}</td>
+		   <td style="text-align:center;" class="j6">{{client['importAtTransit']}}</td>
+		   <td style="text-align:center;" class="j6">{{client['exportFromTransit']}}</td>
+		   <td style="text-align:center;" class="j7">{{client['importEstimateAtIndia']}}</td>
+		   <td style="text-align:center;" class="j7">{{client['importAtIndia']}}</td>
+		   <td style="text-align:center;" class="j7">{{client['chaJobNo']}}</td>
+		   <td style="text-align:center;" class="j7">{{client['chaname']}}</td>
+		   <td style="text-align:center;" class="j8">{{client['bill']}}</td>
+		   <td style="text-align:center;" class="j8">{{client['customDutyAmount']}}</td>
+		   <td style="text-align:center;" class="j8">{{client['delFromCFS']}}</td>
+		   <td style="text-align:center;" class="j8">{{client['delToClient']}}</td>
+		   <td style="text-align:center;" class="j8">{{client['jobCloseDate']}}</td>
 		   <td style="text-align:center;" class="j8">{{client['jobComplete']}}</td>
-		   <td style="text-align:center;" class="j8">{{client['bill1']}}</td>
-		   <td style="text-align:center;" class="j8">{{client['bill2']}}</td>
+		   <td style="text-align:center;" class="j8">{{client['invoiceNo']}}</td>
+		   <td style="text-align:center;" class="j8">{{client['invoiceDate']}}</td>
 		</tr>
 		{% endfor %}
 		</tbody>

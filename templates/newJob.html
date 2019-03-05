@@ -15,12 +15,19 @@
 
 	<form action="/jobnodb/new" method="POST">
 
-		<label for="jobno1">JayLGCPL Job No :</label>
-		<input id="jobno1" name="jobno1" type="text">
+		<label for="jobType">Job Type :</label>
+		<select id="jobType" name="jobType">
+			<option disabled selected value> -- select an option -- </option>
+			<option value="Import">Import</option>
+			<option value="Import">Export</option>
+			<option value="Import">Re-Import</option>
+			<option value="Import">Re-Export</option>
+		</select>
+
 		<br>
 
-		<label for="jobno2">JLG&Co Job No :</label>
-		<input id="jobno2" name="jobno2" type="text">
+		<label for="jobno1">Job No :</label>
+		<input id="jobno1" name="jobno1" type="text">
 		<br>
 
 		<label for="jobopen">Job Open Date :</label>
@@ -42,41 +49,47 @@
   			{% endfor %}
   		</select>
 		<br>
+		<input id="clientxname" name="clientxname">
 
-		<input type="text" id="clientxname" name="clientxname" readonly="readonly">
-
-		<label for="jobBelong">Job Belongs To :</label>
-		<input type="text" id="jobBelong" name="jobBelong" readonly="readonly">
-
-  		<br>
-
-		<label for="jobOwn">Job Owner :</label>
-		<input type="text" id="jobOwn" name="jobOwn" readonly="readonly">
-
-  		<br>
-
-		<label for="jobProfit">Job Profit Centre :</label>
-  		<input type="text" id="jobProfit" name="jobProfit" readonly="readonly">
-  		<br>
-
-		<label for="packageq">Package Quantity :</label>
-		<input id="packageq" name="packageq" type="text">
-		<br>
-
-		<label for="ncontainer">No. of Cont. :</label>
-		<input id="ncontainer" name="ncontainer" type="text">
-		<br>
-
-		<label for="cargotype">Cargo Type :</label>
-		<input id="cargotype" name="cargotype" type="text">
-		<br>
+			<label for="sourceCountry">Source Country :</label>
+		
+			<select id="sourceCountry" name="sourceCountry">
+				<option disabled selected value> -- select an option -- </option>
+				{% for job in allCountries %}
+					<option value="{{job}}">{{job}}</option>
+					{% endfor %}
+				</select>
+	
+				<br>
+	
+				<label for="transitCountry">Transit Country :</label>
+			
+				<select id="transitCountry" name="transitCountry">
+					<option disabled selected value> -- select an option -- </option>
+					{% for job in allCountries %}
+					<option value="{{job}}">{{job}}</option>
+					{% endfor %}
+				</select>
+		
+				<br>
+	
+				<label for="chaname">CHA Name :</label>
+			
+				<select id="chaname" name="chaname">
+					<option disabled selected value> -- select an option -- </option>
+					{% for job in allVendors %}
+						<option value="{{job['vendorName']}}">{{job['vendorName']}}</option>
+						{% endfor %}
+					</select>
+		
+					<br>
 
 		<label for="commodity">Commodity :</label>
 		<input id="commodity" name="commodity" type="text">
 		<br>
 
-		<label for="invoice">Invoice & Bill of Lading Details :</label>
-		<input id="invoice" name="invoice" type="text">
+		<label for="packageq">Package Quantity :</label>
+		<input id="packageq" name="packageq" type="text">
 		<br>
 
 		<button type="submit">Submit</button>
@@ -101,9 +114,6 @@
 
 				if('{{client['clientname']}}' == foo) {
 					$('#clientxname').val(foo);
-					$('#jobBelong').val('{{client['jobBelong']}}');
-					$('#jobOwn').val('{{client['jobOwn']}}');
-					$('#jobProfit').val('{{client['jobProfit']}}');
 				}
 
 			{% endfor %}

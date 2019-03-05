@@ -298,16 +298,36 @@ def newjob():
 	except:
 		print("Empty Client Database")
 
+	# get all the current country centres
+	all_jc = db.child("main_db").child('countrydb').get()
+	all_country = []
+
+	try:
+		for item in all_jc.each():
+			all_country.append(item.val()['countryName'])
+	except:
+		print("Empty Country Database")
+
+	# get all the current vendor entries
+	all_jv = db.child("main_db").child('vendordb').get()
+	all_vendor = []
+
+	try:
+		for item in all_jv.each():
+			all_vendor.append(item.val())
+	except:
+		print("Empty Vendor Database")
+
 	############################## prefetch data end #############################################
 
 	if request.method == 'POST':
 		db.child("main_db").child("jlg_execution")
-		data = {'jobno1': request.form['jobno1'], 'jobno2': request.form['jobno2'], 'jobopen': request.form['jobopen'], 'clientname': request.form['clientxname'], 'jobBelong': request.form['jobBelong'], 'jobOwn': request.form['jobOwn'], 'jobProfit': request.form['jobProfit'], 'packageq': request.form['packageq'], 'ncontainer': request.form['ncontainer'], 'cargotype': request.form['cargotype'], 'commodity': request.form['commodity'], 'invoice': request.form['invoice'], 'bondready' : '', 'dobill' : '', 'doready' : '', 'shipping1over' : 'no', 'befilled' : '', 'bereleased' : '', 'dutypaid' : '', 'customover' : 'no', 'cfsover' : '', 'cargorel' : '', 'dockover' : 'no', 'cargotruck' : '', 'delvclient' : '', 'delvover' : 'no', 'slotextn' : '', 'emptydep' : '', 'shipping2over' : 'no', 'jobComplete' : 'no', 'jobCloseDate' : '', 'bill1' : '', 'bill2' : '', 'preClose' : 'no'}
+		data = {'jobType': request.form['jobType'], 'jobno1': request.form['jobno1'], 'jobopen': request.form['jobopen'], 'clientname': request.form['clientxname'], 'sourceCountry': request.form['sourceCountry'], 'transitCountry': request.form['transitCountry'], 'chaname': request.form['chaname'], 'packageq': request.form['packageq'], 'commodity': request.form['commodity'], 'exportFromSource' : '', 'importEstimateAtTransit' : '', 'ExportFromTransit' : '', 'ImportEstimateAtIndia' : '', 'ImportAtIndia' : '', 'chaJobNo' : '', 'bill' : '', 'customDutyAmount' : '', 'delFromCFS' : '', 'delToClient' : '', 'jobCloseDate' : '', 'invoiceNo' : '', 'invoiceDate' : '', 'jobComplete' : 'no'}
 		db.push(data)
 
 		return redirect('/')
 
-	return render_template('newJob.html', allClients=all_job_clients)
+	return render_template('newJob.html', allClients=all_job_clients, allCountries=all_country, allVendors=all_vendor)
 
 
 # admin API to delete a profitDB entry
@@ -508,26 +528,6 @@ def clientdb():
 		hereAdmin = 'no'
 		return 'no'
 
-	# get all the current country centres
-	all_jc = db.child("main_db").child('countrydb').get()
-	all_country = []
-
-	try:
-		for item in all_jc.each():
-			all_country.append(item.val()['countryName'])
-	except:
-		print("Empty Country Database")
-
-	# get all the current vendor entries
-	all_jv = db.child("main_db").child('vendordb').get()
-	all_vendor = []
-
-	try:
-		for item in all_jv.each():
-			all_vendor.append(item.val())
-	except:
-		print("Empty Vendor Database")
-
 	# get all the current job belong entries
 	all_jg = db.child("main_db").child('jlg_jobbelong').get()
 	all_job_belong = []
@@ -538,9 +538,9 @@ def clientdb():
 	except:
 		print("Empty Job Belong Database")
 
-	if request.method == 'POST' and 'clientName' in request.form and 'jobBelong' in request.form and 'jobOwn' in request.form and 'jobProfit' in request.form and 'clientAddress1' in request.form and 'clientAddress2' in request.form and 'clientAddress3' in request.form and 'gstin' in request.form:
+	if request.method == 'POST' and 'clientName' in request.form and 'jobBelong' in request.form and 'clientAddress1' in request.form and 'clientAddress2' in request.form and 'clientAddress3' in request.form and 'gstin' in request.form:
 		db.child("main_db").child("all_clients")
-		data = {'clientname' : request.form['clientName'], 'jobBelong' : request.form['jobBelong'], 'jobOwn' : request.form['jobOwn'], 'jobProfit' : request.form['jobProfit'], 'clientAddress1' : request.form['clientAddress1'], 'clientAddress2' : request.form['clientAddress2'], 'clientAddress3' : request.form['clientAddress3'], 'gstin' : request.form['gstin']}
+		data = {'clientname' : request.form['clientName'], 'jobBelong' : request.form['jobBelong'], 'clientAddress1' : request.form['clientAddress1'], 'clientAddress2' : request.form['clientAddress2'], 'clientAddress3' : request.form['clientAddress3'], 'gstin' : request.form['gstin']}
 		db.push(data)
 
 		return redirect('/')
@@ -556,7 +556,7 @@ def clientdb():
 		print(e)
 		print("Empty Client Database")
 
-	return render_template('client.html', allClients=all_job_clients, allCountries=all_country, allVendors=all_vendor, jobBelongs=all_job_belong)
+	return render_template('client.html', allClients=all_job_clients, jobBelongs=all_job_belong)
 
 
 # index page for exec
