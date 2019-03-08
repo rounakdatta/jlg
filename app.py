@@ -322,7 +322,7 @@ def newjob():
 
 	if request.method == 'POST':
 		db.child("main_db").child("jlg_execution")
-		data = {'jobType': request.form['jobType'], 'jobno1': request.form['jobno1'], 'jobopen': request.form['jobopen'], 'clientname': request.form['clientxname'], 'sourceCountry': request.form['sourceCountry'], 'transitCountry': request.form['transitCountry'], 'chaname': request.form['chaname'], 'packageq': request.form['packageq'], 'commodity': request.form['commodity'], 'exportFromSource' : '', 'importEstimateAtTransit' : '', 'ExportFromTransit' : '', 'ImportEstimateAtIndia' : '', 'ImportAtIndia' : '', 'chaJobNo' : '', 'bill' : '', 'customDutyAmount' : '', 'delFromCFS' : '', 'delToClient' : '', 'jobCloseDate' : '', 'invoiceNo' : '', 'invoiceDate' : '', 'jobComplete' : 'no'}
+		data = {'jobType': request.form['jobType'], 'jobno1': request.form['jobno1'], 'jobopen': request.form['jobopen'], 'clientname': request.form['clientxname'], 'clientOf': request.form['clientOf'], 'sourceCountry': '', 'transitCountry': '', 'chaname': '', 'packageq': request.form['packageq'], 'commodity': request.form['commodity'], 'exportFromSource' : '', 'importEstimateAtTransit' : '', 'importAtTransit' : '',  'exportFromTransit' : '', 'importEstimateAtIndia' : '', 'importAtIndia' : '', 'chaJobNo' : '', 'bill' : '', 'customDutyAmount' : '', 'delFromCFS' : '', 'delToClient' : '', 'jobCloseDate' : '', 'invoiceNo' : '', 'invoiceDate' : '', 'jobComplete' : 'no'}
 		db.push(data)
 
 		return redirect('/')
@@ -761,6 +761,85 @@ def billUpdateAPI(objectId, attributeId):
 		return 'success'
 
 	return render_template('billPage.html', objectId=objectId, attributeId=attributeId)
+
+
+# update API for the country updations (on the popup page)
+@app.route('/updateAPI/country/<objectId>/<attributeId>', methods=['GET', 'POST'])
+def countryUpdateAPI(objectId, attributeId):
+
+	if request.method == 'POST':
+		countryDetails = request.form['countryDetails']
+		db.child("main_db").child('jlg_execution').child(objectId).update({attributeId: countryDetails})
+
+		return 'success'
+
+	# get all the current country centres
+	all_jc = db.child("main_db").child('countrydb').get()
+	all_country = []
+
+	try:
+		for item in all_jc.each():
+			all_country.append(item.val()['countryName'])
+	except:
+		print("Empty Country Database")
+
+	return render_template('countryPage.html', objectId=objectId, attributeId=attributeId, allCountries=all_country)
+
+
+# update API for the CHA updations (on the popup page)
+@app.route('/updateAPI/cha/<objectId>/<attributeId>', methods=['GET', 'POST'])
+def chaUpdateAPI(objectId, attributeId):
+
+	if request.method == 'POST':
+		chaDetails = request.form['chaDetails']
+		db.child("main_db").child('jlg_execution').child(objectId).update({attributeId: chaDetails})
+
+		return 'success'
+
+	# get all the current country centres
+	all_jv = db.child("main_db").child('vendordb').get()
+	all_vendor = []
+
+	try:
+		for item in all_jv.each():
+			all_vendor.append(item.val()['vendorName'])
+	except:
+		print("Empty Vendor Database")
+
+	if attributeId == 'chaname':
+		return render_template('chaName.html', objectId=objectId, attributeId=attributeId, allVendors=all_vendor)
+	else:
+		return render_template('chaBill.html', objectId=objectId, attributeId=attributeId)
+
+
+# update API for the invoice updations (on the popup page)
+@app.route('/updateAPI/invoice/<objectId>/<attributeId>', methods=['GET', 'POST'])
+def invoiceUpdateAPI(objectId, attributeId):
+
+	if request.method == 'POST':
+		invoiceDetails = request.form['invoiceDetails']
+		db.child("main_db").child('jlg_execution').child(objectId).update({attributeId: invoiceDetails})
+
+		return 'success'
+
+	return render_template('invoicePage.html', objectId=objectId, attributeId=attributeId)
+
+
+# update API for the date updations (on the popup page)
+@app.route('/updateAPI/date/<objectId>/<attributeId>', methods=['GET', 'POST'])
+def dateUpdateAPI(objectId, attributeId):
+
+	if request.method == 'POST':
+		dateDetails = request.form['dateDetails']
+		db.child("main_db").child('jlg_execution').child(objectId).update({attributeId: dateDetails})
+		if attributeId == 'delToClient':
+			db.child("main_db").child('jlg_execution').child(objectId).update({attributeId: dateDetails})
+			db.child("main_db").child('jlg_execution').child(objectId).update({'jobCloseDate': dateDetails})
+			db.child("main_db").child('jlg_execution').child(objectId).update({'jobComplete': 'yes'})
+
+		return 'success'
+
+	return render_template('datePage.html', objectId=objectId, attributeId=attributeId)
 
 
 # open jobs page for exec

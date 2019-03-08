@@ -51,7 +51,9 @@
 		<br>
 		<input id="clientxname" name="clientxname">
 
-			<label for="sourceCountry">Source Country :</label>
+		<input id="clientOf" name="clientOf">
+
+			<!-- <label for="sourceCountry">Source Country :</label>
 		
 			<select id="sourceCountry" name="sourceCountry">
 				<option disabled selected value> -- select an option -- </option>
@@ -80,7 +82,7 @@
 					{% for job in allVendors %}
 						<option value="{{job['vendorName']}}">{{job['vendorName']}}</option>
 						{% endfor %}
-					</select>
+					</select> -->
 		
 					<br>
 
@@ -114,6 +116,7 @@
 
 				if('{{client['clientname']}}' == foo) {
 					$('#clientxname').val(foo);
+					$('#clientOf').val('{{client['jobBelong']}}');
 				}
 
 			{% endfor %}

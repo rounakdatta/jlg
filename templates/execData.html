@@ -155,62 +155,59 @@ tbody {
 			 data-response-handler="responseHandler"
        		 class="table-responsive">
        	<thead>
-		<tr>
-			<th data-field="state" data-checkbox="true"></th>
+					<th data-field="state" data-checkbox="true"></th>
 
-			<th data-field="slno" data-filter-control="input" data-sortable="true" id="slno">Sl No</th>
+					<th data-field="slno" data-filter-control="input" data-sortable="true" id="slno">Sl No</th>
+		
+					<th data-field="jobType" data-filter-control="input" data-sortable="true">Job Type</th>
+		
+					<th data-field="jobno1" data-filter-control="input" data-sortable="true">Job No</th>
+		
+					<th data-field="jobopen" data-filter-control="input" data-sortable="true">Job Open Date</th>
+		
+					<th data-field="clientname" data-filter-control="input" data-sortable="true">Client Name</th>
 
-			<th data-field="jobno1" data-filter-control="input" data-sortable="true">JayLGCPL Job No</th>
+					<th data-field="clientOf" data-filter-control="input" data-sortable="true">Client Of</th>
+		
+					<th data-field="commodity" data-filter-control="input" data-sortable="true">Commodity</th>
+		
+					<th data-field="packageq" data-filter-control="input" data-sortable="true">Package Qty</th>
+		
+					<th data-field="sourceCountry" data-filter-control="input" data-sortable="true">Source Country (SC)</th>
+		
+					<th data-field="exportFromSource" data-filter-control="input" data-sortable="true">Export Date from SC</th>
+		
+					<th data-field="transitCountry" data-filter-control="input" data-sortable="true">Transit Country (TC)</th>
+		
+					<th data-field="importEstimateAtTransit" data-filter-control="input" data-sortable="true">Import ETA at TC</th>
+		
+					<th data-field="importAtTransit" data-filter-control="input" data-sortable="true">Import Date at TC</th>
+		
+					<th data-field="exportFromTransit" data-filter-control="input" data-sortable="true">Export Date from TC</th>
+		
+					<th data-field="importEstimateAtIndia" data-filter-control="input" data-sortable="true">Import ETA at India</th>
+		
+					<th data-field="importAtIndia" data-filter-control="input" data-sortable="true">Import Date at India</th>
+		
+					<th data-field="chaJobNo" data-filter-control="input" data-sortable="true">CHA Job No</th>
+		
+					<th data-field="chaname" data-filter-control="input" data-sortable="true">CHA Name</th>
+		
+					<th data-field="bill" data-filter-control="input" data-sortable="true">Bill Entry</th>
+		
+					<th data-field="customDutyAmount" data-filter-control="input" data-sortable="true">Custom Duty Amount</th>
+		
+					<th data-field="delFromCFS" data-filter-control="input" data-sortable="true">Delivery from CFS on</th>
+		
+					<th data-field="delToClient" data-filter-control="input" data-sortable="true">Delivery to client on</th>
+		
+					<th data-field="jobCloseDate" data-filter-control="input" data-sortable="true">Job Close Date</th>
 
-			<th data-field="jobno2" data-filter-control="input" data-sortable="true">JLG&Co Job No</th>
-
-			<th data-field="jobopen" data-filter-control="input" data-sortable="true">Job Open Date</th>
-
-			<th data-field="clientname" data-filter-control="input" data-sortable="true">Client Name</th>
-
-			<th data-field="bondready" data-filter-control="input" data-sortable="true">Bond cte. Ready</th>
-
-			<th data-field="dobill" data-filter-control="input" data-sortable="true">DO Bill Received</th>
-
-			<th data-field="doready" data-filter-control="input" data-sortable="true">DO Ready</th>
-
-			<th data-field="shipping1over" data-filter-control="input" data-sortable="true">Shipping 1st Part Over</th>
-
-			<th data-field="befilled" data-filter-control="input" data-sortable="true">BE Filed</th>
-
-			<th data-field="bereleased" data-filter-control="input" data-sortable="true">BE Released</th>
-
-			<th data-field="dutypaid" data-filter-control="input" data-sortable="true">Duty Paid</th>
-
-			<th data-field="customover" data-filter-control="input" data-sortable="true">Custom Part Over</th>
-
-			<th data-field="cfsover" data-filter-control="input" data-sortable="true">CFS/Doc Assess Over</th>
-
-			<th data-field="cargorel" data-filter-control="input" data-sortable="true">Cargo Released</th>
-
-			<th data-field="dockover" data-filter-control="input" data-sortable="true">Dock Part Over</th>
-
-			<th data-field="cargotruck" data-filter-control="input" data-sortable="true">Cargo shift to truck</th>
-
-			<th data-field="delvclient" data-filter-control="input" data-sortable="true">Delivery at client space</th>
-
-			<th data-field="delvover" data-filter-control="input" data-sortable="true">Client Delv Over</th>
-
-			<th data-field="slotextn" data-filter-control="input" data-sortable="true">Slot Extn if required</th>
-
-			<th data-field="emptydep" data-filter-control="input" data-sortable="true">Empty Deposit</th>
-
-			<th data-field="shipping2over" data-filter-control="input" data-sortable="true">Shipping 2nd Part Over</th>
-
-			<th data-field="jobComplete" data-filter-control="input" data-sortable="true">Job Complete</th>
-
-			<th data-field="bill1" data-filter-control="input" data-sortable="true">Bill 1</th>
-
-			<th data-field="bill2" data-filter-control="input" data-sortable="true">Bill 2</th>
-
-			{% if what == 'Closed' %}
-			<th data-field="jobCompleteDate" data-filter-control="input" data-sortable="true">Job Close Date</th>
-			{% endif %}
+					<th data-field="jobComplete" data-filter-control="input" data-sortable="true">Job Complete</th>
+		
+					<th data-field="invoiceNo" data-filter-control="input" data-sortable="true">Client Invoice No</th>
+		
+					<th data-field="invoiceDate" data-filter-control="input" data-sortable="true">Client Invoice Date</th>
 
 		</tr>
 	</thead>
@@ -219,12 +216,118 @@ tbody {
 		<tr>
 		   <td class="bs-checkbox "><input data-index="{{loop.index0 + 1}}" name="btSelectItem" type="checkbox"></td>
 		   <td style="text-align:center;" class="serialNumber">{{loop.index0 + 1}}</td>
-		   <td style="text-align:center;" class="j1">{{client['jobno1']}}</td>
-		   <td style="text-align:center;" class="j2">{{client['jobno2']}}</td>
+		   <td style="text-align:center;" class="j1">{{client['jobType']}}</td>
+		   <td style="text-align:center;" class="j2">{{client['jobno1']}}</td>
 		   <td style="text-align:center;" class="j3">{{client['jobopen']}}</td>
-		   <td style="text-align:center;" class="j4">{{client['clientname']}}</td>
+			 <td style="text-align:center;" class="j4">{{client['clientname']}}</td>
+			 <td style="text-align:center;" class="j4">{{client['clientOf']}}</td>
+		   <td style="text-align:center;" class="j5">{{client['commodity']}}</td>
+			 <td style="text-align:center;" class="j5">{{client['packageq']}}</td>
+			 
+			 {% if client['sourceCountry'] == "" %}
+			 <td class="xyz btn btn-violet btn-block openable-cell" data-href='/updateAPI/country/{{myKeys[loop.index0]}}/sourceCountry'>🖋 SC</td>
+			 {% else %}
+				 <td style="text-align:center;">{{client['sourceCountry']}}</td>
+			 {% endif %}
 
-		   {% if permissions[0] == 'yes' %}
+			 {% if client['exportFromSource'] == "" %}
+			 <td class="xyz btn btn-primary btn-block openable-cell" data-href='/updateAPI/date/{{myKeys[loop.index0]}}/exportFromSource'>✅ Done</td>
+			 {% else %}
+				 <td style="text-align:center;">{{client['exportFromSource']}}</td>
+			 {% endif %}
+
+			 {% if client['transitCountry'] == "" %}
+			 <td class="xyz btn btn-violet btn-block openable-cell" data-href='/updateAPI/country/{{myKeys[loop.index0]}}/transitCountry'>🖋 TC</td>
+			 {% else %}
+				 <td style="text-align:center;">{{client['transitCountry']}}</td>
+			 {% endif %}
+
+			 {% if client['importEstimateAtTransit'] == "" %}
+			 <td class="xyz btn btn-primary btn-block openable-cell" data-href='/updateAPI/date/{{myKeys[loop.index0]}}/importEstimateAtTransit'>✅ Done</td>
+			 {% else %}
+				 <td style="text-align:center;">{{client['importEstimateAtTransit']}}</td>
+			 {% endif %}
+
+			 {% if client['importAtTransit'] == "" %}
+			 <td class="xyz btn btn-primary btn-block openable-cell" data-href='/updateAPI/date/{{myKeys[loop.index0]}}/importAtTransit'>✅ Done</td>
+			 {% else %}
+				 <td style="text-align:center;">{{client['importAtTransit']}}</td>
+			 {% endif %}
+
+			 {% if client['exportFromTransit'] == "" %}
+			 <td class="xyz btn btn-primary btn-block openable-cell" data-href='/updateAPI/date/{{myKeys[loop.index0]}}/exportFromTransit'>✅ Done</td>
+			 {% else %}
+				 <td style="text-align:center;">{{client['exportFromTransit']}}</td>
+			 {% endif %}
+
+			 {% if client['importEstimateAtIndia'] == "" %}
+			 <td class="xyz btn btn-primary btn-block openable-cell" data-href='/updateAPI/date/{{myKeys[loop.index0]}}/importEstimateAtIndia'>✅ Done</td>
+			 {% else %}
+				 <td style="text-align:center;">{{client['importEstimateAtIndia']}}</td>
+			 {% endif %}
+
+			 {% if client['importAtIndia'] == "" %}
+			 <td class="xyz btn btn-primary btn-block openable-cell" data-href='/updateAPI/date/{{myKeys[loop.index0]}}/importAtIndia'>✅ Done</td>
+			 {% else %}
+				 <td style="text-align:center;">{{client['importAtIndia']}}</td>
+			 {% endif %}
+
+			 {% if client['chaJobNo'] == "" %}
+			 <td class="xyz btn btn-violet btn-block openable-cell" data-href='/updateAPI/cha/{{myKeys[loop.index0]}}/chaJobNo'>🖋 CHA Job No</td>
+			 {% else %}
+				 <td style="text-align:center;">{{client['chaJobNo']}}</td>
+			 {% endif %}
+
+			 {% if client['chaname'] == "" %}
+			 <td class="xyz btn btn-violet btn-block openable-cell" data-href='/updateAPI/cha/{{myKeys[loop.index0]}}/chaname'>🖋 CHA Name</td>
+			 {% else %}
+				 <td style="text-align:center;">{{client['chaname']}}</td>
+			 {% endif %}
+
+			 {% if client['bill'] == "" %}
+			 <td class="xyz btn btn-violet btn-block openable-cell" data-href='/updateAPI/cha/{{myKeys[loop.index0]}}/bill'>🖋 Bill</td>
+			 {% else %}
+				 <td style="text-align:center;">{{client['bill']}}</td>
+			 {% endif %}
+
+			 {% if client['customDutyAmount'] == "" %}
+			 <td class="xyz btn btn-violet btn-block openable-cell" data-href='/updateAPI/cha/{{myKeys[loop.index0]}}/customDutyAmount'>🖋 Custom Duty Amt</td>
+			 {% else %}
+				 <td style="text-align:center;">{{client['customDutyAmount']}}</td>
+			 {% endif %}
+
+			 {% if client['delFromCFS'] == "" %}
+			 <td class="xyz btn btn-primary btn-block openable-cell" data-href='/updateAPI/date/{{myKeys[loop.index0]}}/delFromCFS'>✅ Done</td>
+			 {% else %}
+				 <td style="text-align:center;">{{client['delFromCFS']}}</td>
+			 {% endif %}
+
+			 {% if client['delToClient'] == "" %}
+			 <td class="xyz btn btn-primary btn-block openable-cell" data-href='/updateAPI/date/{{myKeys[loop.index0]}}/delToClient'>✅ Done</td>
+			 {% else %}
+				 <td style="text-align:center;">{{client['delToClient']}}</td>
+			 {% endif %}
+
+			 <td style="text-align:center;">{{client['jobCloseDate']}}</td>
+
+			 <td style="text-align:center;">{{client['jobComplete']}}</td>
+
+			 {% if client['invoiceNo'] == "" %}
+			 <td class="xyz btn btn-violet btn-block openable-cell" data-href='/updateAPI/invoice/{{myKeys[loop.index0]}}/invoiceNo'>🖋 Client Invoice No</td>
+			 {% else %}
+				 <td style="text-align:center;">{{client['invoiceNo']}}</td>
+			 {% endif %}
+
+			 {% if client['invoiceDate'] == "" %}
+			 <td class="xyz btn btn-primary btn-block openable-cell" data-href='/updateAPI/date/{{myKeys[loop.index0]}}/invoiceDate'>✅ Done</td>
+			 {% else %}
+			 <td style="text-align:center;">{{client['invoiceDate']}}</td>
+			 {% endif %}
+
+<!-- OLD DATA-->
+
+
+		   <!-- {% if permissions[0] == 'yes' %}
 
 			   {% if client['bondready'] == "" %}
 			   <td class="xyz btn btn-primary btn-block clickable-cell" data-href='/updateAPI/{{myKeys[loop.index0]}}/bondready'>✅ Done</td>
@@ -449,7 +552,7 @@ tbody {
 
 		   {% if what == 'Closed' %}
 		   <td style="text-align:center;">{{client['jobCloseDate']}}</td>
-		   {% endif %}
+		   {% endif %} -->
 
 		</tr>
 		{% endfor %}
@@ -476,7 +579,7 @@ $('#table').on('all.bs.table', function () {
 
     $(".openable-cell").click(function() {
         window.open ($(this).data("href"),"mywindow","menubar=1,resizable=1,width=350,height=250");
-        window.location = '/logout';
+        //window.location = '/logout';
     });
     
 });
@@ -498,7 +601,7 @@ var $table = $('#table');
 
             $(".openable-cell").click(function() {
         		window.open ($(this).data("href"),"mywindow","menubar=1,resizable=1,width=350,height=250");
-        		window.location = '/logout';
+        		//window.location = '/logout';
     		});
 
         });
@@ -539,7 +642,7 @@ var $table = $('#table');
 
              $(".openable-cell").click(function() {
         		window.open ($(this).data("href"),"mywindow","menubar=1,resizable=1,width=350,height=250");
-        		window.location = '/logout';
+        		//window.location = '/logout';
     		 });
 
 
@@ -571,7 +674,7 @@ var $table = $('#table');
 
              $(".openable-cell").click(function() {
         		window.open ($(this).data("href"),"mywindow","menubar=1,resizable=1,width=350,height=250");
-        		window.location = '/logout';
+        		//window.location = '/logout';
     		 });
 
 
@@ -604,7 +707,7 @@ var $table = $('#table');
 
              $(".openable-cell").click(function() {
         		window.open ($(this).data("href"),"mywindow","menubar=1,resizable=1,width=350,height=250");
-        		window.location = '/logout';
+        		//window.location = '/logout';
     		 });        
 
            }
@@ -636,7 +739,7 @@ var $table = $('#table');
 
              $(".openable-cell").click(function() {
         		window.open ($(this).data("href"),"mywindow","menubar=1,resizable=1,width=350,height=250");
-        		window.location = '/logout';
+        		//window.location = '/logout';
     		 });
 
            }
@@ -668,7 +771,7 @@ var $table = $('#table');
 
              $(".openable-cell").click(function() {
         		window.open ($(this).data("href"),"mywindow","menubar=1,resizable=1,width=350,height=250");
-        		window.location = '/logout';
+        		//window.location = '/logout';
     		 });
 
            }
@@ -708,7 +811,7 @@ var $table = $('#table');
 
              $(".openable-cell").click(function() {
         		window.open ($(this).data("href"),"mywindow","menubar=1,resizable=1,width=350,height=250");
-        		window.location = '/logout';
+        		//window.location = '/logout';
     		 });
 
            }
@@ -767,7 +870,7 @@ var $table = $('#table');
 
     $(".openable-cell").click(function() {
         window.open ($(this).data("href"),"mywindow","menubar=1,resizable=1,width=350,height=250");
-        window.location = '/logout';
+        //window.location = '/logout';
     });
 
 });

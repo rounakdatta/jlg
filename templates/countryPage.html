@@ -1,0 +1,42 @@
+<html>
+  <head>
+    <title>Enter Country</title>
+  </head>
+  <body>
+ 
+<div id="countryEntry">
+
+  	<h1>Enter Country</h1>
+
+  	<form action="/updateAPI/country/{{objectId}}/{{attributeId}}", method="POST">
+        <select id="countryDetails" name="countryDetails">
+            <option disabled selected value> -- select an option -- </option>
+            {% for job in allCountries %}
+                <option value="{{job}}">{{job}}</option>
+                {% endfor %}
+            </select>
+  		<input type="submit" id="send" name="send" onclick="closeThisForGood()" value="CONFIRM">
+  	</form>
+</div>
+
+<div id="finalText" style="display: none">
+	
+<h1>Data has been recorded successfully!</h1>
+
+<h2>REFRESH the main page to update the data</h2>
+
+<h4>You can safely close this window.</h4>
+
+</div>
+
+<script type="text/javascript">
+	
+function closeThisForGood() {
+	document.getElementById("countryEntry").style.display = 'none';
+	document.getElementById("finalText").style.display = 'inline';
+}
+
+</script>
+
+  </body>
+</html>

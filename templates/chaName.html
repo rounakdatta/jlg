@@ -1,0 +1,42 @@
+<html>
+  <head>
+    <title>Enter CHA Name</title>
+  </head>
+  <body>
+ 
+<div id="vendorEntry">
+
+  	<h1>Enter CHA Name</h1>
+
+  	<form action="/updateAPI/cha/{{objectId}}/{{attributeId}}", method="POST">
+        <select id="chaDetails" name="chaDetails">
+            <option disabled selected value> -- select an option -- </option>
+            {% for job in allVendors %}
+                <option value="{{job}}">{{job}}</option>
+                {% endfor %}
+            </select>
+  		<input type="submit" id="send" name="send" onclick="closeThisForGood()" value="CONFIRM">
+  	</form>
+</div>
+
+<div id="finalText" style="display: none">
+	
+<h1>Data has been recorded successfully!</h1>
+
+<h2>REFRESH the main page to update the data</h2>
+
+<h4>You can safely close this window.</h4>
+
+</div>
+
+<script type="text/javascript">
+	
+function closeThisForGood() {
+	document.getElementById("vendorEntry").style.display = 'none';
+	document.getElementById("finalText").style.display = 'inline';
+}
+
+</script>
+
+  </body>
+</html>

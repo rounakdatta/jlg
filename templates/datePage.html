@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <title>Enter Date</title>
+  </head>
+  <body>
+ 
+<div id="dateEntry">
+
+  	<h1>Enter Date</h1>
+
+  	<form action="/updateAPI/date/{{objectId}}/{{attributeId}}", method="POST">
+          <input type="date" id="selectDate" name="selectDate" required>
+          <input type="text" id="dateDetails" name="dateDetails" style="display: none">
+  		<input type="submit" id="send" name="send" onclick="closeThisForGood()" value="CONFIRM">
+  	</form>
+</div>
+
+<div id="finalText" style="display: none">
+	
+<h1>Data has been recorded successfully!</h1>
+
+<h2>REFRESH the main page to update the data</h2>
+
+<h4>You can safely close this window.</h4>
+
+</div>
+
+<script type="text/javascript">
+	
+function closeThisForGood() {
+    document.getElementById("dateDetails").value = document.getElementById("selectDate").value.split("-").reverse().join("/");
+	document.getElementById("dateEntry").style.display = 'none';
+	document.getElementById("finalText").style.display = 'inline';
+}
+
+</script>
+
+  </body>
+</html>

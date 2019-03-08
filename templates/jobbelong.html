@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>JLG | Job Belonging Database</title>
+	<title>JLG | Job Owner Database</title>
 </head>
 <body>
 
-	<h1>Job Belonging Database</h1>
+	<h1>Job Owner Database</h1>
 
 	{% if allJobs %}
 		<table border="1">
 		<tr>
 			<th>Sl No</th>
-			<th>Job Belongs To</th>
+			<th>Job Owner</th>
 		</tr>
 		{% for job in allJobs %}
 		<tr>
@@ -26,7 +26,7 @@
 
 	{% if hereAdmin == "yes"%}
 	<form action="/jobbelongdb" method="POST">
-		<label for="jobBelongEntry">New Job Belonging :</label>
+		<label for="jobBelongEntry">New Job Owner :</label>
 		<input id="jobBelongEntry" name="jobBelongEntry" type="text">
 
 		<button type="submit">Submit</button>
