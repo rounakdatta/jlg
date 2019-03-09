@@ -138,11 +138,11 @@ tbody {
 
 	<center>
 	<p class="text-primary">
-	<button id="shipping1" class="btn btn-lg">Shipping 1st Part</button>
-	<button id="custom" class="btn btn-lg">Custom Part</button>
-	<button id="dock" class="btn btn-lg">Dock Part</button>
-	<button id="delv" class="btn btn-lg">Client Delv</button>
-	<button id="shipping2" class="btn btn-lg">Shipping 2nd Part</button><br><br>
+	<button id="jobCreateTab" class="btn btn-lg">Job Create</button>
+	<button id="overseasTab" class="btn btn-lg">Overseas Update</button>
+	<button id="importTab" class="btn btn-lg">Import Clearance</button>
+	<button id="deliveryTab" class="btn btn-lg">Destination Delivery</button>
+	<button id="billDetailsTab" class="btn btn-lg">Bill Details</button><br><br>
 
 	<button id="showcomplete" class="btn btn-lg">Show Complete {{what}} Table</button>
 
@@ -617,7 +617,6 @@ $('#table').on('all.bs.table', function () {
 </script>
 
 <script type="text/javascript">
-	//exporte les données sélectionnées
 var $table = $('#table');
     $(function () {
         $('#toolbar').find('select').change(function () {
@@ -651,22 +650,26 @@ var $table = $('#table');
 <script type="text/javascript">
 	
 	$(function() {
-      $("#shipping1").click( function()
+      $("#jobCreateTab").click( function()
            {
            	showMeAll();
-             $('#table').bootstrapTable('hideColumn', "befilled");
-             $('#table').bootstrapTable('hideColumn', "bereleased");
-             $('#table').bootstrapTable('hideColumn', "dutypaid");
-             $('#table').bootstrapTable('hideColumn', "customover");
-             $('#table').bootstrapTable('hideColumn', "cfsover");
-             $('#table').bootstrapTable('hideColumn', "cargorel");
-             $('#table').bootstrapTable('hideColumn', "dockover");
-             $('#table').bootstrapTable('hideColumn', "cargotruck");
-             $('#table').bootstrapTable('hideColumn', "delvclient");
-             $('#table').bootstrapTable('hideColumn', "delvover");
-             $('#table').bootstrapTable('hideColumn', "slotextn");
-             $('#table').bootstrapTable('hideColumn', "emptydep");
-             $('#table').bootstrapTable('hideColumn', "shipping2over");  
+             $('#table').bootstrapTable('hideColumn', "sourceCountry");
+             $('#table').bootstrapTable('hideColumn', "exportFromSource");
+             $('#table').bootstrapTable('hideColumn', "transitCountry");
+             $('#table').bootstrapTable('hideColumn', "importEstimateAtTransit");
+             $('#table').bootstrapTable('hideColumn', "importAtTransit");
+             $('#table').bootstrapTable('hideColumn', "exportFromTransit");
+             $('#table').bootstrapTable('hideColumn', "importEstimateAtIndia");
+             $('#table').bootstrapTable('hideColumn', "importAtIndia");
+             $('#table').bootstrapTable('hideColumn', "chaJobNo");
+             $('#table').bootstrapTable('hideColumn', "chaname");
+             $('#table').bootstrapTable('hideColumn', "bill");
+             $('#table').bootstrapTable('hideColumn', "customDutyAmount");
+             $('#table').bootstrapTable('hideColumn', "delFromCFS");
+             $('#table').bootstrapTable('hideColumn', "delToClient");
+             $('#table').bootstrapTable('hideColumn', "jobCloseDate");
+             $('#table').bootstrapTable('hideColumn', "invoiceNo");
+						 $('#table').bootstrapTable('hideColumn', "invoiceDate");
 
              $(".clickable-cell").click(function() {
         		window.location = $(this).data("href");
@@ -685,22 +688,18 @@ var $table = $('#table');
 	});
 
 	$(function() {
-      $("#custom").click( function()
+      $("#overseasTab").click( function()
            {
            	showMeAll();
-             $('#table').bootstrapTable('hideColumn', "bondready");
-             $('#table').bootstrapTable('hideColumn', "dobill");
-             $('#table').bootstrapTable('hideColumn', "doready");
-             $('#table').bootstrapTable('hideColumn', "shipping1over");
-             $('#table').bootstrapTable('hideColumn', "cfsover");
-             $('#table').bootstrapTable('hideColumn', "cargorel");
-             $('#table').bootstrapTable('hideColumn', "dockover");
-             $('#table').bootstrapTable('hideColumn', "cargotruck");
-             $('#table').bootstrapTable('hideColumn', "delvclient");
-             $('#table').bootstrapTable('hideColumn', "delvover");
-             $('#table').bootstrapTable('hideColumn', "slotextn");
-             $('#table').bootstrapTable('hideColumn', "emptydep");
-             $('#table').bootstrapTable('hideColumn', "shipping2over");
+             $('#table').bootstrapTable('hideColumn', "chaJobNo");
+             $('#table').bootstrapTable('hideColumn', "chaname");
+             $('#table').bootstrapTable('hideColumn', "bill");
+             $('#table').bootstrapTable('hideColumn', "customDutyAmount");
+             $('#table').bootstrapTable('hideColumn', "delFromCFS");
+             $('#table').bootstrapTable('hideColumn', "delToClient");
+             $('#table').bootstrapTable('hideColumn', "jobCloseDate");
+             $('#table').bootstrapTable('hideColumn', "invoiceNo");
+						 $('#table').bootstrapTable('hideColumn', "invoiceDate");
 
              $(".clickable-cell").click(function() {
         		window.location = $(this).data("href");
@@ -719,23 +718,21 @@ var $table = $('#table');
 	});
 
 	$(function() {
-      $("#dock").click( function()
+      $("#importTab").click( function()
            {
            	showMeAll();
-             $('#table').bootstrapTable('hideColumn', "bondready");
-             $('#table').bootstrapTable('hideColumn', "dobill");
-             $('#table').bootstrapTable('hideColumn', "doready");
-             $('#table').bootstrapTable('hideColumn', "shipping1over");
-             $('#table').bootstrapTable('hideColumn', "befilled");
-             $('#table').bootstrapTable('hideColumn', "bereleased");
-             $('#table').bootstrapTable('hideColumn', "dutypaid");
-             $('#table').bootstrapTable('hideColumn', "customover");
-             $('#table').bootstrapTable('hideColumn', "cargotruck");
-             $('#table').bootstrapTable('hideColumn', "delvclient");
-             $('#table').bootstrapTable('hideColumn', "delvover");
-             $('#table').bootstrapTable('hideColumn', "slotextn");
-             $('#table').bootstrapTable('hideColumn', "emptydep");
-             $('#table').bootstrapTable('hideColumn', "shipping2over");
+             $('#table').bootstrapTable('hideColumn', "sourceCountry");
+             $('#table').bootstrapTable('hideColumn', "exportFromSource");
+             $('#table').bootstrapTable('hideColumn', "transitCountry");
+             $('#table').bootstrapTable('hideColumn', "importEstimateAtTransit");
+             $('#table').bootstrapTable('hideColumn', "importAtTransit");
+             $('#table').bootstrapTable('hideColumn', "exportFromTransit");
+             $('#table').bootstrapTable('hideColumn', "importEstimateAtIndia");
+             $('#table').bootstrapTable('hideColumn', "importAtIndia");
+						 $('#table').bootstrapTable('hideColumn', "delToClient");
+             $('#table').bootstrapTable('hideColumn', "jobCloseDate");
+             $('#table').bootstrapTable('hideColumn', "invoiceNo");
+						 $('#table').bootstrapTable('hideColumn', "invoiceDate");
 
              $(".clickable-cell").click(function() {
         		window.location = $(this).data("href");
@@ -753,23 +750,22 @@ var $table = $('#table');
   });
 
 	$(function() {
-      $("#delv").click( function()
+      $("#deliveryTab").click( function()
            {
            	showMeAll();
-             $('#table').bootstrapTable('hideColumn', "bondready");
-             $('#table').bootstrapTable('hideColumn', "dobill");
-             $('#table').bootstrapTable('hideColumn', "doready");
-             $('#table').bootstrapTable('hideColumn', "shipping1over");
-             $('#table').bootstrapTable('hideColumn', "befilled");
-             $('#table').bootstrapTable('hideColumn', "bereleased");
-             $('#table').bootstrapTable('hideColumn', "dutypaid");
-             $('#table').bootstrapTable('hideColumn', "customover");
-             $('#table').bootstrapTable('hideColumn', "cfsover");
-             $('#table').bootstrapTable('hideColumn', "cargorel");
-             $('#table').bootstrapTable('hideColumn', "dockover");
-             $('#table').bootstrapTable('hideColumn', "slotextn");
-             $('#table').bootstrapTable('hideColumn', "emptydep");
-             $('#table').bootstrapTable('hideColumn', "shipping2over");
+             $('#table').bootstrapTable('hideColumn', "sourceCountry");
+             $('#table').bootstrapTable('hideColumn', "exportFromSource");
+             $('#table').bootstrapTable('hideColumn', "transitCountry");
+             $('#table').bootstrapTable('hideColumn', "importEstimateAtTransit");
+             $('#table').bootstrapTable('hideColumn', "importAtTransit");
+             $('#table').bootstrapTable('hideColumn', "exportFromTransit");
+             $('#table').bootstrapTable('hideColumn', "importEstimateAtIndia");
+             $('#table').bootstrapTable('hideColumn', "importAtIndia");
+             $('#table').bootstrapTable('hideColumn', "chaJobNo");
+             $('#table').bootstrapTable('hideColumn', "chaname");
+             $('#table').bootstrapTable('hideColumn', "bill");
+             $('#table').bootstrapTable('hideColumn', "customDutyAmount");
+             $('#table').bootstrapTable('hideColumn', "delFromCFS");
 
              $(".clickable-cell").click(function() {
         		window.location = $(this).data("href");
@@ -787,23 +783,24 @@ var $table = $('#table');
   });
 
 	$(function() {
-      $("#shipping2").click( function()
+      $("#billDetailsTab").click( function()
            {
            	showMeAll();
-             $('#table').bootstrapTable('hideColumn', "bondready");
-             $('#table').bootstrapTable('hideColumn', "dobill");
-             $('#table').bootstrapTable('hideColumn', "doready");
-             $('#table').bootstrapTable('hideColumn', "shipping1over");
-             $('#table').bootstrapTable('hideColumn', "befilled");
-             $('#table').bootstrapTable('hideColumn', "bereleased");
-             $('#table').bootstrapTable('hideColumn', "dutypaid");
-             $('#table').bootstrapTable('hideColumn', "customover");
-             $('#table').bootstrapTable('hideColumn', "cfsover");
-             $('#table').bootstrapTable('hideColumn', "cargorel");
-             $('#table').bootstrapTable('hideColumn', "dockover");
-             $('#table').bootstrapTable('hideColumn', "cargotruck");
-             $('#table').bootstrapTable('hideColumn', "delvclient");
-             $('#table').bootstrapTable('hideColumn', "delvover");
+             $('#table').bootstrapTable('hideColumn', "sourceCountry");
+             $('#table').bootstrapTable('hideColumn', "exportFromSource");
+             $('#table').bootstrapTable('hideColumn', "transitCountry");
+             $('#table').bootstrapTable('hideColumn', "importEstimateAtTransit");
+             $('#table').bootstrapTable('hideColumn', "importAtTransit");
+             $('#table').bootstrapTable('hideColumn', "exportFromTransit");
+             $('#table').bootstrapTable('hideColumn', "importEstimateAtIndia");
+             $('#table').bootstrapTable('hideColumn', "importAtIndia");
+             $('#table').bootstrapTable('hideColumn', "chaJobNo");
+             $('#table').bootstrapTable('hideColumn', "chaname");
+             $('#table').bootstrapTable('hideColumn', "bill");
+             $('#table').bootstrapTable('hideColumn', "customDutyAmount");
+             $('#table').bootstrapTable('hideColumn', "delFromCFS");
+             $('#table').bootstrapTable('hideColumn', "delToClient");
+             $('#table').bootstrapTable('hideColumn', "jobCloseDate");
 
              $(".clickable-cell").click(function() {
         		window.location = $(this).data("href");
@@ -822,23 +819,24 @@ var $table = $('#table');
 
 	function showMeAll() {
 
-             $('#table').bootstrapTable('showColumn', "bondready");
-             $('#table').bootstrapTable('showColumn', "dobill");
-             $('#table').bootstrapTable('showColumn', "doready");
-             $('#table').bootstrapTable('showColumn', "shipping1over");
-             $('#table').bootstrapTable('showColumn', "befilled");
-             $('#table').bootstrapTable('showColumn', "bereleased");
-             $('#table').bootstrapTable('showColumn', "dutypaid");
-             $('#table').bootstrapTable('showColumn', "customover");
-             $('#table').bootstrapTable('showColumn', "cfsover");
-             $('#table').bootstrapTable('showColumn', "cargorel");
-             $('#table').bootstrapTable('showColumn', "dockover");
-             $('#table').bootstrapTable('showColumn', "cargotruck");
-             $('#table').bootstrapTable('showColumn', "delvclient");
-             $('#table').bootstrapTable('showColumn', "delvover");
-             $('#table').bootstrapTable('showColumn', "slotextn");
-             $('#table').bootstrapTable('showColumn', "emptydep");
-             $('#table').bootstrapTable('showColumn', "shipping2over");
+             $('#table').bootstrapTable('showColumn', "sourceCountry");
+             $('#table').bootstrapTable('showColumn', "exportFromSource");
+             $('#table').bootstrapTable('showColumn', "transitCountry");
+             $('#table').bootstrapTable('showColumn', "importEstimateAtTransit");
+             $('#table').bootstrapTable('showColumn', "importAtTransit");
+             $('#table').bootstrapTable('showColumn', "exportFromTransit");
+             $('#table').bootstrapTable('showColumn', "importEstimateAtIndia");
+             $('#table').bootstrapTable('showColumn', "importAtIndia");
+             $('#table').bootstrapTable('showColumn', "chaJobNo");
+             $('#table').bootstrapTable('showColumn', "chaname");
+             $('#table').bootstrapTable('showColumn', "bill");
+             $('#table').bootstrapTable('showColumn', "customDutyAmount");
+             $('#table').bootstrapTable('showColumn', "delFromCFS");
+             $('#table').bootstrapTable('showColumn', "delToClient");
+             $('#table').bootstrapTable('showColumn', "jobCloseDate");
+             $('#table').bootstrapTable('showColumn', "jobComplete");
+             $('#table').bootstrapTable('showColumn', "invoiceNo");
+						 $('#table').bootstrapTable('showColumn', "invoiceDate");
 
 	}
 
