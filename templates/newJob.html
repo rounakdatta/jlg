@@ -31,8 +31,10 @@
 		<br>
 
 		<label for="jobopen">Job Open Date :</label>
-		<input type="date" id="jobopen" name="jobopen">
+		<input type="date" id="jobopenFake" name="jobopenFake" onkeypress="correctDate()">
 		<br>
+
+		<input id="jobopen" name="jobopen" style="display: none">
 
 		<label for="clientname">Client Name :</label>
 		<select id="clientname" name="clientname">
@@ -98,6 +100,11 @@
 <script type="text/javascript" src="https://fengyuanchen.github.io/datepicker/js/main.js"></script>
 
 <script type="text/javascript">
+
+
+function correctDate() {
+	document.getElementById("jobopen").value = document.getElementById("jobopenFake").value.split("-").reverse().join("/");
+}
 	
 	$(function(){
 		$('select[name="clientname"]').change(function(){

@@ -415,7 +415,7 @@ def vendordb():
 
 	try:
 		for item in all_vendor.each():
-			all_vendor_collected.append(item.val()['vendorName'])
+			all_vendor_collected.append(item.val())
 	except:
 		print("Empty Vendor Database")
 
@@ -538,9 +538,9 @@ def clientdb():
 	except:
 		print("Empty Job Belong Database")
 
-	if request.method == 'POST' and 'clientName' in request.form and 'jobBelong' in request.form and 'clientAddress1' in request.form and 'clientAddress2' in request.form and 'clientAddress3' in request.form and 'gstin' in request.form:
+	if request.method == 'POST' and 'clientName' in request.form and 'jobBelong' in request.form and 'clientAddress1' in request.form and 'clientAddress2' in request.form and 'clientAddress3' in request.form and 'gstin' in request.form and 'mobile' in request.form and 'email' in request.form:
 		db.child("main_db").child("all_clients")
-		data = {'clientname' : request.form['clientName'], 'jobBelong' : request.form['jobBelong'], 'clientAddress1' : request.form['clientAddress1'], 'clientAddress2' : request.form['clientAddress2'], 'clientAddress3' : request.form['clientAddress3'], 'gstin' : request.form['gstin']}
+		data = {'clientname' : request.form['clientName'], 'jobBelong' : request.form['jobBelong'], 'clientAddress1' : request.form['clientAddress1'], 'clientAddress2' : request.form['clientAddress2'], 'clientAddress3' : request.form['clientAddress3'], 'gstin' : request.form['gstin'], 'mobile' : request.form['mobile'], 'email' : request.form['email']}
 		db.push(data)
 
 		return redirect('/')

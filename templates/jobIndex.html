@@ -78,15 +78,11 @@
 
 			<th data-field="clientname" data-filter-control="input" data-sortable="true">Client Name</th>
 
+			<th data-field="clientof" data-filter-control="input" data-sortable="true">Client Of</th>
+
 			<th data-field="commodity" data-filter-control="input" data-sortable="true">Commodity</th>
 
 			<th data-field="packageq" data-filter-control="input" data-sortable="true">Package Quantity</th>
-
-			<th data-field="ncontainer" data-filter-control="input" data-sortable="true">Source Country</th>
-
-			<th data-field="cargotype" data-filter-control="input" data-sortable="true">Transit Country</th>
-
-			<th data-field="invoice" data-filter-control="input" data-sortable="true">CHA Name</th>
 
 		</tr>
 	</thead>
@@ -99,11 +95,9 @@
 		   <td style="text-align:center;" class="j2">{{client['jobno1']}}</td>
 		   <td style="text-align:center;" class="j3">{{client['jobopen']}}</td>
 			 <td style="text-align:center;" class="j4">{{client['clientname']}}</td>
+			 <td style="text-align:center;" class="j4">{{client['clientOf']}}</td>
 			 <td style="text-align:center;" class="j6">{{client['commodity']}}</td>
 		   <td style="text-align:center;" class="j5">{{client['packageq']}}</td>
-		   <td style="text-align:center;" class="j6">{{client['sourceCountry']}}</td>
-		   <td style="text-align:center;" class="j6">{{client['transitCountry']}}</td>	   
-		   <td style="text-align:center;" class="j6">{{client['chaname']}}</td>
 		
 		</tr>
 		{% endfor %}

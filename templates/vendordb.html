@@ -12,11 +12,13 @@
 		<tr>
 			<th>Sl No</th>
 			<th>Vendor</th>
+			<th>Service Type</th>
 		</tr>
 		{% for job in allJobs %}
 		<tr>
 		   <td class="serialNumber">{{loop.index0 + 1}}</td>
-		   <td class="job">{{job}}</td>
+		   <td class="job">{{job['vendorName']}}</td>
+		   <td class="job">{{job['vendorService']}}</td>
 		</tr>
 		{% endfor %}
 		</table>

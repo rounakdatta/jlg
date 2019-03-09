@@ -1,13 +1,25 @@
 <html>
   <head>
-		<title>Enter Bill Number</title>
+		{% if attributeId == 'bill' %}
+		<title>Enter Bill Of Entry Number</title>
+		{% elif attributeId == 'chaJobNo' %}
+		<title>Enter CHA Job No</title>
+		{% else %}
+		<title>Enter Custom Duty Amt</title>
+		{% endif %}
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   </head>
   <body>
  
 <div id="billEntry">
 
-  	<h1>Enter Bill Number</h1>
+		{% if attributeId == 'bill' %}
+		<h1>Enter Bill Of Entry Number</h1>
+		{% elif attributeId == 'chaJobNo' %}
+		<h1>Enter CHA Job No</h1>
+		{% else %}
+		<h1>Enter Custom Duty Amt</h1>
+		{% endif %}
 
   	<form action="/updateAPI/cha/{{objectId}}/{{attributeId}}", method="POST">
   		<input type="text" id="chaDetails" name="chaDetails" required>
