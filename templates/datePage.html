@@ -1,6 +1,7 @@
 <html>
   <head>
     <title>Enter Date</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   </head>
   <body>
  
@@ -31,6 +32,10 @@ function closeThisForGood() {
     document.getElementById("dateDetails").value = document.getElementById("selectDate").value.split("-").reverse().join("/");
 	document.getElementById("dateEntry").style.display = 'none';
 	document.getElementById("finalText").style.display = 'inline';
+  parent.enteredText = document.getElementById("dateDetails").value;
+  parent.cookidator.html(parent.enteredText);
+  parent.cookidator.removeClass();
+  parent.cookidator.removeAttr("data-href");
 }
 
 </script>

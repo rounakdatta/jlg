@@ -108,6 +108,32 @@ tbody {
   </div>
 </nav> 
 
+<!-- MODAL to take in input-->
+
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Confirm Data</h4>
+      </div>
+      <div class="modal-body">
+        <iframe id="workBrowser">
+					<p>Your browser does not support iframes.</p>
+				</iframe>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="modalCloser" name="modalCloser" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!--MODAL end -->
+
 <br><br><br>
 
 	<center>
@@ -578,7 +604,11 @@ $('#table').on('all.bs.table', function () {
     });
 
     $(".openable-cell").click(function() {
-        window.open ($(this).data("href"),"mywindow","menubar=1,resizable=1,width=350,height=250");
+			document.getElementById("workBrowser").src = $(this).data("href");
+				$('#myModal').modal('show');
+				//document.getElementById("workBrowser").src = $(this).data("href");
+				//document.getElementById("modalOpener").click();
+        //window.open ($(this).data("href"),"mywindow","menubar=1,resizable=1,width=350,height=250");
         //window.location = '/logout';
     });
     
@@ -600,7 +630,9 @@ var $table = $('#table');
     		});
 
             $(".openable-cell").click(function() {
-        		window.open ($(this).data("href"),"mywindow","menubar=1,resizable=1,width=350,height=250");
+							document.getElementById("workBrowser").src = $(this).data("href");
+						$('#myModal').modal('show');
+        		//window.open ($(this).data("href"),"mywindow","menubar=1,resizable=1,width=350,height=250");
         		//window.location = '/logout';
     		});
 
@@ -641,7 +673,9 @@ var $table = $('#table');
     		 });
 
              $(".openable-cell").click(function() {
-        		window.open ($(this).data("href"),"mywindow","menubar=1,resizable=1,width=350,height=250");
+							document.getElementById("workBrowser").src = $(this).data("href");
+							$('#myModal').modal('show');
+        		//window.open ($(this).data("href"),"mywindow","menubar=1,resizable=1,width=350,height=250");
         		//window.location = '/logout';
     		 });
 
@@ -673,7 +707,9 @@ var $table = $('#table');
     		 });
 
              $(".openable-cell").click(function() {
-        		window.open ($(this).data("href"),"mywindow","menubar=1,resizable=1,width=350,height=250");
+							document.getElementById("workBrowser").src = $(this).data("href");
+							$('#myModal').modal('show');
+        		//window.open ($(this).data("href"),"mywindow","menubar=1,resizable=1,width=350,height=250");
         		//window.location = '/logout';
     		 });
 
@@ -706,7 +742,9 @@ var $table = $('#table');
     		 });
 
              $(".openable-cell").click(function() {
-        		window.open ($(this).data("href"),"mywindow","menubar=1,resizable=1,width=350,height=250");
+							document.getElementById("workBrowser").src = $(this).data("href");
+							$('#myModal').modal('show');
+        		//window.open ($(this).data("href"),"mywindow","menubar=1,resizable=1,width=350,height=250");
         		//window.location = '/logout';
     		 });        
 
@@ -738,7 +776,9 @@ var $table = $('#table');
     		 });
 
              $(".openable-cell").click(function() {
-        		window.open ($(this).data("href"),"mywindow","menubar=1,resizable=1,width=350,height=250");
+							document.getElementById("workBrowser").src = $(this).data("href");
+							$('#myModal').modal('show');
+        		//window.open ($(this).data("href"),"mywindow","menubar=1,resizable=1,width=350,height=250");
         		//window.location = '/logout';
     		 });
 
@@ -770,7 +810,9 @@ var $table = $('#table');
     		 });
 
              $(".openable-cell").click(function() {
-        		window.open ($(this).data("href"),"mywindow","menubar=1,resizable=1,width=350,height=250");
+							document.getElementById("workBrowser").src = $(this).data("href");
+							$('#myModal').modal('show');
+        		//window.open ($(this).data("href"),"mywindow","menubar=1,resizable=1,width=350,height=250");
         		//window.location = '/logout';
     		 });
 
@@ -810,7 +852,9 @@ var $table = $('#table');
     		 });
 
              $(".openable-cell").click(function() {
-        		window.open ($(this).data("href"),"mywindow","menubar=1,resizable=1,width=350,height=250");
+							document.getElementById("workBrowser").src = $(this).data("href");
+							$('#myModal').modal('show');
+        		//window.open ($(this).data("href"),"mywindow","menubar=1,resizable=1,width=350,height=250");
         		//window.location = '/logout';
     		 });
 
@@ -869,12 +913,30 @@ var $table = $('#table');
     });
 
     $(".openable-cell").click(function() {
-        window.open ($(this).data("href"),"mywindow","menubar=1,resizable=1,width=350,height=250");
+				document.getElementById("workBrowser").src = $(this).data("href");
+				cookidator = $(this);
+				$('#myModal').modal('show');
+				//document.getElementById("modalOpener").click();
+        //window.open ($(this).data("href"),"mywindow","menubar=1,resizable=1,width=350,height=250");
         //window.location = '/logout';
     });
 
 });
 
+</script>
+
+<script>
+	var cookidator = "";
+	var enteredText = "";
+</script>
+
+<!--ESCAPE key must close the modal-->
+<script>
+$(document).keydown(function(event) { 
+  if (event.keyCode == 27) { 
+    document.getElementById("modalCloser").click();
+  }
+});
 </script>
 
 </html>

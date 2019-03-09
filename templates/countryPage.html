@@ -1,6 +1,7 @@
 <html>
   <head>
     <title>Enter Country</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   </head>
   <body>
  
@@ -34,6 +35,10 @@
 function closeThisForGood() {
 	document.getElementById("countryEntry").style.display = 'none';
 	document.getElementById("finalText").style.display = 'inline';
+  parent.enteredText = document.getElementById("countryDetails").value;
+  parent.cookidator.html(parent.enteredText);
+  parent.cookidator.removeClass();
+  parent.cookidator.removeAttr("data-href");
 }
 
 </script>

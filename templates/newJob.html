@@ -19,9 +19,9 @@
 		<select id="jobType" name="jobType">
 			<option disabled selected value> -- select an option -- </option>
 			<option value="Import">Import</option>
-			<option value="Import">Export</option>
-			<option value="Import">Re-Import</option>
-			<option value="Import">Re-Export</option>
+			<option value="Export">Export</option>
+			<option value="Re-Import">Re-Import</option>
+			<option value="Re-Export">Re-Export</option>
 		</select>
 
 		<br>
@@ -31,14 +31,7 @@
 		<br>
 
 		<label for="jobopen">Job Open Date :</label>
-		<dd><div class="docs-datepicker">
-          <div class="input-group">
-            <input type="text" class="form-control docs-date" id="jobopen" name="jobopen" placeholder="Job Open Date">
-            <div class="input-group-append">
-            </div>
-          </div>
-          <div class="docs-datepicker-container"></div>
-        </div></dd>
+		<input type="date" id="jobopen" name="jobopen">
 		<br>
 
 		<label for="clientname">Client Name :</label>
