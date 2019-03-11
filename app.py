@@ -59,62 +59,27 @@ def login():
 			if person.val()['username'] == request.form['username'] and person.val()['password'] == request.form['password']:
 
 				try:
-					userPermissions.append(person.val()['job1'])
+					userPermissions.append(person.val()['job'])
 				except:
 					userPermissions.append('null')
 
 				try:
-					userPermissions.append(person.val()['job2'])
+					userPermissions.append(person.val()['overseas'])
 				except:
 					userPermissions.append('null')
 
 				try:
-					userPermissions.append(person.val()['job3'])
+					userPermissions.append(person.val()['import'])
 				except:
 					userPermissions.append('null')
 
 				try:
-					userPermissions.append(person.val()['job4'])
+					userPermissions.append(person.val()['destination'])
 				except:
 					userPermissions.append('null')
 
 				try:
-					userPermissions.append(person.val()['job5'])
-				except:
-					userPermissions.append('null')
-
-				try:
-					userPermissions.append(person.val()['db1'])
-				except:
-					userPermissions.append('null')
-
-				try:
-					userPermissions.append(person.val()['db2'])
-				except:
-					userPermissions.append('null')
-
-				try:
-					userPermissions.append(person.val()['db3'])
-				except:
-					userPermissions.append('null')
-
-				try:
-					userPermissions.append(person.val()['db4'])
-				except:
-					userPermissions.append('null')
-
-				try:
-					userPermissions.append(person.val()['db5'])
-				except:
-					userPermissions.append('null')
-
-				try:
-					userPermissions.append(person.val()['bill1'])
-				except:
-					userPermissions.append('null')
-
-				try:
-					userPermissions.append(person.val()['bill2'])
+					userPermissions.append(person.val()['bill'])
 				except:
 					userPermissions.append('null')
 
@@ -168,24 +133,6 @@ def revokeAccess(userId, job):
 	return redirect('/')
 
 
-# bill permissions updateAPI (special case)
-@app.route('/adminAPI/billpermission/<userId>', methods=['GET', 'POST'])
-def billPermission(userId):
-
-	adminAPI(userId, 'bill1')
-	adminAPI(userId, 'bill2')
-	return redirect('/')
-
-
-# bill permissions updateAPI (special case)
-@app.route('/adminAPI/billpermission/cancel/<userId>', methods=['GET', 'POST'])
-def billPermissionRevoke(userId):
-
-	revokeAccess(userId, 'bill1')
-	revokeAccess(userId, 'bill2')
-	return redirect('/')
-
-
 # admin API for updating access level permissions
 @app.route('/adminAPI/<userId>/<job>', methods=['GET', 'POST'])
 def adminAPI(userId, job):
@@ -194,18 +141,11 @@ def adminAPI(userId, job):
 
 	db.child("main_db").child('accounts').child(userId).update({job: 'yes'})
 	if(job == 'admin'):
-		db.child("main_db").child('accounts').child(userId).update({'job1': 'yes'})
-		db.child("main_db").child('accounts').child(userId).update({'job2': 'yes'})
-		db.child("main_db").child('accounts').child(userId).update({'job3': 'yes'})
-		db.child("main_db").child('accounts').child(userId).update({'job4': 'yes'})
-		db.child("main_db").child('accounts').child(userId).update({'job5': 'yes'})
-		db.child("main_db").child('accounts').child(userId).update({'bill1': 'yes'})
-		db.child("main_db").child('accounts').child(userId).update({'bill2': 'yes'})
-		db.child("main_db").child('accounts').child(userId).update({'db1': 'yes'})
-		db.child("main_db").child('accounts').child(userId).update({'db2': 'yes'})
-		db.child("main_db").child('accounts').child(userId).update({'db3': 'yes'})
-		db.child("main_db").child('accounts').child(userId).update({'db4': 'yes'})
-		db.child("main_db").child('accounts').child(userId).update({'db5': 'yes'})
+		db.child("main_db").child('accounts').child(userId).update({'job': 'yes'})
+		db.child("main_db").child('accounts').child(userId).update({'overseas': 'yes'})
+		db.child("main_db").child('accounts').child(userId).update({'import': 'yes'})
+		db.child("main_db").child('accounts').child(userId).update({'destination': 'yes'})
+		db.child("main_db").child('accounts').child(userId).update({'bill': 'yes'})
 
 	return redirect('/')
 
@@ -241,7 +181,7 @@ def index():
 		session['user'] = ''
 		session['admin'] = ''
 		session['guest'] = True
-		session['userPermissions'] = ['no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no']
+		session['userPermissions'] = ['no', 'no', 'no', 'no', 'no']
 
 	if(request.args.get('note')):
 		whatToSay = request.args.get('note')
@@ -258,7 +198,7 @@ def index():
 @app.route('/jobnodb', methods=['GET', 'POST'])
 def jobno():
 
-	if not session['guest'] and session['userPermissions'][6] == 'yes':
+	if not session['guest'] and session['userPermissions'][0] == 'yes':
 		hereAdmin = 'yes'
 	else:
 		hereAdmin = 'no'
@@ -280,7 +220,7 @@ def jobno():
 @app.route('/jobnodb/new', methods=['GET', 'POST'])
 def newjob():
 
-	if session['loggedIn'] and session['userPermissions'][6] == 'yes':
+	if session['loggedIn'] and session['userPermissions'][0] == 'yes':
 		hereAdmin = 'yes'
 	else:
 		hereAdmin = 'no'
@@ -344,7 +284,7 @@ def deleteProfit(entry):
 @app.route('/jobprofitdb', methods=['GET', 'POST'])
 def jobprofitdb():
 
-	if not session['guest'] and session['userPermissions'][7] == 'yes':
+	if not session['guest'] and session['userPermissions'][0] == 'yes':
 		hereAdmin = 'yes'
 	else:
 		hereAdmin = 'no'
@@ -375,7 +315,7 @@ def jobprofitdb():
 @app.route('/jobbelongdb', methods=['GET', 'POST'])
 def jobbelongdb():
 
-	if not session['guest'] and session['userPermissions'][8] == 'yes':
+	if not session['guest'] and session['userPermissions'][0] == 'yes':
 		hereAdmin = 'yes'
 	else:
 		hereAdmin = 'no'
@@ -404,7 +344,7 @@ def jobbelongdb():
 @app.route('/vendordb', methods=['GET', 'POST'])
 def vendordb():
 
-	if not session['guest'] and session['userPermissions'][8] == 'yes': # notice
+	if not session['guest'] and session['userPermissions'][0] == 'yes': # notice
 		hereAdmin = 'yes'
 	else:
 		hereAdmin = 'no'
@@ -432,7 +372,7 @@ def vendordb():
 @app.route('/countrydb', methods=['GET', 'POST'])
 def countrydb():
 
-	if not session['guest'] and session['userPermissions'][8] == 'yes': # notice
+	if not session['guest'] and session['userPermissions'][0] == 'yes': # notice
 		hereAdmin = 'yes'
 	else:
 		hereAdmin = 'no'
@@ -460,7 +400,7 @@ def countrydb():
 @app.route('/jobownerdb', methods=['GET', 'POST'])
 def jobownerdb():
 
-	if not session['guest'] and session['userPermissions'][9] == 'yes':
+	if not session['guest'] and session['userPermissions'][0] == 'yes':
 		hereAdmin = 'yes'
 	else:
 		hereAdmin = 'no'
@@ -503,7 +443,7 @@ def clientView():
 	all_jc = db.child("main_db").child('all_clients').get()
 	all_job_clients = []
 
-	if not session['guest'] and session['userPermissions'][5] == 'yes':
+	if not session['guest'] and session['userPermissions'][0] == 'yes':
 		hereAdmin = 'yes'
 	else:
 		hereAdmin = 'no'
@@ -522,7 +462,7 @@ def clientView():
 @app.route('/clientdb', methods=['GET', 'POST'])
 def clientdb():
 
-	if session['loggedIn'] and session['userPermissions'][5] == 'yes':
+	if session['loggedIn'] and session['userPermissions'][0] == 'yes':
 		hereAdmin = 'yes'
 	else:
 		hereAdmin = 'no'

@@ -1,59 +1,89 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>JLG | Job Client Database</title>
+	<title>ASSLPL | Job Client Database</title>
+	<link rel='stylesheet' href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'><link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.0/bootstrap-table.min.css'><link rel='stylesheet' href='//rawgit.com/vitalets/x-editable/master/dist/bootstrap3-editable/css/bootstrap-editable.css'>
+
 </head>
 <body>
 
-	<h1>New Client Entry</h1>
+		<nav class="navbar navbar-default navbar-fixed-top">
+				<div class="container-fluid">
+				  <div class="navbar-header">
+					<a class="navbar-brand" href="/">ASSLPL Operations</a>
+				  </div>
+				  <ul class="nav navbar-nav">
+					<li><a>→</a></li>
+					<li class="active"><a>New Client</a></li>
+				  </ul>
+				  <ul class="nav navbar-nav navbar-right">
+					  <li><a>
+					  {% if userx == '' %}
+					  Not Logged In
+					  {% else %}
+					  {{userx}}
+					  {% endif %}
+				  </a></li>
+				  </ul>
+				</div>
+			  </nav> 
+			  
+			  <br><br><br>
 
-	<a href="/">BACK</a>
+	<div class="container">
 
-	<br><br>
+		<div class="well">
+			<center>
+
+					<form action="/clientdb" method="POST">
+						<label for="clientName">Client Name :</label>
+						<input id="clientName" name="clientName" type="text">
+						<br>
+				
+						<label for="jobBelong">Job Owner :</label>
+						
+						<select id="jobBelong" name="jobBelong">
+							<option disabled selected value> -- select an option -- </option>
+							{% for job in jobBelongs %}
+							  <option value="{{job['compName']}}">{{job['compName']}}</option>
+							  {% endfor %}
+						  </select>
+				
+						  <br>
+				
+						  <label for="clientAddress1">Client Address 1 :</label>
+						  <input type="text" id="clientAddress1" name="clientAddress1">
+						  <br>
+				
+						  <label for="clientAddress2">Client Address 2 :</label>
+						  <input type="text" id="clientAddress2" name="clientAddress2">
+						  <br>
+				
+						  <label for="clientAddress3">Client Address 3 :</label>
+						  <input type="text" id="clientAddress2" name="clientAddress3">
+						  <br>
+				
+						  <label for="gstin">GSTIN :</label>
+						  <input type="text" id="gstin" name="gstin">
+						  <br>
+				
+						  <label for="mobile">Mobile No :</label>
+						  <input type="text" id="mobile" name="mobile">
+						  <br>
+						  
+						  <label for="email">Email ID :</label>
+						  <input type="email" id="email" name="email">
+						  <br>
+				
+						<button type="submit">Submit</button>
+					</form>
+
+				</center>
+		</div>
 
 
-	<form action="/clientdb" method="POST">
-		<label for="clientName">Client Name :</label>
-		<input id="clientName" name="clientName" type="text">
-		<br>
 
-		<label for="jobBelong">Job Owner :</label>
-		
-		<select id="jobBelong" name="jobBelong">
-			<option disabled selected value> -- select an option -- </option>
-			{% for job in jobBelongs %}
-  			<option value="{{job['compName']}}">{{job['compName']}}</option>
-  			{% endfor %}
-  		</select>
-
-  		<br>
-
-  		<label for="clientAddress1">Client Address 1 :</label>
-  		<input type="text" id="clientAddress1" name="clientAddress1">
-  		<br>
-
-  		<label for="clientAddress2">Client Address 2 :</label>
-  		<input type="text" id="clientAddress2" name="clientAddress2">
-  		<br>
-
-  		<label for="clientAddress3">Client Address 3 :</label>
-  		<input type="text" id="clientAddress2" name="clientAddress3">
-  		<br>
-
-  		<label for="gstin">GSTIN :</label>
-  		<input type="text" id="gstin" name="gstin">
-  		<br>
-
-  		<label for="mobile">Mobile No :</label>
-  		<input type="text" id="mobile" name="mobile">
-		  <br>
-		  
-  		<label for="email">Email ID :</label>
-  		<input type="email" id="email" name="email">
-  		<br>
-
-		<button type="submit">Submit</button>
-	</form>
+</div>
 
 
 </body>

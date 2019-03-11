@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>JLG | Manage Users</title>
+  <title>ASSLPL | Manage Users</title>
+  <link rel='stylesheet' href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'><link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.0/bootstrap-table.min.css'><link rel='stylesheet' href='//rawgit.com/vitalets/x-editable/master/dist/bootstrap3-editable/css/bootstrap-editable.css'>
 </head>
 <body>
 
@@ -14,17 +15,11 @@
     <th>Username</th>
     <th>Email</th>
     <th>Admin Access</th>
-    <th>Shipping 1st Part</th>
-    <th>Custom Part</th>
-    <th>Dock Part</th>
-    <th>Client Delv</th>
-    <th>Shipping 2nd Part</th>
-    <th>Billing</th>
-    <th>Client DB</th>
-    <th>Job Number DB</th>
-    <th>Job Profit DB</th>
-    <th>Job Belonging DB</th>
-    <th>Job Owner DB</th>
+    <th>Job Create</th>
+    <th>Overseas Update</th>
+    <th>Import Clearance</th>
+    <th>Destination Delivery</th>
+    <th>Bill Details</th>
     <th>DELETE</th>
   </tr>
 
@@ -39,70 +34,34 @@
     <td><a href="/adminAPI/{{myKeys[loop.index0]}}/admin">Grant</a></td>
     {% endif %}
 
-    {% if user['job1'] == 'yes' %}
-    <td>✔ <a href="/adminAPI/cancel/{{myKeys[loop.index0]}}/job1">Revoke</a></td>
+    {% if user['job'] == 'yes' %}
+    <td>✔ <a href="/adminAPI/cancel/{{myKeys[loop.index0]}}/job">Revoke</a></td>
     {% else %}
-    <td><a href="/adminAPI/{{myKeys[loop.index0]}}/job1">Grant</a></td>
+    <td><a href="/adminAPI/{{myKeys[loop.index0]}}/job">Grant</a></td>
     {% endif %}
 
-    {% if user['job2'] == 'yes' %}
-    <td>✔ <a href="/adminAPI/cancel/{{myKeys[loop.index0]}}/job2">Revoke</a></td>
+    {% if user['overseas'] == 'yes' %}
+    <td>✔ <a href="/adminAPI/cancel/{{myKeys[loop.index0]}}/overseas">Revoke</a></td>
     {% else %}
-    <td><a href="/adminAPI/{{myKeys[loop.index0]}}/job2">Grant</a></td>
+    <td><a href="/adminAPI/{{myKeys[loop.index0]}}/overseas">Grant</a></td>
     {% endif %}
 
-    {% if user['job3'] == 'yes' %}
-    <td>✔ <a href="/adminAPI/cancel/{{myKeys[loop.index0]}}/job3">Revoke</a></td>
+    {% if user['import'] == 'yes' %}
+    <td>✔ <a href="/adminAPI/cancel/{{myKeys[loop.index0]}}/import">Revoke</a></td>
     {% else %}
-    <td><a href="/adminAPI/{{myKeys[loop.index0]}}/job3">Grant</a></td>
+    <td><a href="/adminAPI/{{myKeys[loop.index0]}}/import">Grant</a></td>
     {% endif %}
 
-    {% if user['job4'] == 'yes' %}
-    <td>✔ <a href="/adminAPI/cancel/{{myKeys[loop.index0]}}/job4">Revoke</a></td>
+    {% if user['destination'] == 'yes' %}
+    <td>✔ <a href="/adminAPI/cancel/{{myKeys[loop.index0]}}/destination">Revoke</a></td>
     {% else %}
-    <td><a href="/adminAPI/{{myKeys[loop.index0]}}/job4">Grant</a></td>
+    <td><a href="/adminAPI/{{myKeys[loop.index0]}}/destination">Grant</a></td>
     {% endif %}
 
-    {% if user['job5'] == 'yes' %}
-    <td>✔ <a href="/adminAPI/cancel/{{myKeys[loop.index0]}}/job5">Revoke</a></td>
+    {% if user['bill'] == 'yes' %}
+    <td>✔ <a href="/adminAPI/cancel/{{myKeys[loop.index0]}}/bill">Revoke</a></td>
     {% else %}
-    <td><a href="/adminAPI/{{myKeys[loop.index0]}}/job5">Grant</a></td>
-    {% endif %}
-
-    {% if user['bill1'] == 'yes' and user['bill2'] == 'yes' %}
-    <td>✔ <a href="/adminAPI/billpermission/cancel/{{myKeys[loop.index0]}}">Revoke</a></td>
-    {% else %}
-    <td><a href="/adminAPI/billpermission/{{myKeys[loop.index0]}}">Grant</a></td>
-    {% endif %}
-
-    {% if user['db1'] == 'yes' %}
-    <td>✔ <a href="/adminAPI/cancel/{{myKeys[loop.index0]}}/db1">Revoke</a></td>
-    {% else %}
-    <td><a href="/adminAPI/{{myKeys[loop.index0]}}/db1">Grant</a></td>
-    {% endif %}
-
-    {% if user['db2'] == 'yes' %}
-    <td>✔ <a href="/adminAPI/cancel/{{myKeys[loop.index0]}}/db2">Revoke</a></td>
-    {% else %}
-    <td><a href="/adminAPI/{{myKeys[loop.index0]}}/db2">Grant</a></td>
-    {% endif %}
-
-    {% if user['db3'] == 'yes' %}
-    <td>✔ <a href="/adminAPI/cancel/{{myKeys[loop.index0]}}/db3">Revoke</a></td>
-    {% else %}
-    <td><a href="/adminAPI/{{myKeys[loop.index0]}}/db3">Grant</a></td>
-    {% endif %}
-
-    {% if user['db4'] == 'yes' %}
-    <td>✔ <a href="/adminAPI/cancel/{{myKeys[loop.index0]}}/db4">Revoke</a></td>
-    {% else %}
-    <td><a href="/adminAPI/{{myKeys[loop.index0]}}/db4">Grant</a></td>
-    {% endif %}
-
-    {% if user['db5'] == 'yes' %}
-    <td>✔ <a href="/adminAPI/cancel/{{myKeys[loop.index0]}}/db5">Revoke</a></td>
-    {% else %}
-    <td><a href="/adminAPI/{{myKeys[loop.index0]}}/db5">Grant</a></td>
+    <td><a href="/adminAPI/{{myKeys[loop.index0]}}/bill">Grant</a></td>
     {% endif %}
 
     <td><a href="/adminAPI/delete/{{myKeys[loop.index0]}}">✖</a></td>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>JLG | Job Execution Database [{{what}}]</title>
+	<title>ASSLPL | Job Execution Database [{{what}}]</title>
 
 <link rel='stylesheet' href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'><link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.0/bootstrap-table.min.css'><link rel='stylesheet' href='//rawgit.com/vitalets/x-editable/master/dist/bootstrap3-editable/css/bootstrap-editable.css'>
 <style class="cp-pen-styles"></style>
@@ -88,7 +88,7 @@ tbody {
  <nav class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="/">JLG Operations</a>
+      <a class="navbar-brand" href="/">ASSLPL Operations</a>
     </div>
     <ul class="nav navbar-nav">
       <li><a>→</a></li>
@@ -175,7 +175,7 @@ tbody {
 			 data-show-columns="true"
 			 data-filter-control="true"
 			 data-pagination="true" 
-			 data-height="800"
+			 data-height="600"
 			 data-show-export="true"
 			 data-toolbar="#toolbar"
 			 data-response-handler="responseHandler"
@@ -250,104 +250,149 @@ tbody {
 		   <td style="text-align:center;" class="j5">{{client['commodity']}}</td>
 			 <td style="text-align:center;" class="j5">{{client['packageq']}}</td>
 			 
-			 {% if client['sourceCountry'] == "" %}
-			 <td class="xyz btn btn-violet btn-block openable-cell" data-href='/updateAPI/country/{{myKeys[loop.index0]}}/sourceCountry'>🖋 SC</td>
-			 {% else %}
-				 <td style="text-align:center;">{{client['sourceCountry']}}</td>
+			 {% if permissions[1] == 'yes' %}
+
+					 {% if client['sourceCountry'] == "" %}
+					 <td class="xyz btn btn-violet btn-block openable-cell" data-href='/updateAPI/country/{{myKeys[loop.index0]}}/sourceCountry'>🖋 SC</td>
+					 {% else %}
+						 <td style="text-align:center;">{{client['sourceCountry']}}</td>
+					 {% endif %}
+
+					 {% if client['exportFromSource'] == "" %}
+					 <td class="xyz btn btn-primary btn-block openable-cell" data-href='/updateAPI/date/{{myKeys[loop.index0]}}/exportFromSource'>✅ Done</td>
+					 {% else %}
+						 <td style="text-align:center;">{{client['exportFromSource']}}</td>
+					 {% endif %}
+
+					 {% if client['transitCountry'] == "" %}
+					 <td class="xyz btn btn-violet btn-block openable-cell" data-href='/updateAPI/country/{{myKeys[loop.index0]}}/transitCountry'>🖋 TC</td>
+					 {% else %}
+						 <td style="text-align:center;">{{client['transitCountry']}}</td>
+					 {% endif %}
+
+					 {% if client['importEstimateAtTransit'] == "" %}
+					 <td class="xyz btn btn-primary btn-block openable-cell" data-href='/updateAPI/date/{{myKeys[loop.index0]}}/importEstimateAtTransit'>✅ Done</td>
+					 {% else %}
+						 <td style="text-align:center;">{{client['importEstimateAtTransit']}}</td>
+					 {% endif %}
+
+					 {% if client['importAtTransit'] == "" %}
+					 <td class="xyz btn btn-primary btn-block openable-cell" data-href='/updateAPI/date/{{myKeys[loop.index0]}}/importAtTransit'>✅ Done</td>
+					 {% else %}
+						 <td style="text-align:center;">{{client['importAtTransit']}}</td>
+					 {% endif %}
+
+					 {% if client['exportFromTransit'] == "" %}
+					 <td class="xyz btn btn-primary btn-block openable-cell" data-href='/updateAPI/date/{{myKeys[loop.index0]}}/exportFromTransit'>✅ Done</td>
+					 {% else %}
+						 <td style="text-align:center;">{{client['exportFromTransit']}}</td>
+					 {% endif %}
+
+					 {% if client['importEstimateAtIndia'] == "" %}
+					 <td class="xyz btn btn-primary btn-block openable-cell" data-href='/updateAPI/date/{{myKeys[loop.index0]}}/importEstimateAtIndia'>✅ Done</td>
+					 {% else %}
+						 <td style="text-align:center;">{{client['importEstimateAtIndia']}}</td>
+					 {% endif %}
+
+					 {% if client['importAtIndia'] == "" %}
+					 <td class="xyz btn btn-primary btn-block openable-cell" data-href='/updateAPI/date/{{myKeys[loop.index0]}}/importAtIndia'>✅ Done</td>
+					 {% else %}
+						 <td style="text-align:center;">{{client['importAtIndia']}}</td>
+					 {% endif %}
+
+			{% else %}
+
+				<td style="text-align:center;">{{client['sourceCountry']}}</td>
+				<td style="text-align:center;">{{client['exportFromSource']}}</td>
+				<td style="text-align:center;">{{client['transitCountry']}}</td>
+				<td style="text-align:center;">{{client['importEstimateAtTransit']}}</td>
+				<td style="text-align:center;">{{client['importAtTransit']}}</td>
+				<td style="text-align:center;">{{client['exportFromTransit']}}</td>
+				<td style="text-align:center;">{{client['importEstimateAtIndia']}}</td>
+				<td style="text-align:center;">{{client['importAtIndia']}}</td>
+
 			 {% endif %}
 
-			 {% if client['exportFromSource'] == "" %}
-			 <td class="xyz btn btn-primary btn-block openable-cell" data-href='/updateAPI/date/{{myKeys[loop.index0]}}/exportFromSource'>✅ Done</td>
+			 {% if permissions[2] == 'yes' %}
+
+					 <td class="xyz btn btn-violet btn-block openable-cell" data-href='/updateAPI/cha/{{myKeys[loop.index0]}}/chaJobNo'>🖋 CHA Job No</td>
+					 {% if client['chaJobNo'] == "" %}
+					 {% else %}
+						 <td style="text-align:center;">{{client['chaJobNo']}}</td>
+					 {% endif %}
+					 {% if client['chaname'] == "" %}
+					 <td class="xyz btn btn-violet btn-block openable-cell" data-href='/updateAPI/cha/{{myKeys[loop.index0]}}/chaname'>🖋 CHA Name</td>
+
+					 {% else %}
+						 <td style="text-align:center;">{{client['chaname']}}</td>
+					 {% endif %}
+					 {% if client['bill'] == "" %}
+					 <td class="xyz btn btn-violet btn-block openable-cell" data-href='/updateAPI/cha/{{myKeys[loop.index0]}}/bill'>🖋 Bill</td>
+
+					 {% else %}
+						 <td style="text-align:center;">{{client['bill']}}</td>
+					 {% endif %}
+					 {% if client['customDutyAmount'] == "" %}
+					 <td class="xyz btn btn-violet btn-block openable-cell" data-href='/updateAPI/cha/{{myKeys[loop.index0]}}/customDutyAmount'>🖋 Custom Duty Amt</td>
+
+					 {% else %}
+						 <td style="text-align:center;">{{client['customDutyAmount']}}</td>
+					 {% endif %}
+
+					 {% if client['delFromCFS'] == "" %}
+					 <td class="xyz btn btn-primary btn-block openable-cell" data-href='/updateAPI/date/{{myKeys[loop.index0]}}/delFromCFS'>✅ Done</td>
+					 {% else %}
+						 <td style="text-align:center;">{{client['delFromCFS']}}</td>
+					 {% endif %}
+
 			 {% else %}
-				 <td style="text-align:center;">{{client['exportFromSource']}}</td>
+
+			 			<td style="text-align:center;">{{client['chaJobNo']}}</td>
+			 			<td style="text-align:center;">{{client['chaname']}}</td>
+			 			<td style="text-align:center;">{{client['bill']}}</td>
+			 			<td style="text-align:center;">{{client['customDutyAmount']}}</td>
+			 			<td style="text-align:center;">{{client['delFromCFS']}}</td>
+
 			 {% endif %}
 
-			 {% if client['transitCountry'] == "" %}
-			 <td class="xyz btn btn-violet btn-block openable-cell" data-href='/updateAPI/country/{{myKeys[loop.index0]}}/transitCountry'>🖋 TC</td>
-			 {% else %}
-				 <td style="text-align:center;">{{client['transitCountry']}}</td>
-			 {% endif %}
+			 {% if permissions[3] == 'yes' %}
 
-			 {% if client['importEstimateAtTransit'] == "" %}
-			 <td class="xyz btn btn-primary btn-block openable-cell" data-href='/updateAPI/date/{{myKeys[loop.index0]}}/importEstimateAtTransit'>✅ Done</td>
-			 {% else %}
-				 <td style="text-align:center;">{{client['importEstimateAtTransit']}}</td>
-			 {% endif %}
+						 {% if client['delToClient'] == "" %}
+						 <td class="xyz btn btn-primary btn-block openable-cell" data-href='/updateAPI/date/{{myKeys[loop.index0]}}/delToClient'>✅ Done</td>
+						 {% else %}
+							 <td style="text-align:center;">{{client['delToClient']}}</td>
+						 {% endif %}
+				
+				{% else %}
 
-			 {% if client['importAtTransit'] == "" %}
-			 <td class="xyz btn btn-primary btn-block openable-cell" data-href='/updateAPI/date/{{myKeys[loop.index0]}}/importAtTransit'>✅ Done</td>
-			 {% else %}
-				 <td style="text-align:center;">{{client['importAtTransit']}}</td>
-			 {% endif %}
+						<td style="text-align:center;">{{client['delToClient']}}</td>
 
-			 {% if client['exportFromTransit'] == "" %}
-			 <td class="xyz btn btn-primary btn-block openable-cell" data-href='/updateAPI/date/{{myKeys[loop.index0]}}/exportFromTransit'>✅ Done</td>
-			 {% else %}
-				 <td style="text-align:center;">{{client['exportFromTransit']}}</td>
-			 {% endif %}
-
-			 {% if client['importEstimateAtIndia'] == "" %}
-			 <td class="xyz btn btn-primary btn-block openable-cell" data-href='/updateAPI/date/{{myKeys[loop.index0]}}/importEstimateAtIndia'>✅ Done</td>
-			 {% else %}
-				 <td style="text-align:center;">{{client['importEstimateAtIndia']}}</td>
-			 {% endif %}
-
-			 {% if client['importAtIndia'] == "" %}
-			 <td class="xyz btn btn-primary btn-block openable-cell" data-href='/updateAPI/date/{{myKeys[loop.index0]}}/importAtIndia'>✅ Done</td>
-			 {% else %}
-				 <td style="text-align:center;">{{client['importAtIndia']}}</td>
-			 {% endif %}
-
-			 {% if client['chaJobNo'] == "" %}
-			 <td class="xyz btn btn-violet btn-block openable-cell" data-href='/updateAPI/cha/{{myKeys[loop.index0]}}/chaJobNo'>🖋 CHA Job No</td>
-			 {% else %}
-				 <td style="text-align:center;">{{client['chaJobNo']}}</td>
-			 {% endif %}
-
-			 {% if client['chaname'] == "" %}
-			 <td class="xyz btn btn-violet btn-block openable-cell" data-href='/updateAPI/cha/{{myKeys[loop.index0]}}/chaname'>🖋 CHA Name</td>
-			 {% else %}
-				 <td style="text-align:center;">{{client['chaname']}}</td>
-			 {% endif %}
-
-			 {% if client['bill'] == "" %}
-			 <td class="xyz btn btn-violet btn-block openable-cell" data-href='/updateAPI/cha/{{myKeys[loop.index0]}}/bill'>🖋 Bill</td>
-			 {% else %}
-				 <td style="text-align:center;">{{client['bill']}}</td>
-			 {% endif %}
-
-			 {% if client['customDutyAmount'] == "" %}
-			 <td class="xyz btn btn-violet btn-block openable-cell" data-href='/updateAPI/cha/{{myKeys[loop.index0]}}/customDutyAmount'>🖋 Custom Duty Amt</td>
-			 {% else %}
-				 <td style="text-align:center;">{{client['customDutyAmount']}}</td>
-			 {% endif %}
-
-			 {% if client['delFromCFS'] == "" %}
-			 <td class="xyz btn btn-primary btn-block openable-cell" data-href='/updateAPI/date/{{myKeys[loop.index0]}}/delFromCFS'>✅ Done</td>
-			 {% else %}
-				 <td style="text-align:center;">{{client['delFromCFS']}}</td>
-			 {% endif %}
-
-			 {% if client['delToClient'] == "" %}
-			 <td class="xyz btn btn-primary btn-block openable-cell" data-href='/updateAPI/date/{{myKeys[loop.index0]}}/delToClient'>✅ Done</td>
-			 {% else %}
-				 <td style="text-align:center;">{{client['delToClient']}}</td>
-			 {% endif %}
+				{% endif %}
 
 			 <td style="text-align:center;">{{client['jobCloseDate']}}</td>
 
 			 <td style="text-align:center;">{{client['jobComplete']}}</td>
 
-			 {% if client['invoiceNo'] == "" %}
-			 <td class="xyz btn btn-violet btn-block openable-cell" data-href='/updateAPI/invoice/{{myKeys[loop.index0]}}/invoiceNo'>🖋 Client Invoice No</td>
-			 {% else %}
-				 <td style="text-align:center;">{{client['invoiceNo']}}</td>
-			 {% endif %}
 
-			 {% if client['invoiceDate'] == "" %}
-			 <td class="xyz btn btn-primary btn-block openable-cell" data-href='/updateAPI/date/{{myKeys[loop.index0]}}/invoiceDate'>✅ Done</td>
+			 {% if permissions[4] == 'yes' %}
+
+						 {% if client['invoiceNo'] == "" %}
+						 <td class="xyz btn btn-violet btn-block openable-cell" data-href='/updateAPI/invoice/{{myKeys[loop.index0]}}/invoiceNo'>🖋 Client Invoice No</td>
+						 {% else %}
+							 <td style="text-align:center;">{{client['invoiceNo']}}</td>
+						 {% endif %}
+
+						 {% if client['invoiceDate'] == "" %}
+						 <td class="xyz btn btn-primary btn-block openable-cell" data-href='/updateAPI/date/{{myKeys[loop.index0]}}/invoiceDate'>✅ Done</td>
+						 {% else %}
+						 <td style="text-align:center;">{{client['invoiceDate']}}</td>
+						 {% endif %}
+
 			 {% else %}
-			 <td style="text-align:center;">{{client['invoiceDate']}}</td>
+
+						 <td style="text-align:center;">{{client['invoiceNo']}}</td>
+						 <td style="text-align:center;">{{client['invoiceDate']}}</td>
+
 			 {% endif %}
 
 <!-- OLD DATA-->
