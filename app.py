@@ -273,7 +273,11 @@ def newjob():
 		data = {'jobType': request.form['jobType'], 'jobno1': request.form['jobno1'], 'jobopen': request.form['jobopen'], 'clientname': request.form['clientxname'], 'clientOf': request.form['clientOf'], 'sourceCountry': '', 'transitCountry': '', 'chaname': '', 'packageq': request.form['packageq'], 'commodity': request.form['commodity'], 'exportFromSource' : '', 'importEstimateAtTransit' : '', 'importAtTransit' : '',  'exportFromTransit' : '', 'importEstimateAtIndia' : '', 'importAtIndia' : '', 'chaJobNo' : '', 'bill' : '', 'customDutyAmount' : '', 'delFromCFS' : '', 'delToClient' : '', 'jobCloseDate' : '', 'invoiceNo' : '', 'invoiceDate' : '', 'jobComplete' : 'no'}
 		db.push(data)
 
-		sendReportMail(standardEmailHeader, standardEmailContent + 'New Job Addition : ' + request.form['jobno1'] + ', ' + request.form['clientname'])
+		try:
+			sendReportMail(standardEmailHeader, standardEmailContent + 'New Job Addition : ' + request.form['jobno1'] + ', ' + request.form['clientname'])
+		except:
+			pass
+
 		return redirect('/')
 
 	return render_template('newJob.html', allClients=all_job_clients, allCountries=all_country, allVendors=all_vendor)
@@ -344,7 +348,10 @@ def jobbelongdb():
 		data = {"compName" : request.form['jobBelongEntry']}
 		db.push(data)
 
-		sendReportMail(standardEmailHeader, standardEmailContent + 'New Job Owner Addition : ' + request.form['jobBelongEntry'])
+		try:
+			sendReportMail(standardEmailHeader, standardEmailContent + 'New Job Owner Addition : ' + request.form['jobBelongEntry'])
+		except:
+			pass
 		return redirect('/')
 
 	return render_template('jobbelong.html', hereAdmin=hereAdmin, allJobs=all_job_belong)
@@ -374,7 +381,10 @@ def vendordb():
 		data = {"vendorName" : request.form['vendorName'], "vendorService" : request.form['vendorService']}
 		db.push(data)
 
-		sendReportMail(standardEmailHeader, standardEmailContent + 'New Job Vendor Addition : ' + request.form['vendorName'] + ', ' + request.form['vendorService'])
+		try:
+			sendReportMail(standardEmailHeader, standardEmailContent + 'New Job Vendor Addition : ' + request.form['vendorName'] + ', ' + request.form['vendorService'])
+		except:
+			pass
 		return redirect('/')
 
 	return render_template('vendordb.html', hereAdmin=hereAdmin, allJobs=all_vendor_collected)
@@ -403,7 +413,10 @@ def countrydb():
 		data = {"countryName" : request.form['countryName']}
 		db.push(data)
 
-		sendReportMail(standardEmailHeader, standardEmailContent + 'New Country Addition : ' + request.form['countryName'])
+		try:
+			sendReportMail(standardEmailHeader, standardEmailContent + 'New Country Addition : ' + request.form['countryName'])
+		except:
+			pass
 		return redirect('/')
 
 	return render_template('countrydb.html', hereAdmin=hereAdmin, allJobs=all_country_collected)
@@ -495,7 +508,10 @@ def clientdb():
 		data = {'clientname' : request.form['clientName'], 'jobBelong' : request.form['jobBelong'], 'clientAddress1' : request.form['clientAddress1'], 'clientAddress2' : request.form['clientAddress2'], 'clientAddress3' : request.form['clientAddress3'], 'gstin' : request.form['gstin'], 'mobile' : request.form['mobile'], 'email' : request.form['email']}
 		db.push(data)
 
-		sendReportMail(standardEmailHeader, standardEmailContent + 'New Job Client Addition : ' + request.form['clientName'])
+		try:
+			sendReportMail(standardEmailHeader, standardEmailContent + 'New Job Client Addition : ' + request.form['clientName'])
+		except:
+			pass
 		return redirect('/')
 
 	# get all the current client entries
@@ -704,6 +720,7 @@ def billUpdateAPI(objectId, attributeId):
 	if request.method == 'POST':
 		billText = request.form['billText']
 		db.child("main_db").child('execution').child(objectId).update({attributeId: billText})
+		mainValue = billText
 		# sleep for 3s because Firebase needs a little time to update
 		#time.sleep(3)
 	
@@ -712,7 +729,8 @@ def billUpdateAPI(objectId, attributeId):
 		#checkDataConsistency(objectId)
 
 		editLink = currentDomain + '/updateAPI/bill/' + objectId + '/' + attributeId
-		sendReportMail(standardEmailHeader, standardEmailContent + 'There was a recent write to your Execution DB by ' + session['user'] + ' : ' + code2task[attributeId] + '.\nYou can still edit it here: ' + editLink)
+		jobNumber = db.child("main_db").child("execution").child(objectId).child('jobno1').get().val()
+		sendReportMail(standardEmailHeader, standardEmailContent + 'There was a recent write to your Execution DB by ' + session['user'] + '.\n Field: ' + code2task[attributeId] + '\n Value: ' + mainValue + '\n Job Number: ' + jobNumber + '\nYou can still edit it here: ' + editLink)
 		return 'success'
 
 	return render_template('billPage.html', objectId=objectId, attributeId=attributeId)
@@ -725,9 +743,11 @@ def countryUpdateAPI(objectId, attributeId):
 	if request.method == 'POST':
 		countryDetails = request.form['countryDetails']
 		db.child("main_db").child('execution').child(objectId).update({attributeId: countryDetails})
+		mainValue = countryDetails
 
 		editLink = currentDomain + '/updateAPI/country/' + objectId + '/' + attributeId
-		sendReportMail(standardEmailHeader, standardEmailContent + 'There was a recent write to your Execution DB by ' + session['user'] + ' : ' + code2task[attributeId] + '.\nYou can still edit it here: ' + editLink)
+		jobNumber = db.child("main_db").child("execution").child(objectId).child('jobno1').get().val()
+		sendReportMail(standardEmailHeader, standardEmailContent + 'There was a recent write to your Execution DB by ' + session['user'] + '.\n Field: ' + code2task[attributeId] + '\n Value: ' + mainValue + '\n Job Number: ' + jobNumber + '\nYou can still edit it here: ' + editLink)
 		return 'success'
 
 	# get all the current country centres
@@ -750,9 +770,11 @@ def chaUpdateAPI(objectId, attributeId):
 	if request.method == 'POST':
 		chaDetails = request.form['chaDetails']
 		db.child("main_db").child('execution').child(objectId).update({attributeId: chaDetails})
+		mainValue = chaDetails
 
 		editLink = currentDomain + '/updateAPI/cha/' + objectId + '/' + attributeId
-		sendReportMail(standardEmailHeader, standardEmailContent + 'There was a recent write to your Execution DB by ' + session['user'] + ' : ' + code2task[attributeId] + '.\nYou can still edit it here: ' + editLink)
+		jobNumber = db.child("main_db").child("execution").child(objectId).child('jobno1').get().val()
+		sendReportMail(standardEmailHeader, standardEmailContent + 'There was a recent write to your Execution DB by ' + session['user'] + '.\n Field: ' + code2task[attributeId] + '\n Value: ' + mainValue + '\n Job Number: ' + jobNumber + '\nYou can still edit it here: ' + editLink)
 		return 'success'
 
 	# get all the current country centres
@@ -778,9 +800,11 @@ def invoiceUpdateAPI(objectId, attributeId):
 	if request.method == 'POST':
 		invoiceDetails = request.form['invoiceDetails']
 		db.child("main_db").child('execution').child(objectId).update({attributeId: invoiceDetails})
+		mainValue = invoiceDetails
 
 		editLink = currentDomain + '/updateAPI/invoice/' + objectId + '/' + attributeId
-		sendReportMail(standardEmailHeader, standardEmailContent + 'There was a recent write to your Execution DB by ' + session['user'] + ' : ' + code2task[attributeId] + '.\nYou can still edit it here: ' + editLink)
+		jobNumber = db.child("main_db").child("execution").child(objectId).child('jobno1').get().val()
+		sendReportMail(standardEmailHeader, standardEmailContent + 'There was a recent write to your Execution DB by ' + session['user'] + '.\n Field: ' + code2task[attributeId] + '\n Value: ' + mainValue + '\n Job Number: ' + jobNumber + '\nYou can still edit it here: ' + editLink)
 		return 'success'
 
 	return render_template('invoicePage.html', objectId=objectId, attributeId=attributeId)
@@ -793,13 +817,15 @@ def dateUpdateAPI(objectId, attributeId):
 	if request.method == 'POST':
 		dateDetails = request.form['dateDetails']
 		db.child("main_db").child('execution').child(objectId).update({attributeId: dateDetails})
+		mainValue = dateDetails
 		if attributeId == 'delToClient':
 			db.child("main_db").child('execution').child(objectId).update({attributeId: dateDetails})
 			db.child("main_db").child('execution').child(objectId).update({'jobCloseDate': dateDetails})
 			db.child("main_db").child('execution').child(objectId).update({'jobComplete': 'yes'})
 
 		editLink = currentDomain + '/updateAPI/date/' + objectId + '/' + attributeId
-		sendReportMail(standardEmailHeader, standardEmailContent + 'There was a recent write to your Execution DB by ' + session['user'] + ' : ' + code2task[attributeId] + '.\nYou can still edit it here: ' + editLink)
+		jobNumber = db.child("main_db").child("execution").child(objectId).child('jobno1').get().val()
+		sendReportMail(standardEmailHeader, standardEmailContent + 'There was a recent write to your Execution DB by ' + session['user'] + '.\n Field: ' + code2task[attributeId] + '\n Value: /' + mainValue + '/\n Job Number: ' + jobNumber + '\nYou can still edit it here: ' + editLink)
 		return 'success'
 
 	return render_template('datePage.html', objectId=objectId, attributeId=attributeId)

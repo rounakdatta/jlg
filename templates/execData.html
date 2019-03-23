@@ -336,8 +336,8 @@ tbody {
 
 						 {% if permissions[2] == 'yes' %}
 
-								 <td class="xyz btn btn-violet btn-block openable-cell" data-href='/updateAPI/cha/{{myKeys[loop.index0]}}/chaJobNo'>🖋 CHA Job No</td>
 								 {% if client['chaJobNo'] == "" %}
+								 <td class="xyz btn btn-violet btn-block openable-cell" data-href='/updateAPI/cha/{{myKeys[loop.index0]}}/chaJobNo'>🖋 CHA Job No</td>
 								 {% else %}
 									 <td style="text-align:center;">{{client['chaJobNo']}}</td>
 								 {% endif %}
