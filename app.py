@@ -46,7 +46,7 @@ def register():
 		print('Go on!')
 
 	# now register the person
-	if request.method == 'POST': # and request.form['secretCode'].lower() == 'asslpl2018':
+	if request.method == 'POST' and request.form['secretCode'].lower() == 'asslpl2018':
 		data = {'email': request.form['email'], 'username': request.form['username'], 'password': request.form['password'], 'admin': 'no'}
 		db.child("main_db").child("accounts").push(data)
 		return redirect(url_for('index', note='Account creation successful!'))
@@ -818,8 +818,7 @@ def dateUpdateAPI(objectId, attributeId):
 		dateDetails = request.form['dateDetails']
 		db.child("main_db").child('execution').child(objectId).update({attributeId: dateDetails})
 		mainValue = dateDetails
-		if attributeId == 'delToClient':
-			db.child("main_db").child('execution').child(objectId).update({attributeId: dateDetails})
+		if attributeId == 'invoiceDate':
 			db.child("main_db").child('execution').child(objectId).update({'jobCloseDate': dateDetails})
 			db.child("main_db").child('execution').child(objectId).update({'jobComplete': 'yes'})
 

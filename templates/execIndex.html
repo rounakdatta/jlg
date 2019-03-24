@@ -108,13 +108,14 @@
 
 			<th data-field="delToClient" data-filter-control="input" data-sortable="true">Delivery to client on</th>
 
-			<th data-field="jobComplete" data-filter-control="input" data-sortable="true">Job Complete</th>
-
-			<th data-field="jobCloseDate" data-filter-control="input" data-sortable="true">Job Close Date</th>
-
 			<th data-field="invoiceNo" data-filter-control="input" data-sortable="true">Client Invoice No</th>
 
 			<th data-field="invoiceDate" data-filter-control="input" data-sortable="true">Client Invoice Date</th>
+
+			<th data-field="jobCloseDate" data-filter-control="input" data-sortable="true">Job Close Date</th>
+
+			<th data-field="jobComplete" data-filter-control="input" data-sortable="true">Job Complete</th>
+
 		</tr>
 	</thead>
 		<tbody>
@@ -143,10 +144,10 @@
 		   <td style="text-align:center;" class="j8">{{client['customDutyAmount']}}</td>
 		   <td style="text-align:center;" class="j8">{{client['delFromCFS']}}</td>
 		   <td style="text-align:center;" class="j8">{{client['delToClient']}}</td>
+		   <td style="text-align:center;" class="j8">{{client['invoiceNo']}}</td>
+			 <td style="text-align:center;" class="j8">{{client['invoiceDate']}}</td>
 		   <td style="text-align:center;" class="j8">{{client['jobCloseDate']}}</td>
 		   <td style="text-align:center;" class="j8">{{client['jobComplete']}}</td>
-		   <td style="text-align:center;" class="j8">{{client['invoiceNo']}}</td>
-		   <td style="text-align:center;" class="j8">{{client['invoiceDate']}}</td>
 		</tr>
 		{% endfor %}
 		</tbody>

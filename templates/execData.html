@@ -226,13 +226,13 @@ tbody {
 		
 					<th data-field="delToClient" data-filter-control="input" data-sortable="true">Delivery to client on</th>
 		
-					<th data-field="jobCloseDate" data-filter-control="input" data-sortable="true">Job Close Date</th>
-
-					<th data-field="jobComplete" data-filter-control="input" data-sortable="true">Job Complete</th>
-		
 					<th data-field="invoiceNo" data-filter-control="input" data-sortable="true">Client Invoice No</th>
 		
 					<th data-field="invoiceDate" data-filter-control="input" data-sortable="true">Client Invoice Date</th>
+
+					<th data-field="jobCloseDate" data-filter-control="input" data-sortable="true">Job Close Date</th>
+
+					<th data-field="jobComplete" data-filter-control="input" data-sortable="true">Job Complete</th>
 
 		</tr>
 	</thead>
@@ -264,10 +264,31 @@ tbody {
 			 <td style="text-align:center;">{{client['bill']}}</td>
 			 <td style="text-align:center;">{{client['customDutyAmount']}}</td>
 			 <td style="text-align:center;">{{client['delFromCFS']}}</td>
-			 <td style="text-align:center;">{{client['jobCloseDate']}}</td>
-			 <td style="text-align:center;">{{client['jobComplete']}}</td>
 			 <td style="text-align:center;">{{client['invoiceNo']}}</td>
-			 <td style="text-align:center;">{{client['invoiceDate']}}</td>
+			<td style="text-align:center;">{{client['invoiceDate']}}</td>
+			<td style="text-align:center;">{{client['jobCloseDate']}}</td>
+			<td style="text-align:center;">{{client['jobComplete']}}</td>
+             
+             {% elif what == 'Closed' and admin == 'no' %}
+
+			 <td style="text-align:center;">{{client['sourceCountry']}}</td>
+			 <td style="text-align:center;">{{client['exportFromSource']}}</td>
+			 <td style="text-align:center;">{{client['transitCountry']}}</td>
+			 <td style="text-align:center;">{{client['importEstimateAtTransit']}}</td>
+			 <td style="text-align:center;">{{client['importAtTransit']}}</td>
+			 <td style="text-align:center;">{{client['exportFromTransit']}}</td>
+			 <td style="text-align:center;">{{client['importEstimateAtIndia']}}</td>
+			 <td style="text-align:center;">{{client['importAtIndia']}}</td>
+			 <td style="text-align:center;">{{client['chaJobNo']}}</td>
+			 <td style="text-align:center;">{{client['chaname']}}</td>
+			 <td style="text-align:center;">{{client['bill']}}</td>
+			 <td style="text-align:center;">{{client['customDutyAmount']}}</td>
+			 <td style="text-align:center;">{{client['delFromCFS']}}</td>
+			 <td style="text-align:center;">{{client['delToClient']}}</td>
+			 <td style="text-align:center;">{{client['invoiceNo']}}</td>
+				<td style="text-align:center;">{{client['invoiceDate']}}</td>
+				<td style="text-align:center;">{{client['jobCloseDate']}}</td>
+				<td style="text-align:center;">{{client['jobComplete']}}</td>
 
 			 {% else %}
 			 
@@ -390,10 +411,6 @@ tbody {
 
 							{% endif %}
 
-						 <td style="text-align:center;">{{client['jobCloseDate']}}</td>
-
-						 <td style="text-align:center;">{{client['jobComplete']}}</td>
-
 
 						 {% if permissions[4] == 'yes' %}
 
@@ -415,6 +432,10 @@ tbody {
 									 <td style="text-align:center;">{{client['invoiceDate']}}</td>
 
 						 {% endif %}
+
+						 	<td style="text-align:center;">{{client['jobCloseDate']}}</td>
+
+						 <td style="text-align:center;">{{client['jobComplete']}}</td>
 
 			{% endif %}
 
