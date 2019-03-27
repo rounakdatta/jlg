@@ -28,10 +28,11 @@
 	<form action="/login" method="POST">
 		<input type="text" id="username" name="username" placeholder="Username" required>
 		<input type="password" id="password" name="password" placeholder="Password" required>
+		<br><br>
 		<button type="submit" id="loginButton" name="loginButton" class="btn btn-primary">Login</button>
 	</form>
 
-	<br><a href="/register"><button type="button" class="btn btn-primary active">New User Registration</button></a>
+	<br><a href="/register"><button type="button" class="btn btn-success active">New User Registration</button></a>
 
 	{% else %}
 	Welcome {{user}}
@@ -45,7 +46,7 @@
 
 	<br><br>
 	<form action="/logout" method="POST">
-	<button type="submit" id="logoutButton" name="logoutButton" class="btn btn-primary">Log Out</button>
+	<button type="submit" id="logoutButton" name="logoutButton" class="btn btn-danger">Log Out</button>
 	</form>
 	{% endif %}
 

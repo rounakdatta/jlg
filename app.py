@@ -128,7 +128,7 @@ def deleteUser(userId):
 		return "no!"
 
 	db.child("main_db").child('accounts').child(userId).remove()
-	return redirect('/')
+	return redirect('/manageUsers')
 
 
 # admin API to revoke permissions
@@ -138,7 +138,7 @@ def revokeAccess(userId, job):
 		return "no!"
 
 	db.child("main_db").child('accounts').child(userId).update({job: 'no'})
-	return redirect('/')
+	return redirect('/manageUsers')
 
 
 # admin API for updating access level permissions
@@ -155,7 +155,7 @@ def adminAPI(userId, job):
 		db.child("main_db").child('accounts').child(userId).update({'destination': 'yes'})
 		db.child("main_db").child('accounts').child(userId).update({'bill': 'yes'})
 
-	return redirect('/')
+	return redirect('/manageUsers')
 
 
 # managing users permission level (index)
@@ -176,7 +176,7 @@ def manageUsers():
 	except:
 		print('Accounts DB empty!')
 
-	return render_template('manageUsers.html', allUsers=all_users, myKeys=all_keys)
+	return render_template('manageUsers.html', allUsers=all_users, myKeys=all_keys, userx=session['user'])
 
 
 # home page
@@ -205,6 +205,9 @@ def index():
 # job number database
 @app.route('/jobnodb', methods=['GET', 'POST'])
 def jobno():
+
+	if session['user'] == '':
+		return 'Login please'
 
 	if not session['guest'] and session['userPermissions'][0] == 'yes':
 		hereAdmin = 'yes'
@@ -280,7 +283,7 @@ def newjob():
 
 		return redirect('/')
 
-	return render_template('newJob.html', allClients=all_job_clients, allCountries=all_country, allVendors=all_vendor)
+	return render_template('newJob.html', allClients=all_job_clients, allCountries=all_country, allVendors=all_vendor, userx=session['user'])
 
 
 # admin API to delete a profitDB entry
@@ -328,6 +331,9 @@ def jobprofitdb():
 @app.route('/jobbelongdb', methods=['GET', 'POST'])
 def jobbelongdb():
 
+	if session['user'] == '':
+		return 'Login please'
+
 	if session['admin'] == 'yes':
 		hereAdmin = 'yes'
 	else:
@@ -354,12 +360,15 @@ def jobbelongdb():
 			pass
 		return redirect('/')
 
-	return render_template('jobbelong.html', hereAdmin=hereAdmin, allJobs=all_job_belong)
+	return render_template('jobbelong.html', hereAdmin=hereAdmin, allJobs=all_job_belong, userx=session['user'])
 
 
 # vendor database
 @app.route('/vendordb', methods=['GET', 'POST'])
 def vendordb():
+
+	if session['user'] == '':
+		return 'Login please'
 
 	if session['admin'] == 'yes':
 		hereAdmin = 'yes'
@@ -387,11 +396,14 @@ def vendordb():
 			pass
 		return redirect('/')
 
-	return render_template('vendordb.html', hereAdmin=hereAdmin, allJobs=all_vendor_collected)
+	return render_template('vendordb.html', hereAdmin=hereAdmin, allJobs=all_vendor_collected, userx=session['user'])
 
 # country database
 @app.route('/countrydb', methods=['GET', 'POST'])
 def countrydb():
+
+	if session['user'] == '':
+		return 'Login please'
 
 	if session['admin'] == 'yes':
 		hereAdmin = 'yes'
@@ -419,7 +431,7 @@ def countrydb():
 			pass
 		return redirect('/')
 
-	return render_template('countrydb.html', hereAdmin=hereAdmin, allJobs=all_country_collected)
+	return render_template('countrydb.html', hereAdmin=hereAdmin, allJobs=all_country_collected, userx=session['user'])
 
 # job owner database
 @app.route('/jobownerdb', methods=['GET', 'POST'])
@@ -463,6 +475,9 @@ def jobownerdb():
 # client database view
 @app.route('/clientview', methods=['GET', 'POST'])
 def clientView():
+
+	if session['user'] == '':
+		return 'Login please'
 
 	# get all the current client entries
 	all_jc = db.child("main_db").child('all_clients').get()
@@ -525,12 +540,15 @@ def clientdb():
 		print(e)
 		print("Empty Client Database")
 
-	return render_template('client.html', allClients=all_job_clients, jobBelongs=all_job_belong)
+	return render_template('client.html', allClients=all_job_clients, jobBelongs=all_job_belong, userx=session['user'])
 
 
 # index page for exec
 @app.route('/exec', methods=['GET', 'POST'])
 def execIndex():
+
+	if session['user'] == '':
+		return 'Login please'
 
 	if session['admin'] == 'yes':
 		aright = "yes"
@@ -834,6 +852,9 @@ def dateUpdateAPI(objectId, attributeId):
 @app.route('/exec/open', methods=['GET', 'POST'])
 def execFilterOpen():
 
+	if session['user'] == '':
+		return 'Login please'
+
 	if session['admin'] == 'yes':
 		aright = "yes"
 	else:
@@ -865,6 +886,9 @@ def execFilterOpen():
 # closed jobs page for exec
 @app.route('/exec/closed', methods=['GET', 'POST'])
 def execFilterClosed():
+
+	if session['user'] == '':
+		return 'Login please'
 
 	if session['admin'] == 'yes':
 		aright = "yes"

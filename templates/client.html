@@ -14,6 +14,8 @@
 				  </div>
 				  <ul class="nav navbar-nav">
 					<li><a>→</a></li>
+      				<li><a href="/clientview">Client Database</a></li>
+      				<li><a>→</a></li>
 					<li class="active"><a>New Client</a></li>
 				  </ul>
 				  <ul class="nav navbar-nav navbar-right">
@@ -28,7 +30,7 @@
 				</div>
 			  </nav> 
 			  
-			  <br><br><br>
+			  <br><br><br><br>
 
 	<div class="container">
 
@@ -36,46 +38,102 @@
 			<center>
 
 					<form action="/clientdb" method="POST">
-						<label for="clientName">Client Name :</label>
-						<input id="clientName" name="clientName" type="text">
+
+						<div class="row">
+							<div class="col-sm-6">
+								<label for="clientName">Client Name :</label>
+							</div>
+							<div class="col-sm-6">
+								<input id="clientName" name="clientName" type="text" class="form-control" required="true">
+							</div>
+						</div>
 						<br>
 				
-						<label for="jobBelong">Job Owner :</label>
+						<div class="row">
+							<div class="col-sm-6">
+								<label for="jobBelong">Job Owner :</label>
+							</div>
 						
-						<select id="jobBelong" name="jobBelong">
-							<option disabled selected value> -- select an option -- </option>
-							{% for job in jobBelongs %}
-							  <option value="{{job['compName']}}">{{job['compName']}}</option>
-							  {% endfor %}
-						  </select>
+							<div class="col-sm-6">
+								<select id="jobBelong" name="jobBelong" class="form-control" required="true">
+									<option disabled selected value> -- select an option -- </option>
+									{% for job in jobBelongs %}
+									  <option value="{{job['compName']}}">{{job['compName']}}</option>
+									  {% endfor %}
+								</select>
+							</div>
+						</div>
 				
 						  <br>
 				
-						  <label for="clientAddress1">Client Address 1 :</label>
-						  <input type="text" id="clientAddress1" name="clientAddress1">
-						  <br>
+
+						<div class="row">
+							<div class="col-sm-6">
+					  			<label for="clientAddress1">Client Address 1 :</label>
+					  		</div>
+
+					  		<div class="col-sm-6">
+					  			<input type="text" id="clientAddress1" name="clientAddress1" class="form-control" required="true">
+					  		</div>
+					  	</div>
+					  	<br>
+			
+						<div class="row">
+							<div class="col-sm-6">
+					  			<label for="clientAddress2">Client Address 2 :</label>
+					  		</div>
+
+					  		<div class="col-sm-6">
+					  			<input type="text" id="clientAddress2" name="clientAddress2" class="form-control">
+					  		</div>
+					  	</div>
+					  	<br>
+			
+						<div class="row">
+							<div class="col-sm-6">
+					  			<label for="clientAddress3">Client Address 3 :</label>
+					  		</div>
+
+					  		<div class="col-sm-6">
+					  			<input type="text" id="clientAddress3" name="clientAddress3" class="form-control">
+					  		</div>
+					  	</div>
+					  	<br>
+			
+						<div class="row">
+							<div class="col-sm-6">
+					  			<label for="gstin">GSTIN :</label>
+					  		</div>
+
+					  		<div class="col-sm-6">
+					  			<input type="text" id="gstin" name="gstin" class="form-control" required="true">
+					  		</div>
+					  	</div>
+					  	<br>
+			
+						<div class="row">
+							<div class="col-sm-6">
+					  			<label for="mobile">Mobile Number :</label>
+					  		</div>
+
+					  		<div class="col-sm-6">
+					  			<input type="text" id="mobile" name="mobile" class="form-control">
+					  		</div>
+					  	</div>
+					  	<br>
+					  
+						<div class="row">
+							<div class="col-sm-6">
+					  			<label for="email">Email address :</label>
+					  		</div>
+
+					  		<div class="col-sm-6">
+					  			<input type="text" id="email" name="email" class="form-control">
+					  		</div>
+					  	</div>
+					  	<br>
 				
-						  <label for="clientAddress2">Client Address 2 :</label>
-						  <input type="text" id="clientAddress2" name="clientAddress2">
-						  <br>
-				
-						  <label for="clientAddress3">Client Address 3 :</label>
-						  <input type="text" id="clientAddress2" name="clientAddress3">
-						  <br>
-				
-						  <label for="gstin">GSTIN :</label>
-						  <input type="text" id="gstin" name="gstin">
-						  <br>
-				
-						  <label for="mobile">Mobile No :</label>
-						  <input type="text" id="mobile" name="mobile">
-						  <br>
-						  
-						  <label for="email">Email ID :</label>
-						  <input type="email" id="email" name="email">
-						  <br>
-				
-						<button type="submit">Submit</button>
+						<button class="btn btn-default" type="submit">Submit</button>
 					</form>
 
 				</center>

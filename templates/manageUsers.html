@@ -2,76 +2,108 @@
 <html>
 <head>
   <title>ASSLPL | Manage Users</title>
-  <link rel='stylesheet' href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'><link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.0/bootstrap-table.min.css'><link rel='stylesheet' href='//rawgit.com/vitalets/x-editable/master/dist/bootstrap3-editable/css/bootstrap-editable.css'>
+    <link rel='stylesheet' href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'><link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.0/bootstrap-table.min.css'><link rel='stylesheet' href='//rawgit.com/vitalets/x-editable/master/dist/bootstrap3-editable/css/bootstrap-editable.css'>
 </head>
 <body>
 
-	<h1>Manage Users</h1>
-	<a href="/">BACK</a>
-	<br><br>
+        <nav class="navbar navbar-default navbar-fixed-top">
+                <div class="container-fluid">
+                  <div class="navbar-header">
+                    <a class="navbar-brand" href="/">ASSLPL Operations</a>
+                  </div>
+                  <ul class="nav navbar-nav">
+                    <li><a>→</a></li>
+                    <li class="active"><a>Manage Users | Admin Panel</a></li>
+                  </ul>
+                  <ul class="nav navbar-nav navbar-right">
+                      <li><a>
+                      {% if userx == '' %}
+                      Not Logged In
+                      {% else %}
+                      {{userx}}
+                      {% endif %}
+                  </a></li>
+                  </ul>
+                </div>
+              </nav> 
+              
+              <br><br><br><br><br>
 
-<table border="1">
-  <tr>
-    <th>Username</th>
-    <th>Email</th>
-    <th>Admin Access</th>
-    <th>Job Create</th>
-    <th>Overseas Update</th>
-    <th>Import Clearance</th>
-    <th>Destination Delivery</th>
-    <th>Bill Details</th>
-    <th>DELETE</th>
-  </tr>
+<div class="container-fluid">
+        
+        <table class="table table-striped">
+          <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Admin Access</th>
+            <th>Job Create</th>
+            <th>Overseas Update</th>
+            <th>Import Clearance</th>
+            <th>Destination Delivery</th>
+            <th>Bill Details</th>
+            <th>DELETE</th>
+          </tr>
+        
+          {% for user in allUsers %}
+          <tr>
+            <td>{{user['username']}}</td>
+            <td>{{user['email']}}</td>
+        
+            {% if user['admin'] == 'yes' %}
+            <td>✔ <a href="/adminAPI/cancel/{{myKeys[loop.index0]}}/admin">Revoke</a></td>
+            {% else %}
+            <td><a href="/adminAPI/{{myKeys[loop.index0]}}/admin">Grant</a></td>
+            {% endif %}
+        
+            {% if user['job'] == 'yes' %}
+            <td>✔ <a href="/adminAPI/cancel/{{myKeys[loop.index0]}}/job">Revoke</a></td>
+            {% else %}
+            <td><a href="/adminAPI/{{myKeys[loop.index0]}}/job">Grant</a></td>
+            {% endif %}
+        
+            {% if user['overseas'] == 'yes' %}
+            <td>✔ <a href="/adminAPI/cancel/{{myKeys[loop.index0]}}/overseas">Revoke</a></td>
+            {% else %}
+            <td><a href="/adminAPI/{{myKeys[loop.index0]}}/overseas">Grant</a></td>
+            {% endif %}
+        
+            {% if user['import'] == 'yes' %}
+            <td>✔ <a href="/adminAPI/cancel/{{myKeys[loop.index0]}}/import">Revoke</a></td>
+            {% else %}
+            <td><a href="/adminAPI/{{myKeys[loop.index0]}}/import">Grant</a></td>
+            {% endif %}
+        
+            {% if user['destination'] == 'yes' %}
+            <td>✔ <a href="/adminAPI/cancel/{{myKeys[loop.index0]}}/destination">Revoke</a></td>
+            {% else %}
+            <td><a href="/adminAPI/{{myKeys[loop.index0]}}/destination">Grant</a></td>
+            {% endif %}
+        
+            {% if user['bill'] == 'yes' %}
+            <td>✔ <a href="/adminAPI/cancel/{{myKeys[loop.index0]}}/bill">Revoke</a></td>
+            {% else %}
+            <td><a href="/adminAPI/{{myKeys[loop.index0]}}/bill">Grant</a></td>
+            {% endif %}
+        
+            <td><a href="/adminAPI/delete/{{myKeys[loop.index0]}}">✖</a></td>
+        
+          </tr>
+          {% endfor %}
+        
+        </table>
 
-  {% for user in allUsers %}
-  <tr>
-    <td>{{user['username']}}</td>
-    <td>{{user['email']}}</td>
+</div>
 
-    {% if user['admin'] == 'yes' %}
-    <td>✔ <a href="/adminAPI/cancel/{{myKeys[loop.index0]}}/admin">Revoke</a></td>
-    {% else %}
-    <td><a href="/adminAPI/{{myKeys[loop.index0]}}/admin">Grant</a></td>
-    {% endif %}
+<center>
 
-    {% if user['job'] == 'yes' %}
-    <td>✔ <a href="/adminAPI/cancel/{{myKeys[loop.index0]}}/job">Revoke</a></td>
-    {% else %}
-    <td><a href="/adminAPI/{{myKeys[loop.index0]}}/job">Grant</a></td>
-    {% endif %}
+    <h4>REMEMBER : User permissions get updated only when they re-login.</h4>
+    <br>
 
-    {% if user['overseas'] == 'yes' %}
-    <td>✔ <a href="/adminAPI/cancel/{{myKeys[loop.index0]}}/overseas">Revoke</a></td>
-    {% else %}
-    <td><a href="/adminAPI/{{myKeys[loop.index0]}}/overseas">Grant</a></td>
-    {% endif %}
+    <input type="password" id="secretCode" value="asslpl2018"/>
+<button class="btn btn-default" onclick="if (secretCode.type == 'text') secretCode.type = 'password';
+  else secretCode.type = 'text';">Show/Hide Code</button>
 
-    {% if user['import'] == 'yes' %}
-    <td>✔ <a href="/adminAPI/cancel/{{myKeys[loop.index0]}}/import">Revoke</a></td>
-    {% else %}
-    <td><a href="/adminAPI/{{myKeys[loop.index0]}}/import">Grant</a></td>
-    {% endif %}
-
-    {% if user['destination'] == 'yes' %}
-    <td>✔ <a href="/adminAPI/cancel/{{myKeys[loop.index0]}}/destination">Revoke</a></td>
-    {% else %}
-    <td><a href="/adminAPI/{{myKeys[loop.index0]}}/destination">Grant</a></td>
-    {% endif %}
-
-    {% if user['bill'] == 'yes' %}
-    <td>✔ <a href="/adminAPI/cancel/{{myKeys[loop.index0]}}/bill">Revoke</a></td>
-    {% else %}
-    <td><a href="/adminAPI/{{myKeys[loop.index0]}}/bill">Grant</a></td>
-    {% endif %}
-
-    <td><a href="/adminAPI/delete/{{myKeys[loop.index0]}}">✖</a></td>
-
-  </tr>
-  {% endfor %}
-
-</table>
-
-<center><h4>REMEMBER : User permissions get updated only when they re-login.</h4></center>
+</center>
 
 </body>
 </html>

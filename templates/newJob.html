@@ -3,94 +3,153 @@
 <head>
 	<title>ASSLPL | Job Number Database</title>
 
-<link rel='stylesheet' href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'><link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.0/bootstrap-table.min.css'><link rel='stylesheet' href='//rawgit.com/vitalets/x-editable/master/dist/bootstrap3-editable/css/bootstrap-editable.css'>
-<style class="cp-pen-styles"></style>
-<link rel="stylesheet" href="https://fengyuanchen.github.io/datepicker/css/datepicker.css">
+	<link rel='stylesheet' href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'><link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.0/bootstrap-table.min.css'><link rel='stylesheet' href='//rawgit.com/vitalets/x-editable/master/dist/bootstrap3-editable/css/bootstrap-editable.css'>
 
 </head>
 <body>
 
-	<h1>ASSLPL | New Job Entry</h1>
+		<nav class="navbar navbar-default navbar-fixed-top">
+				<div class="container-fluid">
+				  <div class="navbar-header">
+					<a class="navbar-brand" href="/">ASSLPL Operations</a>
+				  </div>
+				  <ul class="nav navbar-nav">
+					<li><a>→</a></li>
+      				<li><a href="/jobnodb">Job Number</a></li>
+      				<li><a>→</a></li>
+					<li class="active"><a>New Job Entry</a></li>
+				  </ul>
+				  <ul class="nav navbar-nav navbar-right">
+					  <li><a>
+					  {% if userx == '' %}
+					  Not Logged In
+					  {% else %}
+					  {{userx}}
+					  {% endif %}
+				  </a></li>
+				  </ul>
+				</div>
+			  </nav> 
+			  
+			  <br><br><br><br>
 
 
-	<form action="/jobnodb/new" method="POST">
+	<div class="container">
 
-		<label for="jobType">Job Type :</label>
-		<select id="jobType" name="jobType">
-			<option disabled selected value> -- select an option -- </option>
-			<option value="Import">Import</option>
-			<option value="Export">Export</option>
-			<option value="Re-Import">Re-Import</option>
-			<option value="Re-Export">Re-Export</option>
-		</select>
+		<div class="well">
+			<center>
 
-		<br>
 
-		<label for="jobno1">Job No :</label>
-		<input id="jobno1" name="jobno1" type="text">
-		<br>
 
-		<label for="jobopen">Job Open Date :</label>
-		<input type="date" id="jobopenFake" name="jobopenFake" onkeypress="correctDate()">
-		<br>
+						<form action="/jobnodb/new" method="POST">
+					
 
-		<input id="jobopen" name="jobopen" style="display: none">
+						<div class="row">
+							<div class="col-sm-6">
+								<label for="jobType">Job Type :</label>
+							</div>
 
-		<label for="clientname">Client Name :</label>
-		<select id="clientname" name="clientname">
-			<option disabled selected value> -- select an option -- </option>
-			{% for client in allClients %}
-  			<option value="{{client['clientName']}}">{{client['clientname']}}</option>
-  			{% endfor %}
-  		</select>
-		<br>
-		<input id="clientxname" name="clientxname">
+							<div class="col-sm-6">
+								<select id="jobType" name="jobType" class="form-control" required="true">
+									<option disabled selected value> -- select an option -- </option>
+									<option value="Import">Import</option>
+									<option value="Export">Export</option>
+									<option value="Re-Import">Re-Import</option>
+									<option value="Re-Export">Re-Export</option>
+								</select>
+							</div>
+						</div>
+					
+							<br>
+					
+						<div class="row">
+							<div class="col-sm-6">
+								<label for="jobno1">Job No :</label>
+							</div>
 
-		<input id="clientOf" name="clientOf">
+							<div class="col-sm-6">
+								<input id="jobno1" name="jobno1" type="text" class="form-control" required="true">
+							</div>
+						</div>
 
-			<!-- <label for="sourceCountry">Source Country :</label>
-		
-			<select id="sourceCountry" name="sourceCountry">
-				<option disabled selected value> -- select an option -- </option>
-				{% for job in allCountries %}
-					<option value="{{job}}">{{job}}</option>
-					{% endfor %}
-				</select>
-	
-				<br>
-	
-				<label for="transitCountry">Transit Country :</label>
-			
-				<select id="transitCountry" name="transitCountry">
-					<option disabled selected value> -- select an option -- </option>
-					{% for job in allCountries %}
-					<option value="{{job}}">{{job}}</option>
-					{% endfor %}
-				</select>
-		
-				<br>
-	
-				<label for="chaname">CHA Name :</label>
-			
-				<select id="chaname" name="chaname">
-					<option disabled selected value> -- select an option -- </option>
-					{% for job in allVendors %}
-						<option value="{{job['vendorName']}}">{{job['vendorName']}}</option>
-						{% endfor %}
-					</select> -->
-		
-					<br>
+							<br>
 
-		<label for="commodity">Commodity :</label>
-		<input id="commodity" name="commodity" type="text">
-		<br>
+						<div class="row">
+							<div class="col-sm-6">					
+								<label for="jobopen">Job Open Date :</label>
+							</div>
 
-		<label for="packageq">Package Quantity :</label>
-		<input id="packageq" name="packageq" type="text">
-		<br>
+							<div class="col-sm-6">	
+								<input type="date" id="jobopenFake" name="jobopenFake" onchange="correctDate()" class="form-control" required="true">
+							</div>
+						</div>
 
-		<button type="submit">Submit</button>
-	</form>
+							<br>
+					
+							<input id="jobopen" name="jobopen" style="display: none" class="form-control">
+					
+						<div class="row">
+							<div class="col-sm-6">	
+								<label for="clientname">Client Name :</label>
+							</div>
+
+							<div class="col-sm-6">	
+								<select id="clientname" name="clientname" class="form-control" required="true">
+									<option disabled selected value> -- select an option -- </option>
+									{% for client in allClients %}
+					  				<option value="{{client['clientName']}}">{{client['clientname']}}</option>
+					  				{% endfor %}
+					  			</select>
+					  		</div>
+					  	</div>
+
+							<br>
+
+						<div class="row">
+							<div class="col-sm-6">
+							</div>
+
+							<div class="col-sm-6">
+								<input id="clientxname" name="clientxname" class="btn btn-default">
+								of
+								<input id="clientOf" name="clientOf" class="btn btn-default">
+
+							</div>
+						</div>
+							
+										<br>
+					
+						<div class="row">
+							<div class="col-sm-6">
+								<label for="commodity">Commodity :</label>
+							</div>
+
+							<div class="col-sm-6">
+								<input id="commodity" name="commodity" type="text" class="form-control" required="true">
+							</div>
+						</div>
+
+						<br>
+
+					
+						<div class="row">
+							<div class="col-sm-6">
+								<label for="packageq">Package Quantity :</label>
+							</div>
+
+							<div class="col-sm-6">
+								<input id="packageq" name="packageq" type="text" class="form-control" required="true">
+							</div>
+						</div>
+
+						<br>
+					
+							<button class="btn btn-default" type="submit">Submit</button>
+						</form>
+
+				</center>
+		</div>
+	</div>
 
 
 <script src='//static.codepen.io/assets/common/stopExecutionOnTimeout-41c52890748cd7143004e05d3c5f786c66b19939c4500ce446314d1748483e13.js'></script><script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script><script src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'></script><script src='//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.0/bootstrap-table.js'></script><script src='//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.9.1/extensions/editable/bootstrap-table-editable.js'></script><script src='//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.9.1/extensions/export/bootstrap-table-export.js'></script><script src='//rawgit.com/hhurz/tableExport.jquery.plugin/master/tableExport.js'></script><script src='//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.9.1/extensions/filter-control/bootstrap-table-filter-control.js'></script>
