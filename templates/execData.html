@@ -242,8 +242,16 @@ tbody {
 		   <td class="bs-checkbox "><input data-index="{{loop.index0 + 1}}" name="btSelectItem" type="checkbox"></td>
 		   <td style="text-align:center;" class="serialNumber">{{loop.index0 + 1}}</td>
 		   <td style="text-align:center;" class="j1">{{client['jobType']}}</td>
-		   <td style="text-align:center;" class="j2">{{client['jobno1']}}</td>
-		   <td style="text-align:center;" class="j3">{{client['jobopen']}}</td>
+			 <td style="text-align:center;" class="j2">{{client['jobno1']}}</td>
+			 
+			 {% if admin == 'yes' %}
+			 <td class="xyz btn btn-primary btn-block openable-cell" data-href='/updateAPI/date/{{myKeys[loop.index0]}}/exportFromSource'>✅ Done</td>
+			 {% elif what == 'Open' and permissions[0] == 'yes' %}
+			 <td class="xyz btn btn-primary btn-block openable-cell" data-href='/updateAPI/date/{{myKeys[loop.index0]}}/exportFromSource'>✅ Done</td>
+			 {% else %}
+			 <td style="text-align:center;" class="j3">{{client['jobopen']}}</td>
+			 {% endif %}
+
 			 <td style="text-align:center;" class="j4">{{client['clientname']}}</td>
 			 <td style="text-align:center;" class="j4">{{client['clientOf']}}</td>
 		   <td style="text-align:center;" class="j5">{{client['commodity']}}</td>
