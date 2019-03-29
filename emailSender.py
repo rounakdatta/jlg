@@ -7,7 +7,7 @@ def sendReportMail(title, content):
     username = 'asslpl@yandex.com'
     password = 'tempPassword'
     sender = 'asslpl@yandex.com'
-    targets = ['rounakdatta12@gmail.com',]
+    targets = ['rounakdatta12@gmail.com', 'gautam@asslpl.com']
 
     msg = MIMEText(content)
     msg['Subject'] = title
