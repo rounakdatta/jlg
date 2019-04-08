@@ -244,10 +244,12 @@ tbody {
 		   <td style="text-align:center;" class="j1">{{client['jobType']}}</td>
 			 <td style="text-align:center;" class="j2">{{client['jobno1']}}</td>
 			 
-			 {% if admin == 'yes' %}
-			 <td class="xyz btn btn-primary btn-block openable-cell" data-href='/updateAPI/date/{{myKeys[loop.index0]}}/exportFromSource'>✅ Done</td>
+       {% if client['jobopen'] != "" %}
+        <td style="text-align:center;" class="j3">{{client['jobopen']}}</td>
+			 {% elif admin == 'yes' %}
+			 <td class="xyz btn btn-primary btn-block openable-cell" data-href='/updateAPI/date/{{myKeys[loop.index0]}}/jobopen'>✅ Done</td>
 			 {% elif what == 'Open' and permissions[0] == 'yes' %}
-			 <td class="xyz btn btn-primary btn-block openable-cell" data-href='/updateAPI/date/{{myKeys[loop.index0]}}/exportFromSource'>✅ Done</td>
+			 <td class="xyz btn btn-primary btn-block openable-cell" data-href='/updateAPI/date/{{myKeys[loop.index0]}}/jobopen'>✅ Done</td>
 			 {% else %}
 			 <td style="text-align:center;" class="j3">{{client['jobopen']}}</td>
 			 {% endif %}

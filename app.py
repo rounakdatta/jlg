@@ -25,7 +25,7 @@ currentDomain = 'https://aops--spotifyrounak.repl.co'
 standardEmailHeader = 'ASSLPL Operations Notifications for ' + str(datetime.date.today().strftime('%d-%m-%Y'))
 standardEmailContent = 'Summary of recent changes to ' + currentDomain + ':\n'
 
-code2task = {"delFromCFS": "Delivery From CFS", "delToClient": "Delivery to Client", "exportFromSource": "Export From SC", "exportFromTransit": "Export From TC", "importAtIndia": "", "importAtTransit": "Import At TC", "importEstimateAtIndia": "Import ETA At India", "importEstimateAtTransit": "Import ETA at TC", "invoiceDate": "Invoice Date", "invoiceNo": "Invoice Number", "sourceCountry": "Source Country", "transitCountry": "Transit Country", "bill": "Bill of Entry", "chaJobNo": "CHA Job No", "chaname": "CHA Name", "customDutyAmount": "Custom Duty Amount"}
+code2task = {"delFromCFS": "Delivery From CFS", "delToClient": "Delivery to Client", "exportFromSource": "Export From SC", "exportFromTransit": "Export From TC", "importAtIndia": "", "importAtTransit": "Import At TC", "importEstimateAtIndia": "Import ETA At India", "importEstimateAtTransit": "Import ETA at TC", "invoiceDate": "Invoice Date", "invoiceNo": "Invoice Number", "sourceCountry": "Source Country", "transitCountry": "Transit Country", "bill": "Bill of Entry", "chaJobNo": "CHA Job No", "chaname": "CHA Name", "customDutyAmount": "Custom Duty Amount", "jobopen": "Job Open Date"}
 
 # new UI
 @app.route('/newUI')
