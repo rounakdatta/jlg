@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from flask import Flask, render_template, request, send_file, flash, redirect, session, abort, url_for
 import pyrebase
 
@@ -5,22 +8,23 @@ import time
 from datetime import datetime
 import datetime
 from pytz import timezone
+import os
 
 from emailSender import sendReportMail
 
 app = Flask(__name__)
 
 config = {
-  "apiKey": "AIzaSyApPe5g7BlYVZshE00PXKGcI5ldzVjbj7g",
-  "authDomain": "aops-cf59e.firebaseapp.com",
-  "databaseURL": "https://aops-cf59e.firebaseio.com",
-  "storageBucket": "aops-cf59e.appspot.com",
+  "apiKey": os.environ.get('FB_API_KEY'),
+  "authDomain": os.environ.get('FB_AUTH_DOMAIN'),
+  "databaseURL": os.environ.get('FB_DB_URL'),
+  "storageBucket": os.environ.get('FB_BUCKET'),
 }
 
 firebase = pyrebase.initialize_app(config)
 db = firebase.database()
 
-currentDomain = 'https://aops--spotifyrounak.repl.co'
+currentDomain = os.environ.get('MY_DOMAIN')
 
 standardEmailHeader = 'ASSLPL Operations Notifications for ' + str(datetime.date.today().strftime('%d-%m-%Y'))
 standardEmailContent = 'Summary of recent changes to ' + currentDomain + ':\n'
@@ -998,7 +1002,7 @@ def page_not_found(e):
     return render_template('404.html'), 404
 
 
-app.secret_key = "asslpl-ops"
+app.secret_key = os.environ.get('SECRET')
 
 if __name__ == '__main__':
-	app.run(debug=True, threaded=True)
+	app.run()
