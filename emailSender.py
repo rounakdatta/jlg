@@ -1,13 +1,15 @@
+import os
+
 def sendReportMail(title, content):
     import smtplib
     from email.mime.text import MIMEText
 
     smtp_ssl_host = 'smtp.yandex.com'
     smtp_ssl_port = 465
-    username = 'asslpl@yandex.com'
-    password = 'tempPassword'
-    sender = 'asslpl@yandex.com'
-    targets = ['rounakdatta12@gmail.com', 'gautam@asslpl.com']
+    username = os.environ.get('Y_EMAIL')
+    password = os.environ.get('Y_PWD')
+    sender = os.environ.get('Y_EMAIL')
+    targets = [os.environ.get('RECP_1'), os.environ.get('RECP_2')]
 
     msg = MIMEText(content)
     msg['Subject'] = title
