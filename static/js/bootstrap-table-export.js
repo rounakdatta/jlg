@@ -76,7 +76,8 @@
                         doExport = function () {
                             that.$el.tableExport($.extend({}, that.options.exportOptions, {
                                 type: 'excel',
-                                escape: false
+                                escape: false,
+                                fileName: $(document).find("title").text()
                             }));
                         };
 

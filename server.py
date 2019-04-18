@@ -34,6 +34,7 @@ code2task = {"delFromCFS": "Delivery From CFS", "delToClient": "Delivery to Clie
 # new UI
 @app.route('/newUI')
 def newUI():
+	print("This is not official yet!")
 	return render_template('newIndex.html')
 
 
