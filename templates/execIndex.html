@@ -5,6 +5,21 @@
 	<link rel='stylesheet' href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'><link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.0/bootstrap-table.min.css'><link rel='stylesheet' href='//rawgit.com/vitalets/x-editable/master/dist/bootstrap3-editable/css/bootstrap-editable.css'>
 <style class="cp-pen-styles"></style>
 <link rel="stylesheet" href="https://fengyuanchen.github.io/datepicker/css/datepicker.css">
+
+<style type="text/css">
+	
+	.yay {
+		background-color: #3EA62A; 
+		border-color: #130269; 
+	}
+
+	.nay {
+		background-color: #D6283F; 
+  		border-color: #130269; 
+	}
+
+</style>
+
 </head>
 <body>
 
@@ -96,9 +111,9 @@
 
 			<th data-field="importAtIndia" data-filter-control="input" data-sortable="true">Import Date at India</th>
 
-			<th data-field="chaJobNo" data-filter-control="input" data-sortable="true">CHA Job No</th>
-
 			<th data-field="chaname" data-filter-control="input" data-sortable="true">CHA Name</th>
+
+			<th data-field="chaJobNo" data-filter-control="input" data-sortable="true">CHA Job No</th>
 
 			<th data-field="bill" data-filter-control="input" data-sortable="true">Bill Of Entry</th>
 
@@ -138,8 +153,8 @@
 		   <td style="text-align:center;" class="j6">{{client['exportFromTransit']}}</td>
 		   <td style="text-align:center;" class="j7">{{client['importEstimateAtIndia']}}</td>
 		   <td style="text-align:center;" class="j7">{{client['importAtIndia']}}</td>
-		   <td style="text-align:center;" class="j7">{{client['chaJobNo']}}</td>
 		   <td style="text-align:center;" class="j7">{{client['chaname']}}</td>
+		   <td style="text-align:center;" class="j7">{{client['chaJobNo']}}</td>
 		   <td style="text-align:center;" class="j8">{{client['bill']}}</td>
 		   <td style="text-align:center;" class="j8">{{client['customDutyAmount']}}</td>
 		   <td style="text-align:center;" class="j8">{{client['delFromCFS']}}</td>
@@ -147,7 +162,13 @@
 		   <td style="text-align:center;" class="j8">{{client['invoiceNo']}}</td>
 			 <td style="text-align:center;" class="j8">{{client['invoiceDate']}}</td>
 		   <td style="text-align:center;" class="j8">{{client['jobCloseDate']}}</td>
-		   <td style="text-align:center;" class="j8">{{client['jobComplete']}}</td>
+
+      {% if client['jobComplete'] == "yes" %}
+      <td style="text-align:center;" class="yay j8">{{client['jobComplete']}}</td>
+      {% else %}
+      <td style="text-align:center;" class="nay j8">{{client['jobComplete']}}</td>
+      {% endif %}
+
 		</tr>
 		{% endfor %}
 		</tbody>
@@ -158,10 +179,10 @@
 
 
 	<script src='//static.codepen.io/assets/common/stopExecutionOnTimeout-41c52890748cd7143004e05d3c5f786c66b19939c4500ce446314d1748483e13.js'></script><script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script><script src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'></script>
-
-	<script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap-table.js') }}">
-
-	<script src='//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.9.1/extensions/editable/bootstrap-table-editable.js'></script><script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap-table-export.js') }}"></script></script><script src='//rawgit.com/hhurz/tableExport.jquery.plugin/master/tableExport.js'></script><script src='//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.9.1/extensions/filter-control/bootstrap-table-filter-control.js'></script>
+  
+  <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap-table.js') }}">
+  
+  <script src='//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.9.1/extensions/editable/bootstrap-table-editable.js'></script><script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap-table-export.js') }}"></script></script><script src='//rawgit.com/hhurz/tableExport.jquery.plugin/master/tableExport.js'></script><script src='//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.9.1/extensions/filter-control/bootstrap-table-filter-control.js'></script>
 
 <script type="text/javascript">
 	//exporte les données sélectionnées
